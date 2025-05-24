@@ -2,8 +2,8 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mealkitz - Ayuda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mealkitz - Ayuda y Soporte</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -12,107 +12,161 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Custom Styles -->
     <style>
       body {
         font-family: 'Poppins', sans-serif;
         background-color: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
         padding-top: 0.03rem;
       }
       .navbar {
-        box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         background-color: #fff;
+        flex-shrink: 0;
+        margin-top: 1rem;
+      }
+      .navbar-toggler { border: none; }
+      .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,<svg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'><path stroke='rgba(18,58,98,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/></svg>");
       }
       .navbar-brand {
         font-weight: 600;
         color: #123A62 !important;
       }
-      .navbar-toggler {
-        border: none;
+      .btn-link {
+        padding: 0.25rem;
+        border-radius: 0.25rem;
       }
-      .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(18,58,98,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      .btn-link:hover {
+        background-color: rgba(18,58,98,0.1);
       }
-      .btn, .btn-link {
-        outline: none!important;
-        box-shadow: none!important;
-        border: none!important;
-        transition: all 0.3s ease;
-      }
-      .btn-primary {
-        background-color: #123A62;
-        color: #fff;
-        border: 2px solid #123A62 !important;
-      }
-      .btn-primary:hover {
-        background-color: #0e3150;
-        color: #fff;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
-      }
-      .btn-outline-primary {
-        background-color: transparent;
-        color: #123A62;
-        border: 2px solid #123A62 !important;
-      }
-      .btn-outline-primary:hover {
-        background-color: #123A62;
-        color: #fff;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
-      }
-      .btn-success {
-        background-color: #198754;
-        color: #fff;
-        border: 2px solid #198754 !important;
-      }
-      .btn-success:hover {
-        background-color: #157347;
-        color: #fff;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
-      }
-      .lead {
-        color: #6c757d;
-      }
-      main.container {
-        background: #fff;
-        padding: 2rem;
+      .chat-container {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        max-width: 800px;
+        width: 100%;
+        margin: 1rem auto;
+        background-color: #fff;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
         border-radius: .5rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        margin-top: 1rem;
+        overflow: hidden;
       }
-      .table-responsive {
+      .chat-header {
+        background-color: #123A62;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+      .chat-messages {
+        flex-grow: 1;
+        padding: 1rem;
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
       }
-      .product-image-table { /* Style for images in the table */
-        max-width: 60px; 
-        max-height: 60px;
-        object-fit: cover; 
-        border-radius: .25rem;
+      .message {
+        position: relative;
+        padding: .75rem 1rem;
+        border-radius: .5rem;
+        max-width: 75%;
+        word-wrap: break-word;
+      }
+      .message.user {
+        background-color: #E1F5FE;
+        color: #01579B;
+        align-self: flex-end;
+      }
+      .message.bot {
+        background-color: #f1f1f1;
+        color: #333;
+        align-self: flex-start;
+      }
+      .timestamp {
+        font-size: 0.75rem;
+        color: #757575;
+        position: absolute;
+        bottom: -1.2rem;
+        right: 0.5rem;
+      }
+      .chat-input-area {
+        display: flex;
+        padding: 1rem;
+        border-top: 1px solid #ddd;
+        background-color: #f8f9fa;
+        flex-shrink: 0;
+      }
+      .chat-input-area .form-control {
+        flex-grow: 1;
+        border-radius: .5rem 0 0 .5rem;
+        border: 1px solid #ccc;
+        padding: .5rem .75rem;
+      }
+      .chat-input-area .form-control:focus {
+        outline: none;
+        border-color: #123A62;
+        box-shadow: 0 0 0 0.2rem rgba(18,58,98,0.25);
+      }
+      .chat-input-area button {
+        border-radius: 0 .5rem .5rem 0;
+        background-color: #123A62;
+        color: white;
+      }
+      .chat-input-area button:hover {
+        background-color: #0e3150;
+      }
+      @media (max-width: 768px) {
+        .chat-container { margin: .5rem; }
+        .message { max-width: 85%; }
+      }
+      @media (max-width: 576px) {
+        .chat-container { margin: 0; border-radius: 0; }
+        .chat-header { font-size: 1rem; padding: .75rem; }
+        .chat-messages { padding: .75rem; }
+        .message { max-width: 90%; }
+        .chat-input-area { padding: .75rem; }
       }
     </style>
   </head>
   <body>
-    <!-- Responsive Navbar -->
     <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
         <div class="container-fluid px-4">
-          <a class="navbar-brand" href="index.html">
-            <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;">
+            <a class="navbar-brand" href="index.html">
+                <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
+                Ayuda y Soporte
             </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons" aria-controls="navbarIcons" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarIcons">
-            <div class="d-flex align-items-center ms-auto">
-              <button class="btn btn-link text-dark me-3" title="Notificaciones"><i class="bi bi-bell-fill fs-4"></i></button>
-              <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
-                  <i class="bi bi-whatsapp fs-4"></i>
-              </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ms-auto">
+                     <li class="nav-item">
+                        <a class="nav-link" href="punto.html">Punto de Venta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pedidos.html">Tus Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="config.html">Configurar Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark" title="Compartir en WhatsApp">
+                            <i class="bi bi-whatsapp fs-4"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                </ul>
             </div>
-          </div>
         </div>
-      </nav>
+    </nav>
 
     <div class="chat-container">
       <div class="chat-header">Ayuda y Soporte</div>
