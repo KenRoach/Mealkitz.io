@@ -98,7 +98,7 @@
     <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
         <div class="container-fluid px-4">
           <a class="navbar-brand" href="index.html">
-            <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;">
+            <img src="images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;">
             </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons" aria-controls="navbarIcons" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -250,7 +250,7 @@
             productos.forEach((item, index) => {
                 const tr = tableBody.insertRow();
                 tr.innerHTML = `
-                    <td><img src="${item.imageData || 'Images/placeholder.png'}" alt="${item.name || 'Producto'}" class="product-image-table"></td>
+                    <td><img src="${item.imageData || 'images/placeholder.png'}" alt="${item.name || 'Producto'}" class="product-image-table"></td>
                     <td>${item.name || 'N/A'}</td>
                     <td>${item.code || 'N/A'}</td>
                     <td>$${(item.price !== undefined && item.price !== null) ? parseFloat(item.price).toFixed(2) : '0.00'}</td>
