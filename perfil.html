@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mealkitz - Registro de Perfil</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; padding-top: 1rem; }
+      .navbar { box-shadow: 0 2px 4px rgba(0,0,0,.1); background-color: #fff; }
+      .navbar-brand { font-weight: 600; color: #123A62 !important; }
+      .container-main { background: #fff; padding: 2rem; border-radius: .5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 1rem; }
+      .form-label { font-weight: 500; color: #123A62; }
+      .btn-primary { background-color: #123A62; color: #fff; border: 2px solid #123A62; }
+      .btn-primary:hover { background-color: #0e3150; transform: translateY(-2px); }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-light navbar-expand-md py-2">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand" href="index.html">
+          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPerfil" aria-controls="navbarPerfil" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarPerfil">
+          <div class="d-flex align-items-center ms-auto">
+            <button class="btn btn-link text-dark me-3" title="Notificaciones"><i class="bi bi-bell-fill fs-4"></i></button>
+            <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
+              <i class="bi bi-whatsapp fs-4"></i>
+            </a>
+            <a href="ayuda.html" class="btn btn-link text-dark" title="Ayuda y Búsqueda">
+              <i class="bi bi-search fs-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container container-main">
+      <h2 class="mb-4 text-center" style="color:#123A62;">Registro de Emprendedor / PyME</h2>
+      <form action="#" method="post">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre Completo</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="tu@correo.com" required>
+        </div>
+        <div class="mb-3">
+          <label for="tipoEmprendedor" class="form-label">Tipo de Emprendedor</label>
+          <select class="form-select" id="tipoEmprendedor" name="tipoEmprendedor" required>
+            <option value="" selected disabled>Selecciona...</option>
+            <option value="chef">Chef / Cocinero</option>
+            <option value="restaurante">Restaurante</option>
+            <option value="foodtruck">Food Truck</option>
+            <option value="catering">Catering</option>
+            <option value="homecook">Cocina en Casa</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="tipoNegocio" class="form-label">Tipo de Negocio</label>
+          <select class="form-select" id="tipoNegocio" name="tipoNegocio" required>
+            <option value="" selected disabled>Selecciona...</option>
+            <option value="qsr">Comida Rápida (QSR)</option>
+            <option value="delivery">Delivery</option>
+            <option value="popup">Pop-up / Evento</option>
+            <option value="tienda">Tienda / Grocery</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="detalles" class="form-label">Datos Importantes</label>
+          <textarea class="form-control" id="detalles" name="detalles" rows="4" placeholder="Breve descripción, ubicación, necesidades" required></textarea>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg">Enviar Registro</button>
+        </div>
+      </form>
+    </main>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const shareButton = document.getElementById('whatsapp-share-btn');
+        if (shareButton) {
+          shareButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const url = encodeURIComponent(window.location.origin + '/index.html');
+            const text = encodeURIComponent(`¡Echa un vistazo a Mealkitz: ${url}`);
+            let link = `https://wa.me/?text=${text}`;
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+              link = `whatsapp://send?text=${text}`;
+            }
+            window.open(link, '_blank');
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
