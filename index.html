@@ -41,7 +41,13 @@
       .btn-primary {
         background-color: #123A62;
         color: #fff;
-        border: 2px solid #123A62;
+        border: 2px solid #123A62 !important;
+      }
+
+      .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+        border: 2px solid #6c757d !important;
       }
 
       .btn-primary:hover {
@@ -49,12 +55,17 @@
         transform: translateY(-2px);
       }
 
-      .btn[disabled], .btn:disabled {
-        background-color: #ced4da !important;
-        color: #6c757d !important;
+      .btn-secondary:hover {
+        background-color: #5a6268;
+        transform: translateY(-2px);
+      }
+
+      .btn.disabled, .btn:disabled {
+        background-color: #6c757d !important;
+        border-color: #6c757d !important;
+        color: #fff !important;
         cursor: not-allowed !important;
-        white-space: normal;
-        word-wrap: break-word;
+        opacity: 0.65;
       }
 
       .container-main {
@@ -71,6 +82,17 @@
 
       .form-control, .form-select {
         margin-bottom: 1rem;
+      }
+
+      @media (max-width: 767.98px) {
+        .btn-lg.full-width-sm {
+          display: block;
+          width: 100%;
+          margin-bottom: 0.5rem;
+        }
+        .btn-lg.full-width-sm:last-child {
+          margin-bottom: 0;
+        }
       }
     </style>
   </head>
@@ -109,33 +131,16 @@
         <p>Plataforma para facturar, operar y hacer crecer tu negocio de comida online.</p>
       </div>
 
-      <div class="container">
-        <div class="row g-3 mt-4 justify-content-center">
-          <div class="col-6 col-md-4">
-            <a href="perfil.html" class="btn btn-primary w-100">Crear Perfil</a>
-          </div>
-          <div class="col-6 col-md-4">
-            <a href="punto.html" class="btn btn-primary w-100">Punto de Venta</a>
-          </div>
-          <div class="col-6 col-md-4">
-            <a href="pedidos.html" class="btn btn-primary w-100">Pedidos</a>
-          </div>
-          <div class="col-6 col-md-4">
-            <a href="proveedores.html" class="btn btn-primary w-100">Proveedores</a>
-          </div>
-          <div class="col-6 col-md-4">
-            <a href="config.html" class="btn btn-primary w-100">Configuración</a>
-          </div>
-          <div class="col-6 col-md-4">
-            <a href="ayuda.html" class="btn btn-primary w-100">Ayuda</a>
-          </div>
-          <div class="col-12 col-md-4">
-            <button class="btn btn-secondary w-100" disabled>Reportes y Análisis con IA</button>
-          </div>
-          <div class="col-12 col-md-4">
-            <button class="btn btn-secondary w-100" disabled>Inversión</button>
-          </div>
-        </div>
+      <div class="d-flex flex-column flex-md-row flex-wrap justify-content-center gap-3 mt-4">
+        <a href="perfil.html" class="btn btn-primary btn-lg full-width-sm">Crear Perfil</a>
+        <a href="punto.html" id="pos-btn" class="btn btn-primary btn-lg full-width-sm">Punto de Venta</a>
+        <a href="pedidos.html" class="btn btn-primary btn-lg full-width-sm">Pedidos</a>
+        <a href="proveedores.html" class="btn btn-primary btn-lg full-width-sm">Proveedores</a>
+        <a href="config.html" class="btn btn-primary btn-lg full-width-sm">Configuración</a>
+        <a href="ayuda.html" class="btn btn-primary btn-lg full-width-sm">Ayuda</a>
+        <a href="#" class="btn btn-secondary btn-lg full-width-sm disabled" aria-disabled="true" tabindex="-1">Reportes con IA (Premium)</a>
+        <a href="#" class="btn btn-secondary btn-lg full-width-sm disabled" aria-disabled="true" tabindex="-1">Inversion (Premium)</a>
+        <a href="precio.html" class="btn btn-primary btn-lg full-width-sm">Precios</a>
       </div>
     </main>
 
