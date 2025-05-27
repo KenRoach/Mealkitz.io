@@ -46,12 +46,14 @@
       </div>
     </nav>
 
-    <div class="container text-center mt-5">
-      <button id="start-btn" class="btn btn-primary btn-lg">Iniciar Cobro</button>
-    </div>
-
-    <div class="container text-center mt-5">
-      <a href="e-commerce.html" id="start-btn" class="btn btn-primary btn-lg">Tienda En Linea</a>
+    <div class="container text-left mt-5">
+      <main class="container mt-5 text-left">
+        <h2 class="mb-4 text-left" style="color:#123A62;">Configurar productos, precios e imágenes</h2>
+        <p>Modifica tu catálogo y detalles de venta fácilmente.</p>
+        <div class="d-grid gap-3">
+          <button id="iniciar-cobro-btn" class="btn btn-primary btn-lg">Iniciar Cobro</button>
+          <a href="e-commerce.html" id="tienda-online-btn" class="btn btn-primary btn-lg">Tienda En Línea</a>
+        </div>
     </div>
 
     <!-- Step Modals -->
@@ -189,8 +191,8 @@
         });
 
         // Start
-        const iniciarCobroButton = document.querySelector('#start-btn.btn.btn-primary.btn-lg');
-        if (iniciarCobroButton && iniciarCobroButton.textContent === 'Iniciar Cobro') {
+        const iniciarCobroButton = document.getElementById('iniciar-cobro-btn');
+        if (iniciarCobroButton) {
             iniciarCobroButton.onclick = () => modals[1].show();
         }
 
