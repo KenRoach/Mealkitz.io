@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8">
@@ -66,19 +65,36 @@
     <!-- Responsive Navbar -->
     <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
       <div class="container-fluid px-4">
-        <a class="navbar-brand" href="index.html">
-          <img src="Images/mk_logo.jpeg"style="height: 35px; margin-right: 10px;">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
+          <span></span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons" aria-controls="navbarIcons" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarIcons">
           <div class="d-flex align-items-center ms-auto">
-            <button class="btn btn-link text-dark me-3" title="Notificaciones"><i class="bi bi-bell-fill fs-4"></i></button>
-            <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
+            <button class="btn btn-link text-dark me-3" title="Notificaciones">
+              <i class="bi bi-bell-fill fs-4"></i>
+            </button>
+            <a href="#" id="whatsapp-share-btn-proveedores" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
               <i class="bi bi-whatsapp fs-4"></i>
             </a>
-            <button class="btn btn-link text-dark me-3" title="Buscar"><i class="bi bi-search fs-4"></i></button>
+            <a href="perfil.html" class="btn btn-link text-dark me-3" title="Ajustes">
+              <i class="bi bi-gear-fill fs-4"></i>
+            </a>
+            <div class="nav-item dropdown">
+              <a href="#" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdownProveedores" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Perfil">
+                <i class="bi bi-person-circle fs-4"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdownProveedores">
+                <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
+                <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
+              </ul>
+            </div>
+            <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
+              <i class="bi bi-search fs-4"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -180,28 +196,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const shareButton = document.getElementById('whatsapp-share-btn');
+        const shareButton = document.getElementById('whatsapp-share-btn-proveedores');
         if (shareButton) {
             shareButton.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default anchor action
+                event.preventDefault();
+<!DOCTYPE html>
 
-                // --- Configuration ---
                 const webAppURL = encodeURIComponent(window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1) + 'index.html');
-                // Or, for a fixed public URL:
-                // const webAppURL = encodeURIComponent('https://your-actual-webapp-url.com/index.html');
                 
                 const shareText = encodeURIComponent(`¡Echa un vistazo a esta increíble aplicación Mealkitz: ${webAppURL}`);
-                // --- End Configuration ---
 
                 let whatsappLink = `https://wa.me/?text=${shareText}`;
 
-                // For mobile, try to open the WhatsApp app directly
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                     whatsappLink = `whatsapp://send?text=${shareText}`;
                 }
                 
-                // Attempt to open the link
-                // Using a new window is often more reliable, especially for the whatsapp:// protocol
                 window.open(whatsappLink, '_blank');
             });
         }

@@ -209,22 +209,39 @@
   <body>
     <!-- Responsive Navbar -->
     <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
-        <div class="container-fluid px-4">
-          <a class="navbar-brand" href="index.html">
-            <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
+          <span></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons" aria-controls="navbarIcons" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarIcons">
+          <div class="d-flex align-items-center ms-auto">
+            <button class="btn btn-link text-dark me-3" title="Notificaciones"><i class="bi bi-bell-fill fs-4"></i></button>
+            <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
+              <i class="bi bi-whatsapp fs-4"></i>
             </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons" aria-controls="navbarIcons" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarIcons">
-            <div class="d-flex align-items-center ms-auto">
-              <button class="btn btn-link text-dark me-3" title="Notificaciones"><i class="bi bi-bell-fill fs-4"></i></button>
-              <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
-                  <i class="bi bi-whatsapp fs-4"></i>
+            <a href="config.html" class="btn btn-link text-dark me-3" title="Ajustes">
+              <i class="bi bi-gear-fill fs-4"></i>
+            </a>
+            <div class="nav-item dropdown">
+              <a href="perfil.html" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdownAyuda" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Perfil">
+                <i class="bi bi-person-circle fs-4"></i>
               </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdownAyuda">
+                <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
+                <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
+              </ul>
+            </div>
+            <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
+              <i class="bi bi-search fs-4"></i>
+            </a>
           </div>
         </div>
-      </nav>
+      </div>
+    </nav>
 
 
     <div class="chat-container">

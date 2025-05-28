@@ -36,6 +36,15 @@
       background-color: #0e3150;
       transform: translateY(-2px);
     }
+    .btn-success {
+        background-color: #198754;
+        color: #fff;
+        border: 2px solid #198754;
+    }
+    .btn-success:hover {
+        background-color: #157347;
+        transform: translateY(-2px);
+    }
     .btn[disabled], .btn:disabled {
       background-color: #6c757d !important;
       border-color: #6c757d !important;
@@ -92,6 +101,17 @@
     .form-label {
       font-weight: 500;
     }
+    #digitalKitModal .modal-header {
+        background-color: #198754;
+    }
+    #digitalKitModal .modal-body {
+        text-align: center;
+    }
+    #digitalKitModal .modal-body .bi-gift-fill {
+        font-size: 3rem;
+        color: #198754;
+        margin-bottom: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -113,9 +133,21 @@
           <a href="#" id="whatsapp-share-btn-precio" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
             <i class="bi bi-whatsapp fs-4"></i>
           </a>
-          <button class="btn btn-link text-dark me-3" title="Buscar">
+          <a href="perfil.html" class="btn btn-link text-dark me-3" title="Ajustes">
+            <i class="bi bi-gear-fill fs-4"></i>
+          </a>
+          <div class="nav-item dropdown">
+            <a href="#" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdownPrecio" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Perfil">
+              <i class="bi bi-person-circle fs-4"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdownPrecio">
+              <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
+              <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
+            </ul>
+          </div>
+          <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
             <i class="bi bi-search fs-4"></i>
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -126,7 +158,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-4 col-md-6">
         <div class="plan-card h-100">
-          <h4 class="plan-title">Etapa 1: Abre tu Negocio</h4>
+          <h4 class="plan-title">Etapa 1: Lanza tu Negocio</h4>
           <p class="h2 fw-light mb-3" style="color:#123A62;">$0<span class="fs-5">/mes</span></p>
           <p class="text-muted mb-3">– Sin comisiones</p>
           <ul class="list-unstyled mb-4">
@@ -157,7 +189,7 @@
       <div class="col-lg-4 col-md-6">
         <div class="plan-card h-100">
           <h4 class="plan-title">Etapa 3: Escala tu Negocio</h4>
-          <p class="h2 fw-light mb-3" style="color:#123A62;"><span class="fs-5">Personalizado</span></p>
+          <p class="h2 fw-light mb-3" style="color:#123A62;"><span class="fs-5">Powered by Mealkitz</span></p>
           <p class="text-muted mb-3">– Acceso por invitación</p>
           <ul class="list-unstyled mb-4">
             <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Acceso a inversión y aliados logísticos</li>
@@ -216,6 +248,26 @@
     </div>
   </div>
 
+  <!-- New Modal: Digital Kit Offer -->
+  <div class="modal fade" id="digitalKitModal" tabindex="-1" aria-labelledby="digitalKitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="digitalKitModalLabel">¡Tu Kit Digital GRATIS para Emprender!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <img src="Images/mk_logo_blue.jpeg" alt="Kit Digital Mealkitz" class="img-fluid mb-3" style="max-width: 120px;">
+          <p>Descubre las herramientas y guías esenciales para lanzar tu negocio de comida con éxito. ¡Totalmente gratis!</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-success" id="getKitButton">¡Sí, Quiero Mi Kit!</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No, gracias</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
@@ -268,6 +320,48 @@
           alert('¡Gracias! Pronto nos pondremos en contacto contigo para configurar tu tienda.');
           lanzaNegocioForm.reset(); // Reset form fields
         });
+      }
+
+      // --- New Digital Kit Modal Logic ---
+      const digitalKitModalElement = document.getElementById('digitalKitModal');
+      if (digitalKitModalElement) {
+        const digitalKitModal = new bootstrap.Modal(digitalKitModalElement);
+        
+        // Show modal after a delay (e.g., 7 seconds)
+        setTimeout(() => {
+          // Optional: Check if modal was already shown/closed to prevent repeated popups on refresh
+          // For now, it will show every time after delay
+          digitalKitModal.show();
+        }, 7000); // 7 seconds delay
+
+        // Optional: Handle the "Get Kit" button click (if not using a form for email)
+        const getKitButton = document.getElementById('getKitButton');
+        if(getKitButton) {
+            getKitButton.addEventListener('click', () => {
+                alert('¡Genial! Tu kit está en camino (simulación).'); // Placeholder action
+                digitalKitModal.hide();
+                // Here you might redirect to a download or a page with more info.
+            });
+        }
+
+        // Optional: Handle form submission if you use the email form in the modal
+        /*
+        const digitalKitForm = document.getElementById('digitalKitForm');
+        if (digitalKitForm) {
+          digitalKitForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const kitEmail = document.getElementById('kitEmail').value;
+            if (kitEmail) {
+              console.log('Email for digital kit:', kitEmail);
+              alert('¡Gracias! Revisa tu correo para obtener el kit digital.');
+              digitalKitModal.hide();
+              digitalKitForm.reset();
+            } else {
+              alert('Por favor, ingresa tu correo electrónico.');
+            }
+          });
+        }
+        */
       }
     });
   </script>
