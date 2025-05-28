@@ -94,6 +94,22 @@
           margin-bottom: 0;
         }
       }
+
+      #login-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 9999; /* This is very high, ensures it's on top initially */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      /* Removed custom z-index for .modal-backdrop and #createAccountModal */
+      /* Bootstrap's JS will handle their z-indexes dynamically */
     </style>
   </head>
 
@@ -236,23 +252,79 @@
       </section>
     </main>
 
+    <!-- Modal de Creación de Cuenta -->
+    <div class="modal fade" id="createAccountModal" tabindex="-1" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="createAccountModalLabel" style="color:#123A62;">🚀 ¡Potencia tu Experiencia Mealkitz!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Parece que estás usando Mealkitz sin una cuenta completa.</p>
+            <p><strong>Crea una cuenta para:</strong></p>
+            <ul>
+              <li>Guardar la configuración de tu negocio de forma segura.</li>
+              <li>Acceder a todas las herramientas y funciones avanzadas.</li>
+              <li>Personalizar tu experiencia al máximo.</li>
+            </ul>
+            <p>¡Es rápido y fácil!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Más tarde</button>
+            <a href="perfil.html" class="btn btn-primary">Crear Cuenta Ahora</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+      let createAccountModalInstance = null;
+
+      function showCreateAccountModal() {
+        if (createAccountModalInstance) {
+          // You could add a check here, e.g., not to show if a specific localStorage item indicates a full profile exists
+          // if (localStorage.getItem('mealkitzFullProfileCreated') === 'true') return;
+          createAccountModalInstance.show();
+        } else {
+          // Fallback if DOMContentLoaded didn't initialize it, though it should have.
+          const modalElement = document.getElementById('createAccountModal');
+          if (modalElement) {
+            createAccountModalInstance = new bootstrap.Modal(modalElement);
+            createAccountModalInstance.show();
+          }
+        }
+      }
+
       function startSession() {
-        const user = document.getElementById('userName').value.trim();
+        const userNameInput = document.getElementById('userName');
+        const user = userNameInput.value.trim();
         if (user) {
           localStorage.setItem('mealkitzUser', user);
           document.getElementById('login-screen').style.display = 'none';
+          // Start timer for create account modal after login screen is dismissed
+          setTimeout(showCreateAccountModal, 5000); // 5 seconds
         } else {
           alert("Por favor, ingresa tu nombre.");
         }
       }
 
       window.addEventListener('DOMContentLoaded', () => {
+        const modalElement = document.getElementById('createAccountModal');
+        if (modalElement) {
+          createAccountModalInstance = new bootstrap.Modal(modalElement);
+        }
+
         const user = localStorage.getItem('mealkitzUser');
         if (user) {
+          // If user already exists (e.g., from a previous session)
           document.getElementById('login-screen').style.display = 'none';
+          // Start timer for create account modal
+          setTimeout(showCreateAccountModal, 5000); // 5 seconds
         }
+        // If no 'mealkitzUser' is found, the login screen remains visible (due to its default CSS 'display: flex').
+        // The 'startSession' function will then be responsible for hiding it and starting the modal timer.
       });
     </script>
   </body>

@@ -199,9 +199,17 @@
         }
         .message {
           max-width: 90%;
+          font-size: 0.9rem; /* Slightly smaller font for messages */
         }
         .chat-input-area {
           padding: 0.75rem;
+        }
+        .chat-input-area input[type="text"] {
+          font-size: 0.9rem; /* Consistent font size for input */
+        }
+        .chat-input-area button { /* Send button adjustments for small screens */
+          padding: .5rem .75rem; /* Explicit padding for better tap target */
+          font-size: 0.9rem;    /* Consistent font size for button */
         }
       }
     </style>
@@ -219,7 +227,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarIcons">
           <div class="d-flex align-items-center ms-auto">
-            <button class="btn btn-link text-dark me-3" title="Notificaciones"><i class="bi bi-bell-fill fs-4"></i></button>
+            <button class="btn btn-link text-dark me-3" title="Notificaciones" id="notificationsBtn"><i class="bi bi-bell-fill fs-4"></i></button>
             <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
               <i class="bi bi-whatsapp fs-4"></i>
             </a>
@@ -232,7 +240,7 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdownAyuda">
                 <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
-                <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
+                <li><a class="dropdown-item" href="#" id="loginBtnAyuda">Iniciar Sesión</a></li>
               </ul>
             </div>
             <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
@@ -259,6 +267,22 @@
         const chatMessages = document.getElementById('chatMessages');
         const userInput = document.getElementById('userInput');
         const sendMessageBtn = document.getElementById('sendMessageBtn');
+
+        // Navbar Icon Functionality
+        const notificationsButton = document.getElementById('notificationsBtn');
+        if (notificationsButton) {
+          notificationsButton.addEventListener('click', () => {
+            alert('Funcionalidad de Notificaciones aún no implementada.');
+          });
+        }
+
+        const loginButtonAyuda = document.getElementById('loginBtnAyuda');
+        if (loginButtonAyuda) {
+          loginButtonAyuda.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default anchor behavior
+            alert('Funcionalidad de Iniciar Sesión aún no implementada.');
+          });
+        }
 
         function addMessage(text, sender) {
           const msgDiv = document.createElement('div');
@@ -304,8 +328,16 @@
         if (shareButtonAyuda) {
           shareButtonAyuda.addEventListener('click', function(event) {
             event.preventDefault();
-            const webAppURL = encodeURIComponent(window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1) + 'index.html');
-            const shareText = encodeURIComponent(`¡Echa un vistazo a esta increíble aplicación Mealkitz: ${webAppURL}`);
+            // Determine base URL correctly for sharing
+            let webAppURL = window.location.origin + window.location.pathname;
+            // If ayuda.html is in a subdirectory like /frontend/, construct URL to index.html in that dir
+            if (webAppURL.includes('/frontend/')) {
+                webAppURL = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/frontend/') + 9) + 'index.html';
+            } else { // Fallback if not in /frontend/ or for root deployment
+                webAppURL = window.location.origin + '/index.html';
+            }
+            
+            const shareText = encodeURIComponent(`¡Echa un vistazo a esta increíble aplicación Mealkitz: ${encodeURIComponent(webAppURL)}`);
             let whatsappLink = `https://wa.me/?text=${shareText}`;
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
               whatsappLink = `whatsapp://send?text=${shareText}`;
