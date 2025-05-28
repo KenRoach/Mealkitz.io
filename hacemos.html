@@ -67,15 +67,17 @@
       /* CTA */
       .cta {
         background-color: #123A62;
-        color: #fff;
+        color: #fff !important;
         padding: 0.75rem 1.5rem;
         border-radius: 8px;
         text-decoration: none;
         font-weight: 600;
-        transition: background-color 0.2s ease;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        display: inline-block;
       }
       .cta:hover {
         background-color: #0e3150;
+        transform: translateY(-2px);
       }
       /* Botón flotante de WhatsApp */
       .whatsapp-share-button {
@@ -95,6 +97,15 @@
       }
       .whatsapp-share-button i {
         font-size: 1.5rem;
+      }
+
+      /* Responsive CTA Button */
+      @media (max-width: 767.98px) {
+        .cta.btn-lg {
+          display: block;
+          width: 100%;
+          margin-bottom: 0.5rem;
+        }
       }
     </style>
   </head>
@@ -196,7 +207,7 @@
 
       <!-- CTA -->
       <div class="text-center mt-4 mb-4">
-        <a href="precio.html" class="cta btn-lg">👉 Descubre nuestros planes y empieza gratis</a>
+        <a href="precio.html" class="cta btn-lg">👉 Descubre nuestros planes</a>
       </div>
     </main>
 
