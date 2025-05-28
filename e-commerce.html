@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <meta charset="UTF-8">
@@ -89,7 +94,6 @@
     <div class="container-fluid px-4">
       <a class="navbar-brand d-flex align-items-center" href="index.html">
         <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
-        <span></span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons" aria-controls="navbarIcons" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -122,13 +126,12 @@
     </div>
   </nav>
 
-
   <div class="store-container">
     <div class="header-info flex-column">
       <div class="profile-container">
         <h5 class="mb-1">Garage Grill Pty</h5>
         <small class="d-block mb-2">Smash Burgers & Wings</small>
-        <img src="Images/garage_logo.png" class="logo-img">
+        <img src="Images/garage_logo.png" class="logo-img" alt="Garage Grill Logo">
       </div>
       <div class="contact-info mt-2">
         <p><strong>Ubicación:</strong> Panamá Norte</p>
@@ -143,7 +146,7 @@
     </div>
 
     <div class="row g-4" id="product-list">
-      <!-- Los productos serán cargados dinámicamente -->
+      <!-- Productos cargados dinámicamente -->
     </div>
   </div>
 
@@ -207,7 +210,7 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
+  <!-- Bootstrap JS + custom script -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     let allProducts = [
@@ -229,37 +232,31 @@
     const orderTypeDeliveryRadio = document.getElementById('orderTypeDelivery');
     const preferredPaymentMethodSelect = document.getElementById('preferredPaymentMethod');
 
-    allProducts.forEach((product, index) => {
+    allProducts.forEach(product => {
       const price = product.price.toFixed(2);
       const col = document.createElement("div");
       col.className = "col-6 col-md-4 col-lg-3";
-      const imageUrl = product.image ? product.image : `https://via.placeholder.com/200x150?text=${encodeURIComponent(product.name)}`;
+      const imageUrl = product.image || `https://via.placeholder.com/200x150?text=${encodeURIComponent(product.name)}`;
       col.innerHTML = `
         <div class='product-card'>
           <img src='${imageUrl}' class='product-img' alt='${product.name}'>
           <h6 class='fw-bold mt-2'>${product.name}</h6>
           <p class='text-muted mb-2'>$${price}</p>
-          <button class='btn btn-order w-100' data-bs-toggle='modal' data-bs-target='#orderModal' onclick='openOrderModal("${product.name}", "${price}", "${product.image || ''}")'>Ordenar</button>
+          <button class='btn btn-order w-100' data-bs-toggle='modal' data-bs-target='#orderModal' onclick='openOrderModal("${product.name}", "${price}", "${product.image}")'>Ordenar</button>
         </div>
       `;
       productList.appendChild(col);
     });
 
     function toggleDeliveryInfo() {
-        if (orderTypeDeliveryRadio.checked) {
-            deliveryInfoDiv.style.display = 'block';
-        } else {
-            deliveryInfoDiv.style.display = 'none';
-        }
+      deliveryInfoDiv.style.display = orderTypeDeliveryRadio.checked ? 'block' : 'none';
     }
-
     orderTypePickupRadio.addEventListener('change', toggleDeliveryInfo);
     orderTypeDeliveryRadio.addEventListener('change', toggleDeliveryInfo);
 
-    function openOrderModal(productName, productPrice, productImage) {
+    function openOrderModal(productName, productPrice) {
       document.getElementById("modalProduct").textContent = productName;
       document.getElementById("modalPrice").textContent = productPrice;
-
       document.getElementById("customerName").value = '';
       document.getElementById("customerPhone").value = '';
       document.getElementById("customerNotes").value = '';
@@ -268,81 +265,69 @@
       toggleDeliveryInfo();
 
       const yappyButton = document.getElementById("yappyLink");
-      yappyButton.textContent = "Enviar Pedido a WhatsApp";
-
       yappyButton.onclick = function(event) {
-          const name = document.getElementById("customerName").value.trim();
-          const phone = document.getElementById("customerPhone").value.trim();
-          const notes = document.getElementById("customerNotes").value.trim();
-          const orderType = document.querySelector('input[name="orderType"]:checked').value;
-          const preferredPayment = preferredPaymentMethodSelect.value;
+        const name = document.getElementById("customerName").value.trim();
+        const phone = document.getElementById("customerPhone").value.trim();
+        const notes = document.getElementById("customerNotes").value.trim();
+        const orderType = document.querySelector('input[name="orderType"]:checked').value;
+        const preferredPayment = preferredPaymentMethodSelect.value;
 
-          if (!name || !phone) {
-              alert("Por favor, ingresa tu nombre y teléfono.");
-              event.preventDefault();
-              return false;
-          }
+        if (!name || !phone) {
+          alert("Por favor, ingresa tu nombre y teléfono.");
+          event.preventDefault();
+          return false;
+        }
 
-          const message = `Hola, quiero ordenar: ${productName} por $${productPrice}.
+        const message = `Hola, quiero ordenar: ${productName} por $${productPrice}.
 Tipo de Pedido: ${orderType}.
-Método de Pago Preferido: ${preferredPayment}.
+Método de Pago: ${preferredPayment}.
 Nombre: ${name}.
 Tel: ${phone}.
-Notas: ${notes}`.trim();
-
-          this.href = `https://wa.me/50763419526?text=${encodeURIComponent(message)}`;
-          return true;
+Notas: ${notes}`;
+        this.href = `https://wa.me/50763419526?text=${encodeURIComponent(message)}`;
       };
     }
 
-    const orderModalElement = document.getElementById('orderModal');
-    if (orderModalElement) {
-        orderModalElement.addEventListener('hidden.bs.modal', function () {
-            document.getElementById("customerName").value = '';
-            document.getElementById("customerPhone").value = '';
-            document.getElementById("customerNotes").value = '';
-            orderTypePickupRadio.checked = true;
-            preferredPaymentMethodSelect.value = 'Yappy';
-            toggleDeliveryInfo();
+    // Clear form when modal closes
+    document.getElementById('orderModal').addEventListener('hidden.bs.modal', () => {
+      document.getElementById("customerName").value = '';
+      document.getElementById("customerPhone").value = '';
+      document.getElementById("customerNotes").value = '';
+      orderTypePickupRadio.checked = true;
+      preferredPaymentMethodSelect.value = 'Yappy';
+      toggleDeliveryInfo();
+      document.getElementById("yappyLink").onclick = null;
+    });
 
-            const yappyButton = document.getElementById("yappyLink");
-            yappyButton.href = "#";
-            yappyButton.onclick = null; 
-        });
-    }
-    
-    const shareButton = document.getElementById('whatsapp-share-btn');
-    if (shareButton) {
-        shareButton.addEventListener('click', function(event) {
-            event.preventDefault();
-            const webAppURL = encodeURIComponent(window.location.href);
-            const shareText = encodeURIComponent(`¡Mira este menú de Garage Grill: ${webAppURL}`);
-            let whatsappLink = `https://wa.me/?text=${shareText}`;
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                whatsappLink = `whatsapp://send?text=${shareText}`;
-            }
-            window.open(whatsappLink, '_blank');
-        });
-    }
+    // WhatsApp share icon in navbar
+    document.getElementById('whatsapp-share-btn').addEventListener('click', event => {
+      event.preventDefault();
+      const shareText = encodeURIComponent(`¡Mira este menú de Garage Grill: ${window.location.href}`);
+      const link = /Android|iPhone|iPad/.test(navigator.userAgent)
+        ? `whatsapp://send?text=${shareText}`
+        : `https://wa.me/?text=${shareText}`;
+      window.open(link, '_blank');
+    });
 
+    // Native share / fallback
     const nativeShareStoreButton = document.getElementById('native-share-store-btn');
     if (nativeShareStoreButton) {
       nativeShareStoreButton.addEventListener('click', async () => {
         const storeUrl = window.location.href;
-        const storeTitle = document.title;
         const shareText = `¡Echa un vistazo a la tienda de Garage Grill!`;
-
         if (navigator.share) {
           try {
-            await navigator.share({
-              title: storeTitle,
-              text: shareText,
-              url: storeUrl,
-            });
-            console.log('Tienda compartida exitosamente');
+            await navigator.share({ title: document.title, text: shareText, url: storeUrl });
           } catch (err) {
             console.error('Error al compartir:', err);
           }
         } else {
           const whatsappShareText = encodeURIComponent(`${shareText} ${storeUrl}`);
-          let whatsappFallbackLink = `
+          const whatsappFallbackLink = `https://wa.me/?text=${whatsappShareText}`;
+          window.open(whatsappFallbackLink, '_blank');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

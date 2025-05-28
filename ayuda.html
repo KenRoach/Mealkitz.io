@@ -294,22 +294,22 @@
 
         function getBotResponse(input) {
           const text = input.toLowerCase().trim();
-          if (/\b(hola|buenos días|buenas tardes)\b/i.test(text)) return "¡Hola! ¿Cómo va tu negocio hoy?";
-          if (text.includes("gracias")) return "¡Con gusto! ¿Algo más en lo que te pueda ayudar?";
-          if (/\b(adiós|chao|hasta luego)\b/i.test(text)) return "¡Hasta luego! Éxitos con tu negocio.";
-          if (text.includes("precio")||text.includes("planes")) return "Planes desde $29/mes a $99/mes. Cada plan incluye: pedidos web/WhatsApp, CRM, reportes y más.";
-          if (text.includes("horario")) return "Soporte disponible Lu–Vi 8 AM–6 PM (Panamá).";
-          if (text.includes("factura")) return "En tu panel > Facturación puedes descargar y gestionar facturas. ¿Necesitas ayuda con un documento en específico?";
-          if (text.includes("pedido")) return "Para ver estado de pedidos, ve a 'Tus Pedidos' o dame el número de pedido aquí.";
-          if (text.includes("producto")) return "En 'Configurar Productos' puedes agregar, editar o eliminar tus productos fácilmente.";
-          if (text.includes("pos")||text.includes("venta")) return "Nuestro Punto de Venta te ayuda a procesar ventas rápidas y cobrar con QR o enlaces.";
-          if (text.includes("inventario")) return "Controla tu stock en tiempo real con alertas automáticas en 'Inventario'.";
-          if (text.includes("reporte")||text.includes("informe")) return "Genera reportes de ventas y clientes en 'Reportes' para tomar mejores decisiones.";
-          if (text.includes("marketing")||text.includes("campaña")) return "Utiliza 'CRM' para enviar promociones por email, SMS y push a tus clientes.";
-          if (text.includes("lealtad")||text.includes("fidelidad")) return "Activa tu programa de lealtad en 'CRM > Lealtad' para premiar compras recurrentes.";
-          if (text.includes("legal")) return "En 'Soporte Legal' encuentras guías y alertas regulatorias para tu negocio.";
-          if (text.includes("ayuda")) return "Claro, dime qué sección o función de Mealkitz quieres explorar.";
-          return "Lo siento, no entendí. ¿Puedes preguntar sobre facturación, inventario, CRM, reportes u otra función?";
+          if (/\\b(hola|buenos días|buenas tardes)\\b/i.test(text)) return \"¡Hola! ¿Cómo va tu negocio hoy?\";
+          if (text.includes("gracias")) return \"¡Con gusto! ¿Algo más en lo que te pueda ayudar?\";
+          if (/\\b(adiós|chao|hasta luego)\\b/i.test(text)) return \"¡Hasta luego! Éxitos con tu negocio.\";
+          if (text.includes("precio")||text.includes("planes")) return \"Planes desde $29/mes a $99/mes. Cada plan incluye: pedidos web/WhatsApp, CRM, reportes y más.\";
+          if (text.includes("horario")) return \"Soporte disponible Lu–Vi 8 AM–6 PM (Panamá).\";
+          if (text.includes("factura")) return \"En tu panel > Facturación puedes descargar y gestionar facturas. ¿Necesitas ayuda con un documento en específico?\";
+          if (text.includes("pedido")) return \"Para ver estado de pedidos, ve a \'Tus Pedidos\' o dame el número de pedido aquí.\";
+          if (text.includes("producto")) return \"En \'Configurar Productos\' puedes agregar, editar o eliminar tus productos fácilmente.\";
+          if (text.includes("pos")||text.includes("venta")) return \"Nuestro Punto de Venta te ayuda a procesar ventas rápidas y cobrar con QR o enlaces.\";
+          if (text.includes("inventario")) return \"Controla tu stock en tiempo real con alertas automáticas en \'Inventario\'.\";
+          if (text.includes("reporte")||text.includes("informe")) return \"Genera reportes de ventas y clientes en \'Reportes\' para tomar mejores decisiones.\";
+          if (text.includes("marketing")||text.includes("campaña")) return \"Utiliza \'CRM\' para enviar promociones por email, SMS y push a tus clientes.\";
+          if (text.includes("lealtad")||text.includes("fidelidad")) return \"Activa tu programa de lealtad en \'CRM > Lealtad\' para premiar compras recurrentes.\";
+          if (text.includes("legal")) return \"En \'Soporte Legal\' encuentras guías y alertas regulatorias para tu negocio.\";
+          if (text.includes("ayuda")) return \"Claro, dime qué sección o función de Mealkitz quieres explorar.\";
+          return \"Lo siento, no entendí. ¿Puedes preguntar sobre facturación, inventario, CRM, reportes u otra función?\";
         }
 
         function handleSendMessage() {
@@ -328,17 +328,16 @@
         if (shareButtonAyuda) {
           shareButtonAyuda.addEventListener('click', function(event) {
             event.preventDefault();
-            // Determine base URL correctly for sharing
-            let webAppURL = window.location.origin + window.location.pathname;
-            // If ayuda.html is in a subdirectory like /frontend/, construct URL to index.html in that dir
-            if (webAppURL.includes('/frontend/')) {
-                webAppURL = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/frontend/') + 9) + 'index.html';
-            } else { // Fallback if not in /frontend/ or for root deployment
-                webAppURL = window.location.origin + '/index.html';
-            }
+            // Construct the URL to index.html in the same directory as ayuda.html
+            const currentPath = window.location.pathname;
+            const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+            const rawWebAppURL = window.location.origin + basePath + 'index.html';
+
+            const message = `¡Echa un vistazo a esta increíble aplicación Mealkitz: ${rawWebAppURL}`;
+            const shareText = encodeURIComponent(message);
             
-            const shareText = encodeURIComponent(`¡Echa un vistazo a esta increíble aplicación Mealkitz: ${encodeURIComponent(webAppURL)}`);
             let whatsappLink = `https://wa.me/?text=${shareText}`;
+            // Check if on mobile to use whatsapp:// protocol
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
               whatsappLink = `whatsapp://send?text=${shareText}`;
             }
