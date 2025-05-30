@@ -15,7 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-      body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; padding-top: 1rem; }
+      /* Adjust body padding to accommodate fixed footer alert */
+      body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; padding-bottom: 5rem; }
       .navbar { box-shadow: 0 2px 4px rgba(0,0,0,.1); background-color: #fff; margin-bottom: 1rem; }
       .navbar-brand { font-weight: 600; color: #123A62 !important; }
       .btn, .btn-link { outline: none !important; box-shadow: none !important; border: none !important; }
@@ -31,6 +32,21 @@
       .hero-blue-background { background-color: #123A62; color: #fff; padding: 2rem 1rem; border-radius: .5rem; margin-bottom: 1rem; }
       .hero-blue-background h1 { margin: 0; font-weight: normal; }
       .hero-blue-background p { color: #f1f1f1; font-size: 1rem; }
+      /* Floating footer sign-up alert with slide-up animation */
+      #signupAlert {
+        position: fixed;
+        bottom: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 600px;
+        z-index: 1050;
+        border-radius: 0;
+        transition: bottom 0.5s ease-out;
+      }
+      #signupAlert.visible {
+        bottom: 0;
+      }
     </style>
   </head>
   <body>
@@ -77,7 +93,6 @@
         <h1>Bienvenido a Mealkitz</h1>
         <p>Plataforma para facturar, operar y hacer crecer tu negocio.</p>
       </section>
-      
 
       <div class="d-flex flex-column flex-md-row flex-wrap justify-content-center gap-3 mt-4">
         <a href="hacemos.html" class="btn btn-success btn-lg full-width-sm">¿Qué hacemos?</a>
@@ -92,11 +107,17 @@
     </main>
 
     <section class="text-center py-3 my-3">
-      <div></div>
       <p class="mb-1"><i class="bi bi-geo-alt-fill me-2"></i>Ubicado en CC. Mis Provincias, Milla 8. Panamá</p>
       <p class="mb-1"><i class="bi bi-telephone-fill me-2"></i>Telefono: 6100-8249</p>
       <p class="mb-0"><i class="bi bi-envelope-fill me-2"></i>Email: hello@mealkitz.io</p>
     </section>
+
+    <!-- Floating Footer Sign-Up Alert -->
+    <div id="signupAlert" class="alert alert-warning alert-dismissible text-center" role="alert">
+      <strong>¡Sé de los primeros 100 usuarios!</strong>
+      <a href="iniciar.html" class="btn btn-sm btn-primary fw-bold ms-3 text-center">Regístrate Hoy</a>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
 
     <!-- Advanced Feature Modal -->
     <div class="modal fade" id="advancedFeatureModal" tabindex="-1" aria-labelledby="advancedFeatureModalLabel" aria-hidden="true">
@@ -115,7 +136,17 @@
         </div>
       </div>
     </div>
+
     <!-- Bootstrap JS Bundle (with Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Slide-up animation for the signup alert on load
+      document.addEventListener('DOMContentLoaded', function() {
+        var alert = document.getElementById('signupAlert');
+        setTimeout(function() {
+          alert.classList.add('visible');
+        }, 100);
+      });
+    </script>
   </body>
 </html>
