@@ -82,6 +82,13 @@
         color: #123A62;   
         margin-bottom: 0.5rem;
       }
+
+      /* Hero Blue Background Styles (from punto.html) */
+      .hero-blue-background { background-color: #123A62; color: #fff; padding: 2rem 1rem; border-radius: .5rem; margin-bottom: 1rem; }
+      .hero-blue-background h1 { margin: 0; font-weight: normal; }
+      .hero-blue-background .lead { color: #f1f1f1; font-size: 1rem; }
+      /* End Hero Blue Background Styles */
+
        @media (max-width: 767.98px) { 
         .metric-card {
           margin-bottom: 1.5rem;
@@ -105,22 +112,22 @@
             <button class="btn btn-link text-dark me-3" title="Notificaciones">
               <i class="bi bi-bell-fill fs-4"></i>
             </button>
-            <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
+            <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3">
               <i class="bi bi-whatsapp fs-4"></i>
             </a>
-            <a href="perfil.html" class="btn btn-link text-dark me-3" title="Ajustes">
+            <a href="perfil.html" class="btn btn-link text-dark me-3">
               <i class="bi bi-gear-fill fs-4"></i>
             </a>
             <div class="nav-item dropdown">
-              <a href="#" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdownPedidos" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Perfil">
+              <a href="#" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdownPedidos" data-bs-toggle="dropdown">
                 <i class="bi bi-person-circle fs-4"></i>
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdownPedidos">
                 <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
-                <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
+                <li><a class="dropdown-item" href="iniciar.html">Iniciar Sesión</a></li>
               </ul>
             </div>
-            <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
+            <a href="ayuda.html" class="btn btn-link text-dark me-3">
               <i class="bi bi-search fs-4"></i>
             </a>
           </div>
@@ -129,172 +136,109 @@
     </nav>
 
     <main class="container custom-main">
+      <section class="hero-blue-background text-left">
+        <h1>Resumen de los últimos 30 días</h1>
+        <p class="lead">Consulta tus métricas, últimos 10 pedidos, y gestiona tus ventas.</p>
+      </section>
+    <!-- Dashboard Metrics -->
 
-      <h2 class="mb-3" style="color:#123A62;">Resumen de los últimos 30 días</h2>
-      <p>Consulta tus métricas y últimos 10 pedidos, y gestiona tus ventas.</p>
-      <!-- Dashboard Metrics -->
-
-      <div class="row mb-4">
-        <div class="col-md-4">
-          <div class="metric-card">
-            <div class="metric-icon"><i class="bi bi-cash-coin"></i></div>
-            <h5>Ingresos Totales</h5>
-            <p class="metric-value">$3,494</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="metric-card">
-            <div class="metric-icon"><i class="bi bi-receipt"></i></div>
-            <h5>Total Pedidos</h5>
-            <p class="metric-value">120</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="metric-card">
-            <div class="metric-icon"><i class="bi bi-percent"></i></div>
-            <h5>Margen</h5>
-            <p class="metric-value">34%</p>
-          </div>
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="metric-card">
+          <div class="metric-icon"><i class="bi bi-cash-coin"></i></div>
+          <h5>Ingresos Totales</h5>
+          <p class="metric-value">$3,494</p>
         </div>
       </div>
-
-      <h2 class="mb-3" style="color:#123A62;">Tus últimos Pedidos</h2>
-    
-
-      <div id="order-list" class="list-group mb-4"></div>
-
-      <button id="export-btn" type="button" class="btn btn-primary w-100">
-        <i class="bi bi-file-earmark-spreadsheet me-1"></i> Exportar CSV
-      </button>
-    </main>
-
-    <!-- Modal Añadir/Editar Pedido -->
-    <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-            <h5 class="modal-title">Añadir / Editar Pedido</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div><div class="modal-body">
-            <form id="order-form">
-              <div class="mb-3"><label for="client-name" class="form-label">Nombre del Cliente</label>
-                <input type="text" id="client-name" class="form-control" required></div>
-              <div class="mb-3"><label for="order-date" class="form-label">Fecha</label>
-                <input type="date" id="order-date" class="form-control" required></div>
-              <div class="mb-3"><label for="order-total" class="form-label">Total ($)</label>
-                <input type="number" id="order-total" class="form-control" step="0.01" required></div>
-              <div class="mb-3"><label for="order-status" class="form-label">Estado</label>
-                <select id="order-status" class="form-select" required>
-                  <option value="Pendiente">Pendiente</option>
-                  <option value="Enviado">Enviado</option>
-                  <option value="Entregado">Entregado</option>
-                </select></div>
-              <input type="hidden" id="order-id">
-              <div class="d-grid"><button type="submit" class="btn btn-primary">Guardar</button></div>
-            </form>
-          </div></div></div>
+      <div class="col-md-4">
+        <div class="metric-card">
+          <div class="metric-icon"><i class="bi bi-receipt"></i></div>
+          <h5>Total Pedidos</h5>
+          <p class="metric-value">120</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="metric-card">
+          <div class="metric-icon"><i class="bi bi-percent"></i></div>
+          <h5>Margen</h5>
+          <p class="metric-value">34%</p>
+        </div>
+      </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
-        if (!localStorage.getItem('pedidos_initialized_example')) {
-          if (pedidos.length === 0) {
-            pedidos = [
-              {id:'1', client:'María Fernández', date:'2025-05-18', total:45.50, status:'Entregado'},
-              {id:'2', client:'Juan Pérez', date:'2025-05-19', total:32.00, status:'Enviado'},
-              {id:'3', client:'Ana Gómez', date:'2025-05-20', total:28.75, status:'Pendiente'},
-              {id:'4', client:'Carlos Ruiz', date:'2025-05-17', total:60.00, status:'Entregado'},
-              {id:'5', client:'Sofía López', date:'2025-05-16', total:22.30, status:'Enviado'},
-              {id:'6', client:'Miguel Torres', date:'2025-05-15', total:55.00, status:'Entregado'},
-              {id:'7', client:'Laura Mendoza', date:'2025-05-14', total:18.90, status:'Pendiente'},
-              {id:'8', client:'Roberto Castro', date:'2025-05-13', total:40.00, status:'Enviado'},
-              {id:'9', client:'Natalia Pérez', date:'2025-05-12', total:29.99, status:'Entregado'},
-              {id:'10', client:'Luis Sánchez', date:'2025-05-11', total:35.75, status:'Pendiente'}
-            ];
-          }
+    
+    <p class="mb-3">Aquí puedes ver tus últimos 10 pedidos procesados.</p>
+  
+
+    <div id="order-list" class="list-group mb-4">
+      <div class="list-group-item"><strong>2025-05-20</strong> — Ana Gómez · Total: $28.75 · Estado: Pendiente</div>
+      <div class="list-group-item"><strong>2025-05-19</strong> — Juan Pérez · Total: $32.00 · Estado: Enviado</div>
+      <div class="list-group-item"><strong>2025-05-18</strong> — María Fernández · Total: $45.50 · Estado: Entregado</div>
+      <div class="list-group-item"><strong>2025-05-17</strong> — Carlos Ruiz · Total: $60.00 · Estado: Entregado</div>
+      <div class="list-group-item"><strong>2025-05-16</strong> — Sofía López · Total: $22.30 · Estado: Enviado</div>
+      <div class="list-group-item"><strong>2025-05-15</strong> — Miguel Torres · Total: $55.00 · Estado: Entregado</div>
+      <div class="list-group-item"><strong>2025-05-14</strong> — Laura Mendoza · Total: $18.90 · Estado: Pendiente</div>
+      <div class="list-group-item"><strong>2025-05-13</strong> — Roberto Castro · Total: $40.00 · Estado: Enviado</div>
+      <div class="list-group-item"><strong>2025-05-12</strong> — Natalia Pérez · Total: $29.99 · Estado: Entregado</div>
+      <div class="list-group-item"><strong>2025-05-11</strong> — Luis Sánchez · Total: $35.75 · Estado: Pendiente</div>
+    </div>
+
+    <div class="text-center">
+      <button id="export-btn" type="button" class="btn btn-success btn-lg">
+        <i class="bi bi-file-earmark-spreadsheet me-1"></i> Exportar CSV
+      </button>
+    </div>
+  </main>
+
+  <!-- Modal Añadir/Editar Pedido -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
+          <h5 class="modal-title">Añadir / Editar Pedido</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div><div class="modal-body">
+          <form id="order-form">
+            <div class="mb-3"><label for="client-name" class="form-label">Nombre del Cliente</label>
+              <input type="text" id="client-name" class="form-control" required></div>
+            <div class="mb-3"><label for="order-date" class="form-label">Fecha</label>
+              <input type="date" id="order-date" class="form-control" required></div>
+            <div class="mb-3"><label for="order-total" class="form-label">Total ($)</label>
+              <input type="number" id="order-total" class="form-control" step="0.01" required></div>
+            <div class="mb-3"><label for="order-status" class="form-label">Estado</label>
+              <select id="order-status" class="form-select" required>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Enviado">Enviado</option>
+                <option value="Entregado">Entregado</option>
+              </select></div>
+            <input type="hidden" id="order-id">
+            <div class="d-grid"><button type="submit" class="btn btn-primary">Guardar</button></div>
+          </form>
+        </div></div></div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+      if (!localStorage.getItem('pedidos_initialized_example')) {
+        if (pedidos.length === 0) {
+          pedidos = [
+            {id:'1', client:'María Fernández', date:'2025-05-18', total:45.50, status:'Entregado'},
+            {id:'2', client:'Juan Pérez', date:'2025-05-19', total:32.00, status:'Enviado'},
+            {id:'3', client:'Ana Gómez', date:'2025-05-20', total:28.75, status:'Pendiente'},
+            {id:'4', client:'Carlos Ruiz', date:'2025-05-17', total:60.00, status:'Entregado'},
+            {id:'5', client:'Sofía López', date:'2025-05-16', total:22.30, status:'Enviado'},
+            {id:'6', client:'Miguel Torres', date:'2025-05-15', total:55.00, status:'Entregado'},
+            {id:'7', client:'Laura Mendoza', date:'2025-05-14', total:18.90, status:'Pendiente'},
+            {id:'8', client:'Roberto Castro', date:'2025-05-13', total:40.00, status:'Enviado'},
+            {id:'9', client:'Natalia Pérez', date:'2025-05-12', total:29.99, status:'Entregado'},
+            {id:'10', client:'Luis Sánchez', date:'2025-05-11', total:35.75, status:'Pendiente'}
+          ];
           localStorage.setItem('pedidos', JSON.stringify(pedidos));
           localStorage.setItem('pedidos_initialized_example', 'true');
         }
-
-        const listGroup = document.getElementById('order-list');
-        const exportBtn = document.getElementById('export-btn');
-        const form = document.getElementById('order-form');
-        const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
-
-        function renderMetrics() {
-          const cutoff = new Date();
-          cutoff.setDate(cutoff.getDate() - 30);
-          const recent = pedidos.filter(p => new Date(p.date) >= cutoff);
-          const totalOrders = recent.length;
-          const totalRevenue = recent.reduce((sum, p) => sum + p.total, 0);
-          const pending = recent.filter(p => p.status === 'Pendiente').length;
-          const guaranteeRate = totalOrders > 0 ? ((pending / totalOrders) * 100).toFixed(1) : 0;
-          document.getElementById('metric-total-orders').innerText = totalOrders;
-          document.getElementById('metric-total-revenue').innerText = `$${totalRevenue.toFixed(2)}`;
-          document.getElementById('metric-guarantee-rate').innerText = `${guaranteeRate}%`;
-        }
-
-        function renderList() {
-          listGroup.innerHTML = '';
-          const last10 = pedidos.slice(-10).reverse();
-          last10.forEach(item => {
-            const el = document.createElement('div');
-            el.className = 'list-group-item';
-            el.innerHTML = `
-              <strong>${item.date}</strong> — ${item.client}<br>
-              Total: $${item.total.toFixed(2)} • Estado: ${item.status}
-            `;
-            listGroup.appendChild(el);
-          });
-          if (!last10.length) {
-            const empty = document.createElement('div');
-            empty.className = 'list-group-item text-muted';
-            empty.textContent = 'No hay pedidos para mostrar.';
-            listGroup.appendChild(empty);
-          }
-          renderMetrics();
-        }
-
-        exportBtn.addEventListener('click', () => {
-          const headers = ['ID','Cliente','Fecha','Total','Estado'];
-          const rows = pedidos.map(p => [p.id, p.client, p.date, p.total.toFixed(2), p.status]);
-          const csvContent = [headers, ...rows].map(r => r.join(',')).join('\n');
-          const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'pedidos.csv';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        });
-
-        form.addEventListener('submit', e => {
-          e.preventDefault();
-          const idField = document.getElementById('order-id');
-          const client = document.getElementById('client-name').value.trim();
-          const date = document.getElementById('order-date').value;
-          const total = parseFloat(document.getElementById('order-total').value);
-          const status = document.getElementById('order-status').value;
-          const id = idField.value || Date.now().toString();
-          const newItem = { id, client, date, total, status };
-          if (idField.value) {
-            const idx = pedidos.findIndex(p => p.id === id);
-            if (idx > -1) pedidos[idx] = newItem;
-          } else {
-            pedidos.push(newItem);
-          }
-          localStorage.setItem('pedidos', JSON.stringify(pedidos));
-          form.reset();
-          idField.value = '';
-          renderList();
-          orderModal.hide();
-        });
-
-        renderList();
-      });
-    </script>
-  </body>
+      }
+    });
+  </script>
+</body>
 </html>

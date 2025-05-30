@@ -15,98 +15,73 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-      body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #f8f9fa;
-        padding-top: 1rem;
+      body { 
+        font-family: 'Poppins', sans-serif; 
+        background-color: #f8f9fa; 
+        margin: 0;
       }
-
-      .navbar {
-        box-shadow: 0 2px 4px rgba(0,0,0,.1);
+      .navbar { 
+        box-shadow: 0 2px 4px rgba(0,0,0,.1); 
         background-color: #fff;
-        margin-bottom: 1rem;
       }
-
-      .navbar-brand {
-        font-weight: 600;
-        color: #123A62 !important;
+      .navbar-brand { font-weight: 600; color: #123A62 !important; }
+      .hero {
+        background-color: #123A62;
+        color: #fff;
+        padding: 3rem 1rem;
+        text-align: center;
+        border-radius: .5rem;
+        margin-bottom: 2rem;
       }
-
-      .btn, .btn-link {
-        outline: none !important;
-        box-shadow: none !important;
-        border: none !important;
-      }
-
+      .hero h1 { font-size: 2rem; font-weight: 600; margin-bottom: .5rem; }
+      .hero p { font-size: 1rem; margin-bottom: 1rem; }
       .btn-primary {
         background-color: #123A62;
         color: #fff;
-        border: 2px solid #123A62 !important;
+        border: none;
+        padding: .5rem 1rem;
+        border-radius: .25rem;
+        text-decoration: none;
+        font-weight: 600;
       }
-
-      .btn-secondary {
-        background-color: #6c757d;
-        color: #fff;
-        border: 2px solid #6c757d !important;
-      }
-
-      .btn-primary:hover {
-        background-color: #0e3150;
-        transform: translateY(-2px);
-      }
-
-      .btn-secondary:hover {
-        background-color: #5a6268;
-        transform: translateY(-2px);
-      }
-
-      .btn.disabled, .btn:disabled {
-        background-color: #6c757d !important;
-        border-color: #6c757d !important;
-        color: #fff !important;
-        cursor: not-allowed !important;
-        opacity: 0.65;
-      }
-
-      .container-main {
+      .btn-primary:hover { opacity: .9; }
+      main.container.custom-main {
         background: #fff;
         padding: 2rem;
-        border-radius: .5rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        margin-top: 1rem;
+        border-radius: .75rem; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+        margin: 2rem auto;
       }
-
-      .modal-body {
-        padding: 2rem;
+      .feature-block {
+        text-align: center;
+        padding: 1rem;
       }
-
-      .form-control, .form-select {
-        margin-bottom: 1rem;
+      .feature-block i {
+        font-size: 2rem;
+        color: #123A62;
+        margin-bottom: .5rem;
       }
-
-      @media (max-width: 767.98px) {
-        .btn-lg.full-width-sm {
-          display: block;
-          width: 100%;
-          margin-bottom: 0.5rem;
-        }
-        .btn-lg.full-width-sm:last-child {
-          margin-bottom: 0;
-        }
+      .footer-cta {
+        text-align: center;
+        margin-top: 2rem;
       }
-
-      .hero-blue-background {
+      .footer-cta a {
         background-color: #123A62;
         color: #fff;
-        padding: 2rem 1rem;
-        border-radius: .5rem;
-        margin-bottom: 1rem;
+        padding: .5rem 1.5rem;
+        border-radius: .25rem;
+        text-decoration: none;
+        font-weight: 600;
       }
-
-      .feature-icon-large {
-        font-size: 5rem; /* Makes icons larger */
-        display: block; /* Ensures margin-bottom works as expected */
-        margin-bottom: 1rem; /* Adds space below the icon */
+      .footer-cta a:hover { opacity: .9; }
+      .footer-cta p {
+        margin-top: 1rem;
+        font-size: .9rem;
+        color: #555;
+      }
+      @media (max-width: 576px) {
+        .hero h1 { font-size: 1.5rem; }
+        .hero p { font-size: .9rem; }
       }
     </style>
   </head>
@@ -139,7 +114,7 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                 <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
-                <li><a class="dropdown-item" href="iniciar.html">Iniciar Sesión</a></li>
+                <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
               </ul>
             </div>
             <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
@@ -150,9 +125,9 @@
       </div>
     </nav>
 
-    <main class="container container-main">
+    <main class="container custom-main">
       <!-- Hero -->
-      <section class="hero hero-blue-background">
+      <section class="hero">
         <h1>Lo Básico para tu Negocio</h1>
         <p>Factura, vende y gestiona todo con IA en una sola plataforma.</p>
       </section>
@@ -160,27 +135,27 @@
       <!-- Features -->
       <div class="row text-center align-items-start">
         <div class="col-12 col-md-4 feature-block">
-          <i class="bi bi-shop feature-icon-large"></i>
-          <h5>Registra ventas presenciales y en línea</h5>
-          <p>Sincroniza todos tus puntos de venta, físico y digital, en un solo lugar.</p>
+          <i class="bi bi-shop"></i>
+          <h5>POS integrado</h5>
+          <p>Registra ventas presenciales y en línea, y sincroniza tu inventario.</p>
         </div>
         <div class="col-12 col-md-4 feature-block">
-          <i class="bi bi-receipt feature-icon-large"></i>
-          <h5>Nos encargamos de facturar por ti</h5>
-          <p>Generamos comprobantes 100 % digitales, conformes con la DGI y el MEF, sin que tengas que preocuparte.</p>
+          <i class="bi bi-shop"></i>
+          <h5>POS integrado</h5>
+          <p>Registra ventas presenciales y en línea, y sincroniza tu inventario.</p>
         </div>
         <div class="col-12 col-md-4 feature-block">
-          <i class="bi bi-cart-check feature-icon-large"></i>
+          <i class="bi bi-cart-check"></i>
           <h5>Gestión y Análisis de datos</h5>
-          <p>Obtén insights de ventas y clientes para optimizar promociones y crecer.</p>
+          <p>Gestiona clientes y promociones con insights accionables basados en tus datos de ventas.</p>
         </div>
       </div>
 
       <!-- Contact CTA -->
       <section class="container text-center py-5">
         <h4 class="mb-4">¿Listo para comenzar?</h4>
-        <a href="precio.html" class="btn btn-success btn-lg full-width-sm">Regístrate Ahora</a>
-        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center pt-3">
+        <a href="#signup" class="btn btn-primary mb-3">Regístrate Ahora</a>
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center">
           <p class="mb-2 mb-md-0 me-md-3">¿Dudas o consultas? Escríbenos a <a href="mailto:hola@mealkitz.io">hola@mealkitz.io</a></p>
           <p class="mb-0">o llámanos al <strong>+507 6100‑8249</strong></p>
         </div>
