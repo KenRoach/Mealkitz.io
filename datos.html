@@ -179,25 +179,15 @@
     
             <!-- Cobro Manual (abre modal) -->
             <li class="nav-item">
-              <a
-                class="nav-link"
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#manualChargeModal"
-              >
+              <a class="nav-link" id="cobroManualRedirectLink" href="punto.html">
                 <i class="bi bi-cash-coin me-1"></i>
                 Cobro Manual
               </a>
             </li>
     
-            <!-- Generar Cotización (abre modal) -->
+            <!-- Generar Cotización (abre modal en punto.html) -->
             <li class="nav-item">
-              <a
-                class="nav-link"
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#cotizacionModal"
-              >
+              <a class="nav-link" id="cotizacionRedirectLink" href="punto.html">
                 <i class="bi bi-file-earmark-text-fill me-1"></i>
                 Generar Cotización
               </a>
@@ -433,6 +423,9 @@
           <div class="modal-header">
             <h5 class="modal-title" id="aiModalLabel">Recomendaciones</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button id="export-btn" type="button" class="btn btn-success btn-lg">
+              <i class="bi bi-file-earmark-spreadsheet me-1"></i> Exportar Pedidos CSV
+            </button>
           </div>
           <div class="modal-body">
             <ul>
@@ -454,16 +447,135 @@
       </div>
     </div>
 
+    <!-- Modal de Inicio de Sesión Requerido -->
+    <div class="modal fade" id="loginRequiredModal" tabindex="-1" aria-labelledby="loginRequiredModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginRequiredModalLabel"><i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>Inicio de Sesión Requerido</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p>Para acceder a esta función, por favor, inicia sesión o crea una cuenta.</p>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <a href="iniciar.html" class="btn btn-primary">Iniciar Sesión</a>
+            <a href="iniciar.html?action=register" class="btn btn-success">Crear Cuenta</a>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap JS Bundle (Ensure this is present) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // Check login status - redirect if not logged in
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (!loggedInUser) {
-          window.location.href = 'iniciar.html';
-          return; // Stop further script execution
+        // --- BEGIN NEW FEATURE GATING AND LOGIN CHECK (datos.html) ---
+        const loginRequiredModalEl = document.getElementById('loginRequiredModal');
+        const loginRequiredModalInstance = loginRequiredModalEl ? new bootstrap.Modal(loginRequiredModalEl) : null;
+        let postLoginRedirectData = null;
+
+        try {
+            const postLoginRedirectRAW = sessionStorage.getItem('postLoginRedirect');
+            if (postLoginRedirectRAW) {
+                postLoginRedirectData = JSON.parse(postLoginRedirectRAW);
+            }
+        } catch (e) {
+            console.error("Error parsing postLoginRedirect from sessionStorage (datos.html):", e);
+            sessionStorage.removeItem('postLoginRedirect');
         }
+
+        const currentUser = localStorage.getItem('currentUser_mealkitz');
+
+        // If not logged in AND no postLoginRedirect is active for *this* page (datos.html),
+        // redirect to login. This protects direct access to datos.html if not logged in.
+        if (!currentUser && (!postLoginRedirectData || postLoginRedirectData.page !== 'datos.html')) {
+            window.location.href = 'iniciar.html?redirect=datos.html'; // Add redirect param for context
+            return; // Stop further script execution on this page
+        }
+
+        const commonLoginCheck = (event, destination) => {
+            if (!currentUser) { // currentUser is already fetched
+                if (event) event.preventDefault();
+                if (loginRequiredModalInstance) {
+                    sessionStorage.setItem('postLoginRedirect', JSON.stringify(destination));
+                    loginRequiredModalInstance.show();
+                } else {
+                    console.error('Login Required Modal not found or initialized on datos.html.');
+                    window.location.href = 'iniciar.html'; // Fallback redirect
+                }
+                return false;
+            }
+            return true;
+        };
+
+        // After login, if redirected back with a hash for a modal on *this* page (datos.html):
+        if (postLoginRedirectData && postLoginRedirectData.page === 'datos.html' && postLoginRedirectData.hash) {
+            const targetModalId = postLoginRedirectData.hash.substring(1); // remove #
+            const modalElement = document.getElementById(targetModalId);
+            if (modalElement) {
+                const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                if (modalInstance) modalInstance.show();
+            }
+            sessionStorage.removeItem('postLoginRedirect'); // Clear after processing
+        }
+
+        // Gate specific links
+        // 1. Cobro Manual link to punto.html#manualChargeModal
+        const cobroManualLink = document.getElementById('cobroManualRedirectLink');
+        if (cobroManualLink) {
+            cobroManualLink.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'punto.html', hash: '#manualChargeModal' });
+            });
+        }
+
+        // 2. Ingresar tus Datos (config.html)
+        document.querySelectorAll('a[href="config.html"]').forEach(link => {
+            link.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'config.html' });
+            });
+        });
+
+        // 3. Generar Cotización link to punto.html#cotizacionModal
+        const cotizacionLink = document.getElementById('cotizacionRedirectLink');
+        if (cotizacionLink) {
+            cotizacionLink.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'punto.html', hash: '#cotizacionModal' });
+            });
+        }
+
+        // 4. Cobro con QR (currently a local modal trigger for #proximamenteQRModal)
+        // This modal also does not exist on datos.html. Gated for consistency.
+        document.querySelectorAll('[data-bs-target="#proximamenteQRModal"]').forEach(trigger => {
+            trigger.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'datos.html', hash: '#proximamenteQRModal' });
+            });
+        });
+
+        // 5. Tu Tienda En Línea (e-commerce.html)
+        document.querySelectorAll('a[href="e-commerce.html"]').forEach(link => {
+            link.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'e-commerce.html' });
+            });
+        });
+
+        // 6. Pedidos (pedidos.html)
+        document.querySelectorAll('a[href="pedidos.html"]').forEach(link => {
+            link.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'pedidos.html' });
+            });
+        });
+        
+        // 7. Perfil link from dropdown (perfil.html)
+        const viewProfileLink = document.getElementById('viewProfileLink');
+        if (viewProfileLink && viewProfileLink.getAttribute('href') === 'perfil.html') {
+            viewProfileLink.addEventListener('click', function(event) {
+                 commonLoginCheck(event, { page: 'perfil.html' });
+            });
+        }
+
+        // --- END NEW FEATURE GATING AND LOGIN CHECK ---
 
         // Dummy data for charts
         const monthlyData = {

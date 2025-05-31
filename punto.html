@@ -407,7 +407,7 @@
         <div class="col">
           <a href="pedidos.html" class="action-card">
             <div class="action-card-icon"><i class="bi bi-box-seam"></i></div>
-            <div class="action-card-title">Pedidos</div>
+            <div class="action-card-title">datos.html</div>
           </a>
         </div>
 
@@ -725,11 +725,124 @@ Desarrollo Web Básico - $YYY"
     </div>
     <!-- End Modal Próximamente QR -->
 
+    <!-- Modal de Inicio de Sesión Requerido -->
+    <div class="modal fade" id="loginRequiredModal" tabindex="-1" aria-labelledby="loginRequiredModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginRequiredModalLabel"><i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>Inicio de Sesión Requerido</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p>Para acceder a esta función, por favor, inicia sesión o crea una cuenta.</p>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <a href="iniciar.html" class="btn btn-primary">Iniciar Sesión</a>
+            <a href="iniciar.html?action=register" class="btn btn-success">Crear Cuenta</a>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/navbar-loader.js" defer></script>
     <script src="js/auth-navbar.js" defer></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        // --- BEGIN NEW FEATURE GATING AND LOGIN CHECK --- 
+        const loginRequiredModalEl = document.getElementById('loginRequiredModal');
+        const loginRequiredModalInstance = loginRequiredModalEl ? new bootstrap.Modal(loginRequiredModalEl) : null;
+        let postLoginRedirectData = null;
+
+        try {
+            const postLoginRedirectRAW = sessionStorage.getItem('postLoginRedirect');
+            if (postLoginRedirectRAW) {
+                postLoginRedirectData = JSON.parse(postLoginRedirectRAW);
+            }
+        } catch (e) {
+            console.error("Error parsing postLoginRedirect from sessionStorage:", e);
+            sessionStorage.removeItem('postLoginRedirect');
+        }
+
+        const currentUser = localStorage.getItem('currentUser_mealkitz');
+
+        // If not logged in AND no postLoginRedirect is active for this page, redirect to login.
+        // This protects direct access to punto.html if not logged in.
+        if (!currentUser && (!postLoginRedirectData || postLoginRedirectData.page !== 'punto.html')) {
+            window.location.href = 'iniciar.html?redirect=punto.html'; // Add redirect param for context
+            return; // Stop further script execution on this page
+        }
+
+        const commonLoginCheck = (event, destination) => {
+            if (!currentUser) { // currentUser is already fetched at the top of DOMContentLoaded
+                if (event) event.preventDefault();
+                if (loginRequiredModalInstance) {
+                    sessionStorage.setItem('postLoginRedirect', JSON.stringify(destination));
+                    loginRequiredModalInstance.show();
+                } else {
+                    console.error('Login Required Modal not found or initialized on punto.html.');
+                    window.location.href = 'iniciar.html';
+                }
+                return false;
+            }
+            return true;
+        };
+
+        // After login, if redirected back with a hash for a modal on *this* page (punto.html):
+        if (postLoginRedirectData && postLoginRedirectData.page === 'punto.html' && postLoginRedirectData.hash) {
+            const targetModalId = postLoginRedirectData.hash.substring(1); // remove #
+            const modalElement = document.getElementById(targetModalId);
+            if (modalElement) {
+                const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                if (modalInstance) modalInstance.show();
+            }
+            sessionStorage.removeItem('postLoginRedirect'); // Clear after processing
+        }
+
+        // Gate action cards and navbar links that navigate or open modals
+        // Example: Link to config.html
+        document.querySelectorAll('a[href="config.html"]').forEach(link => {
+            link.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'config.html' });
+            });
+        });
+        // Example: Modal trigger for #manualChargeModal
+        document.querySelectorAll('[data-bs-target="#manualChargeModal"]').forEach(trigger => {
+            trigger.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'punto.html', hash: '#manualChargeModal' });
+            });
+        });
+        // Add more for other modals and links as needed, e.g.:
+        // Cotizacion Modal
+        document.querySelectorAll('[data-bs-target="#cotizacionModal"]').forEach(trigger => {
+            trigger.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'punto.html', hash: '#cotizacionModal' });
+            });
+        });
+        // Proximamente QR Modal (though it's informational, good practice)
+        document.querySelectorAll('[data-bs-target="#proximamenteQRModal"]').forEach(trigger => {
+            trigger.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'punto.html', hash: '#proximamenteQRModal' });
+            });
+        });
+        // Tu Tienda En Línea
+        document.querySelectorAll('a[href="e-commerce.html"]').forEach(link => {
+            link.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'e-commerce.html' });
+            });
+        });
+        // Pedidos
+        document.querySelectorAll('a[href="pedidos.html"]').forEach(link => {
+            link.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'pedidos.html' });
+            });
+        });
+         // Ayuda (assuming it doesn't require login, so no check needed. If it does, add it)
+         // document.querySelectorAll('a[href="ayuda.html"]').forEach(link => { ... });
+
+        // --- END NEW FEATURE GATING AND LOGIN CHECK ---
+
         // Cargar configuración (negocio, productos, métodos de pago) desde localStorage
         let mealkitzConfig = {};
         try {

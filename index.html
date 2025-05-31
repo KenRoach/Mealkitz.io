@@ -303,14 +303,35 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="advancedFeatureModalLabel">Función Avanzada</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title" id="advancedFeatureModalLabel">Funcionalidad Avanzada</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
           </div>
           <div class="modal-body">
-            <p>Cobros con QR, Reportes avanzados e acceso a inversiones son funciones avanzadas que se desbloquearán al usar el sistema de forma constante.</p>
+            <p>Esta es una funcionalidad avanzada que requiere completar ciertos hitos o una configuración específica. Pronto te daremos más detalles.</p>
+            <p>Algunas características como <strong>Cobros con QR, Reportes avanzados e acceso a inversiones</strong> se desbloquearán al usar el sistema de forma constante y alcanzar ciertos niveles de volumen o configuración.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Inicio de Sesión Requerido -->
+    <div class="modal fade" id="loginRequiredModal" tabindex="-1" aria-labelledby="loginRequiredModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginRequiredModalLabel"><i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>Inicio de Sesión Requerido</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p>Para acceder a esta función, por favor, inicia sesión o crea una cuenta.</p>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <a href="iniciar.html" class="btn btn-primary">Iniciar Sesión</a>
+            <a href="iniciar.html?action=register" class="btn btn-success">Crear Cuenta</a>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           </div>
         </div>
       </div>
@@ -344,13 +365,88 @@
             });
         }
 
-        // Login check for index.html - modified to NOT redirect, allows public access
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (loggedInUser) {
-          // User is logged in, js/auth-navbar.js will update the navbar profile section
-          console.log('Index: User is logged in');
+        // --- Feature Gating Logic ---
+        const loginRequiredModalEl = document.getElementById('loginRequiredModal');
+        const loginRequiredModalInstance = loginRequiredModalEl ? new bootstrap.Modal(loginRequiredModalEl) : null;
+
+        const commonLoginCheck = (event, destination) => {
+            const currentUser = localStorage.getItem('currentUser_mealkitz');
+            if (!currentUser) {
+                if (event) event.preventDefault(); // Prevent default action (navigation or modal toggle)
+                
+                if (loginRequiredModalInstance) {
+                    sessionStorage.setItem('postLoginRedirect', JSON.stringify(destination));
+                    loginRequiredModalInstance.show();
+                } else {
+                    // Fallback if modal instance isn't available
+                    console.error('Login Required Modal not found or initialized.');
+                    // As a last resort, redirect to login, though without specific redirection target.
+                    window.location.href = 'iniciar.html';
+                }
+                return false; // Indicate that the action was blocked
+            }
+            return true; // Indicate that the action can proceed
+        };
+
+        // Gate links to punto.html, intending to open #manualChargeModal afterwards
+        document.querySelectorAll('a[href="punto.html"]').forEach(link => {
+            link.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'punto.html', hash: '#manualChargeModal' });
+            });
+        });
+
+        // Gate viewProfileLink if it indeed leads to perfil.html
+        // auth-navbar.js is expected to set href="perfil.html" when user can view/edit profile
+        const viewProfileLink = document.getElementById('viewProfileLink');
+        if (viewProfileLink) {
+            viewProfileLink.addEventListener('click', function(event) {
+                if (this.getAttribute('href') === 'perfil.html') {
+                     commonLoginCheck(event, { page: 'perfil.html' });
+                }
+            });
+        }
+
+        // Gate features that trigger #advancedFeatureModal on index.html
+        document.querySelectorAll('[data-bs-target="#advancedFeatureModal"]').forEach(trigger => {
+            trigger.addEventListener('click', function(event) {
+                 // commonLoginCheck will call event.preventDefault() if not logged in,
+                 // which also stops Bootstrap from opening #advancedFeatureModal.
+                commonLoginCheck(event, { page: 'index.html', hash: '#advancedFeatureModal' });
+            });
+        });
+        
+        // After login, if redirected back with a hash for a modal on *this* page (index.html):
+        try {
+            const postLoginRedirectRAW = sessionStorage.getItem('postLoginRedirect');
+            if (postLoginRedirectRAW) {
+                const postLoginData = JSON.parse(postLoginRedirectRAW);
+                // Check if the redirect is for the current page (index.html) and has a hash
+                if (postLoginData && postLoginData.page === 'index.html' && postLoginData.hash) {
+                    const targetModalId = postLoginData.hash.substring(1); // remove #
+                    const modalElement = document.getElementById(targetModalId);
+                    if (modalElement) {
+                        // Get existing instance or create a new one
+                        const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                        if (modalInstance) modalInstance.show();
+                    }
+                    sessionStorage.removeItem('postLoginRedirect'); // Clear after processing
+                }
+            }
+        } catch (e) {
+            console.error("Error processing postLoginRedirect for index.html:", e);
+            sessionStorage.removeItem('postLoginRedirect'); // Clear potentially corrupted data
+        }
+        
+        // Consistent login check for console logging
+        const currentUserForLog = localStorage.getItem('currentUser_mealkitz');
+        if (currentUserForLog) {
+          try {
+            const userName = JSON.parse(currentUserForLog).name || 'Unknown';
+            console.log('Index: User is logged in as:', userName);
+          } catch (e) {
+            console.log('Index: User is logged in (unable to parse name).');
+          }
         } else {
-          // User is not logged in, js/auth-navbar.js will ensure navbar shows 'Iniciar Sesión' etc.
           console.log('Index: User is NOT logged in');
         }
       });
