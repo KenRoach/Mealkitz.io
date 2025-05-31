@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mealkitz.io | La Plataforma Integral</title>
+    <title>Mealkitz.io | Centro de Ayuda y Chatbot</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,10 +15,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
+      /* ========================================
+         Global, Navbar, and Common Mealkitz Styles
+         ======================================== */
       body {
         font-family: 'Poppins', sans-serif;
         background-color: #f8f9fa;
-        padding-top: 1rem;
+        padding-top: 1rem; /* espacio para navbar */
+        padding-bottom: 1rem; /* espacio inferior */
       }
 
       .navbar {
@@ -37,108 +41,77 @@
         box-shadow: none !important;
         border: none !important;
       }
-
       .btn-primary {
         background-color: #123A62;
         color: #fff;
         border: 2px solid #123A62 !important;
       }
-
-      .btn-secondary {
-        background-color: #6c757d;
-        color: #fff;
-        border: 2px solid #6c757d !important;
-      }
-
       .btn-primary:hover {
         background-color: #0e3150;
-        transform: translateY(-2px);
+      }
+      #navbarIcons.collapsing {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.5s ease-in-out;
       }
 
-      .btn-secondary:hover {
-        background-color: #5a6268;
-        transform: translateY(-2px);
-      }
-
-      .btn.disabled, .btn:disabled {
-        background-color: #6c757d !important;
-        border-color: #6c757d !important;
-        color: #fff !important;
-        cursor: not-allowed !important;
-        opacity: 0.65;
-      }
-
-      .container-main {
-        background: #fff;
-        padding: 2rem;
-        border-radius: .5rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        margin-top: 1rem;
-      }
-
-      .modal-body {
-        padding: 2rem;
-      }
-
-      .form-control, .form-select {
-        margin-bottom: 1rem;
-      }
-
-      @media (max-width: 767.98px) {
-        .btn-lg.full-width-sm {
-          display: block;
-          width: 100%;
-          margin-bottom: 0.5rem;
-        }
-        .btn-lg.full-width-sm:last-child {
-          margin-bottom: 0;
-        }
-
-        .chat-container {
-          margin-top: 1rem;
-          margin-bottom: 1rem;
-        }
-
-        .chat-messages {
-          height: 50vh; /* Adjust height for mobile viewports */
-        }
-      }
-
-      .hero-blue-background {
+      /* ========================================
+         Help Center Header and Search Bar Styles
+         ======================================== */
+      .help-center-header {
         background-color: #123A62;
-        color: #fff;
-        padding: 2rem 1rem;
+        color: white;
+        padding: 2.5rem 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
         border-radius: .5rem;
-        margin-bottom: 1rem;
+      }
+      .help-center-header h1 {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .help-center-header p.lead {
+        font-size: 1.1rem;
+      }
+      .help-search-bar {
+        max-width: 700px;
+        margin: 0 auto 2.5rem auto;
+      }
+      .help-search-bar .form-control {
+        border-radius: 50px;
+        padding: 0.75rem 1.5rem;
+        border-right: none;
+      }
+      .help-search-bar .btn-primary {
+        border-radius: 0 50px 50px 0 !important;
+        border: 2px solid #123A62 !important;
       }
 
-      .feature-icon-large {
-        font-size: 5rem; /* Makes icons larger */
-        display: block; /* Ensures margin-bottom works as expected */
-        margin-bottom: 1rem; /* Adds space below the icon */
-      }
-
-      /* Chat Styles */
+      /* ========================================
+         Chat Container Styles (adaptado a Mealkitz)
+         ======================================== */
       .chat-container {
-        width: 100%; /* Fill parent container */
-        max-width: 1200px; /* But not more than 1200px */
+        width: 100%;
+        max-width: 1200px;
         margin: 2rem auto;
         border: 1px solid #ddd;
         border-radius: .5rem;
         overflow: hidden;
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        background-color: #fff;
       }
       .chat-header {
-        background-color: #123A62; /* Primary blue */
+        background-color: #123A62;
         color: white;
         padding: 1rem;
         text-align: center;
         font-size: 1.25rem;
+        font-weight: 600;
       }
       .chat-messages {
-        height: 65vh; /* Base height on viewport height */
-        min-height: 400px; /* Minimum height */
-        max-height: 700px; /* Maximum height */
+        height: 60vh;
+        min-height: 350px;
+        max-height: 650px;
         overflow-y: auto;
         padding: 1rem;
         background-color: #f8f9fa;
@@ -149,21 +122,19 @@
         border-radius: .5rem;
         max-width: 80%;
         clear: both;
+        word-wrap: break-word;
       }
       .message.user {
-        background-color: #007bff; /* Bootstrap primary blue for user */
+        background-color: #007bff;
         color: white;
         margin-left: auto;
         text-align: right;
       }
       .message.bot {
-        background-color: #e9ecef; /* Light grey for bot */
+        background-color: #e9ecef;
         color: #333;
         margin-right: auto;
         text-align: left;
-      }
-      .message div {
-        word-wrap: break-word;
       }
       .timestamp {
         font-size: 0.75rem;
@@ -188,7 +159,7 @@
         margin-right: .5rem;
       }
       .chat-input button {
-        background-color: #123A62; /* Primary blue */
+        background-color: #123A62;
         color: white;
         border: none;
         padding: .5rem 1rem;
@@ -196,42 +167,164 @@
         cursor: pointer;
       }
       .chat-input button:hover {
-        background-color: #0e3150; /* Darker blue */
+        background-color: #0e3150;
       }
-      /* End Chat Styles */
 
+      /* ========================================
+         Responsive Adjustments
+         ======================================== */
+      @media (max-width: 768px) {
+        .chat-messages {
+          height: 50vh;
+        }
+      }
     </style>
   </head>
 
   <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
       <div class="container-fluid px-4">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
-          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
-          <span></span>
+          <img
+            src="Images/mk_logo.jpeg"
+            style="height: 35px; margin-right: 5px;"
+            alt="Mealkitz Logo"
+          />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarIcons"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
+    
         <div class="collapse navbar-collapse" id="navbarIcons">
+          <!-- IZQUIERDA: enlaces a cada acción -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- Ingresar tus Datos -->
+            <li class="nav-item">
+              <a class="nav-link" href="config.html">
+                <i class="bi bi-person-badge-fill me-1"></i>
+                Ingresar tus Datos
+              </a>
+            </li>
+    
+            <!-- Cobro Manual (abre modal) -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#manualChargeModal"
+              >
+                <i class="bi bi-cash-coin me-1"></i>
+                Cobro Manual
+              </a>
+            </li>
+    
+            <!-- Generar Cotización (abre modal) -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#cotizacionModal"
+              >
+                <i class="bi bi-file-earmark-text-fill me-1"></i>
+                Generar Cotización
+              </a>
+            </li>
+    
+            <!-- Cobro con QR (abre modal "Próximamente") -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#proximamenteQRModal"
+              >
+                <i class="bi bi-qr-code me-1"></i>
+                Cobro con QR
+              </a>
+            </li>
+    
+            <!-- Tu Tienda En Línea -->
+            <li class="nav-item">
+              <a class="nav-link" href="e-commerce.html">
+                <i class="bi bi-shop me-1"></i>
+                Tu Tienda En Línea
+              </a>
+            </li>
+    
+            <!-- Pedidos -->
+            <li class="nav-item">
+              <a class="nav-link" href="pedidos.html">
+                <i class="bi bi-box-seam me-1"></i>
+                Pedidos
+              </a>
+            </li>
+    
+            <!-- Ayuda -->
+            <li class="nav-item">
+              <a class="nav-link" href="ayuda.html">
+                <i class="bi bi-question-circle-fill me-1"></i>
+                Ayuda
+              </a>
+            </li>
+          </ul>
+    
+          <!-- DERECHA: notificaciones, compartir, perfil y buscador -->
           <div class="d-flex align-items-center ms-auto">
             <button class="btn btn-link text-dark me-3" title="Notificaciones">
               <i class="bi bi-bell-fill fs-4"></i>
             </button>
-            <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
+            <a
+              href="#"
+              id="whatsapp-share-btn"
+              class="btn btn-link text-dark me-3"
+              title="Compartir en WhatsApp"
+            >
               <i class="bi bi-whatsapp fs-4"></i>
             </a>
-            <a href="config.html" class="btn btn-link text-dark me-3" title="Ajustes">
-              <i class="bi bi-gear-fill fs-4"></i>
-            </a>
             <div class="nav-item dropdown">
-              <a href="perfil.html" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Perfil">
-                <i class="bi bi-person-circle fs-4"></i>
+              <a
+                href="#"
+                class="btn btn-link text-dark me-3 dropdown-toggle d-flex align-items-center"
+                id="profileDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                title="Perfil"
+              >
+                <img
+                  id="profileImageLogo"
+                  src=""
+                  alt="Profile Logo"
+                  style="height: 28px; width: 28px; border-radius: 50%; margin-right: 8px; display: none;"
+                />
+                <i class="bi bi-person-circle fs-4 me-2" id="defaultProfileIcon"></i>
+                <span id="profileDropdownName">Perfil</span>
               </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
-                <li><a class="dropdown-item" href="iniciar.html">Iniciar Sesión</a></li>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="profileDropdown"
+                id="profileDropdownMenu"
+              >
+                <li>
+                  <a class="dropdown-item" href="perfil.html" id="viewProfileLink"
+                    >Crear Perfil</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="iniciar.html"
+                    id="loginOrLogoutLink"
+                    >Iniciar Sesión</a
+                  >
+                </li>
               </ul>
             </div>
             <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
@@ -241,47 +334,137 @@
         </div>
       </div>
     </nav>
-    
+
+
+    <main class="container py-4">
+      <!-- Chatbot Canvas -->
       <div class="chat-container">
         <div class="chat-header">Asistente Mealkitz</div>
         <div class="chat-messages" id="chatMessages"></div>
         <div class="chat-input">
-          <input type="text" id="userInput" placeholder="Escribe tu consulta...">
+          <input type="text" id="userInput" placeholder="Escribe tu respuesta..." autocomplete="off">
           <button id="sendMessageBtn"><i class="bi bi-send-fill"></i></button>
         </div>
       </div>
+    </main>
 
     <script>
-      (() => {
-        const messages = document.getElementById('chatMessages');
-        const input = document.getElementById('userInput');
-        const btn = document.getElementById('sendMessageBtn');
-        function add(text, sender) {
-          const d = document.createElement('div');
-          d.className = 'message ' + sender;
-          d.innerHTML = `<div>${text}</div><span class="timestamp">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>`;
-          messages.appendChild(d);
-          messages.scrollTop = messages.scrollHeight;
+      (function() {
+        // Check login status
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (!loggedInUser) {
+          window.location.href = 'iniciar.html';
+          return; // Stop further script execution if not logged in
         }
-        function response(txt) {
-          txt = txt.toLowerCase();
-          if (txt.includes('hola')) return '¡Hola! ¿En qué puedo ayudarte?';
-          if (txt.includes('factura')) return 'Emitimos facturas electrónicas cumpliendo con DGI y MEF.';
-          if (txt.includes('inventario')) return 'Tu inventario se actualiza en línea y en tiempo real.';
-          if (txt.includes('crm')) return 'Gestiona clientes y promociones con nuestro CRM inteligente.';
-          return 'Lo siento, no entendí. Pregunta sobre facturación, POS o CRM.';
+
+        // Initial welcome message for the help bot
+        const initialBotMessage = '¡Hola! Puedo ayudarte con:\n\nProductos y menús: agregar platillos y precios.\nPagos y facturación: configurar pagos y datos fiscales.\nProveedores: gestionar y actualizar información.\nMarketing: promocionar y fidelizar clientes.\nCostos: calcular márgenes y ver reportes.';
+
+        // Referencias a elementos DOM
+        const messagesEl = document.getElementById('chatMessages');
+        const inputEl    = document.getElementById('userInput');
+        const btnEl      = document.getElementById('sendMessageBtn');
+
+        // Función para agregar mensaje en pantalla
+        function addMessage(text, sender) {
+          const msgDiv = document.createElement('div');
+          msgDiv.className = 'message ' + sender;
+          const contentDiv = document.createElement('div');
+          // Sanitize text before setting it as textContent to prevent XSS
+          // For simplicity, we're assuming text is safe or will be handled by a framework.
+          // In a real app, use DOMPurify or similar if text can come from untrusted sources.
+          contentDiv.textContent = text;
+          msgDiv.appendChild(contentDiv);
+
+          const timeSpan = document.createElement('span');
+          timeSpan.className = 'timestamp';
+          timeSpan.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+          msgDiv.appendChild(timeSpan);
+
+          messagesEl.appendChild(msgDiv);
+          messagesEl.scrollTop = messagesEl.scrollHeight;
         }
-        function send() {
-          const txt = input.value.trim(); if (!txt) return;
-          add(txt, 'user'); input.value = '';
-          setTimeout(() => add(response(txt), 'bot'), 300);
+
+        // Función para obtener la respuesta del bot basada en el input del usuario
+        function getBotResponse(userInput) {
+            const lowerInput = userInput.toLowerCase().trim();
+
+            if (!lowerInput) {
+                return "Por favor, escribe tu pregunta o el problema con el que necesitas ayuda.";
+            }
+
+            // Respuestas específicas para emprendedores gastronómicos
+            if (lowerInput.includes("precio") || lowerInput.includes("costo") || lowerInput.includes("costos")) {
+                return "Para fijar precios, considera tus costos de ingredientes (escandallo), costos operativos (alquiler, personal, servicios), y el margen de ganancia deseado. Investiga precios de la competencia y el valor que tus clientes perciben. ¿Necesitas ayuda para calcular el costo de un plato específico o entender el escandallo?";
+            } else if (lowerInput.includes("inventario") || lowerInput.includes("stock") || lowerInput.includes("almacenamiento")) {
+                return "Una buena gestión de inventario es crucial. Implementa un sistema 'primero en entrar, primero en salir' (PEPS/FIFO). Realiza conteos regulares (diarios o semanales para ítems clave). Utiliza nuestro módulo de inventario en Mealkitz para rastrear niveles, reducir desperdicios y gestionar órdenes de compra. ¿Quieres consejos sobre cómo reducir el desperdicio de alimentos o sobre el sistema PEPS?";
+            } else if (lowerInput.includes("marketing") || lowerInput.includes("promocionar") || lowerInput.includes("publicidad") || lowerInput.includes("redes sociales")) {
+                return "Para marketing, usa redes sociales (Instagram, Facebook, TikTok) con fotos y videos atractivos de tus platos. Ofrece promociones especiales y combos. Colabora con influencers locales. Considera un programa de lealtad. El email marketing también puede ser efectivo para mantener contacto con tus clientes. Mealkitz te puede ayudar a gestionar tu base de datos de clientes. ¿Sobre qué canal o estrategia te gustaría saber más?";
+            } else if (lowerInput.includes("clientes difíciles") || lowerInput.includes("quejas") || lowerInput.includes("mal servicio")) {
+                return "Con clientes difíciles, mantén la calma y escucha activamente su queja. Empatiza con su frustración. Ofrece una solución razonable y rápida, como un descuento, un reemplazo o un cupón para su próxima visita. Aprende de la retroalimentación para mejorar. ¿Te enfrentas a una situación específica ahora mismo?";
+            } else if (lowerInput.includes("flujo de caja") || lowerInput.includes("finanzas") || lowerInput.includes("ganancias")) {
+                return "Para el flujo de caja, monitorea tus ingresos y egresos de cerca (Mealkitz tiene reportes para esto). Intenta negociar plazos de pago con proveedores y considera opciones para pagos anticipados de clientes (reservas, pedidos grandes). Ten un fondo de emergencia. ¿Te gustaría saber sobre herramientas o técnicas específicas para mejorar tu flujo de caja?";
+            } else if (lowerInput.includes("contratar") || lowerInput.includes("personal") || lowerInput.includes("empleados")) {
+                return "Al contratar, define claramente los roles y responsabilidades. Busca personas con buena actitud, pasión por el servicio y disposición para aprender. Ofrece capacitación continua y un buen ambiente laboral para retener talento. Revisa las leyes laborales locales. ¿Qué puesto estás buscando cubrir o qué desafío tienes con tu equipo actual?";
+            } else if (lowerInput.includes("delivery") || lowerInput.includes("domicilio") || lowerInput.includes("reparto") || lowerInput.includes("pedidos online")) {
+                return "Para optimizar el delivery, asegúrate de que el empaque mantenga la calidad y temperatura de la comida. Define un radio de entrega eficiente y tiempos realistas. Considera usar plataformas de delivery o contratar repartidores propios (Mealkitz se integra con varias opciones). La comunicación con el cliente sobre el estado del pedido es clave. ¿Qué sistema de delivery usas o planeas usar?";
+            } else if (lowerInput.includes("permisos") || lowerInput.includes("licencia") || lowerInput.includes("legal")) {
+                return "Obtener los permisos correctos es fundamental. Generalmente necesitarás licencias de funcionamiento, sanitarias (manipulación de alimentos), y registro fiscal. Investiga los requisitos específicos en tu municipalidad o entidad gubernamental local. Te recomiendo consultar con un asesor legal o la cámara de comercio de tu localidad para no omitir nada.";
+            } else if (lowerInput.includes("menu") || lowerInput.includes("menú") || lowerInput.includes("platos")) {
+                return "El diseño de tu menú es vital. Debe ser atractivo, fácil de leer y destacar tus platos más rentables (ingeniería de menú). Actualízalo según la temporada y la disponibilidad de ingredientes. Considera tener opciones vegetarianas, veganas o sin gluten si tu público lo demanda. ¿Necesitas ayuda con la ingeniería de menú o para añadir productos en Mealkitz?";
+            } else if (lowerInput.includes("proveedores")) {
+                return "Una buena relación con tus proveedores es clave. Busca proveedores confiables que ofrezcan productos de calidad a precios competitivos. Negocia condiciones de pago y entrega. Mantén una comunicación fluida y considera tener alternativas para insumos críticos. ¿Tienes problemas con algún proveedor o buscas recomendaciones?";
+            } else if (lowerInput.includes("desperdicio") || lowerInput.includes("merma")) {
+                return "Reducir el desperdicio de alimentos ayuda a tus finanzas y al planeta. Implementa un buen control de inventario (PEPS), ajusta las porciones, reutiliza ingredientes de forma creativa (ej. caldos con restos de vegetales) y capacita a tu personal. Considera donar los excedentes aptos para consumo. ¿En qué área crees que tienes más desperdicio?";
+            } else if (lowerInput.includes("gracias") || lowerInput.includes("gracia")) {
+                return "¡De nada! Estoy aquí para ayudarte. ¿Tienes alguna otra pregunta o necesitas asistencia con algo más relacionado con tu negocio de alimentos?";
+            } else if (lowerInput.includes("adios") || lowerInput.includes("chao")) {
+                return "¡Hasta luego! Mucho éxito con tu negocio. No dudes en volver si tienes más preguntas.";
+            }
+
+
+            // Respuesta genérica si no se encuentra una específica
+            return "Entendido. Para poder ayudarte mejor, ¿puedes ser un poco más específico sobre tu consulta? Por ejemplo, si es sobre 'costos', ¿te refieres a costos de ingredientes, operativos, o cómo calcular precios?";
         }
-        btn.onclick = send;
-        input.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
-        add('Bienvenido al soporte Mealkitz. Estoy aquí para ayudarte con tu negocio.', 'bot');
+
+        // Enviar primer mensaje del bot
+        window.addEventListener('DOMContentLoaded', () => {
+          addMessage(initialBotMessage, 'bot');
+          inputEl.focus();
+        });
+
+        // Procesar el input del usuario y obtener respuesta del bot
+        function handleUserInput() {
+          const userText = inputEl.value.trim();
+          if (!userText) return;
+
+          addMessage(userText, 'user');
+          inputEl.value = ''; // Limpiar input
+
+          addMessage('Pensando...', 'bot'); // Show "Pensando..." message immediately
+
+          // Simular "pensando"
+          setTimeout(() => {
+            const botReply = getBotResponse(userText);
+            addMessage(botReply, 'bot'); // Add the actual response after the delay
+          }, 2000); // Fixed 2-second delay
+        }
+
+        // Enviar mensaje al hacer clic o presionar Enter
+        btnEl.addEventListener('click', handleUserInput);
+        inputEl.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault(); // Evitar que el Enter haga un submit del form (si lo hubiera)
+            handleUserInput();
+          }
+        });
+
       })();
     </script>
-    <!-- Bootstrap JS -->
+
+    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/navbar-loader.js" defer></script>
+    <script src="js/auth-navbar.js" defer></script>
   </body>
 </html>

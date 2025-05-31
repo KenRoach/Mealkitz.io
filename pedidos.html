@@ -94,40 +94,161 @@
           margin-bottom: 1.5rem;
         }
       }
+
+      #navbarIcons.collapsing {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.5s ease-in-out; /* Custom smooth transition */
+      }
     </style>
   </head>
   <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
       <div class="container-fluid px-4">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
-          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
-          <span></span>
+          <img
+            src="Images/mk_logo.jpeg"
+            style="height: 35px; margin-right: 5px;"
+            alt="Mealkitz Logo"
+          />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarIcons"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
+    
         <div class="collapse navbar-collapse" id="navbarIcons">
+          <!-- IZQUIERDA: enlaces a cada acción -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- Ingresar tus Datos -->
+            <li class="nav-item">
+              <a class="nav-link" href="config.html">
+                <i class="bi bi-person-badge-fill me-1"></i>
+                Ingresar tus Datos
+              </a>
+            </li>
+    
+            <!-- Cobro Manual (abre modal) -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#manualChargeModal"
+              >
+                <i class="bi bi-cash-coin me-1"></i>
+                Cobro Manual
+              </a>
+            </li>
+    
+            <!-- Generar Cotización (abre modal) -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#cotizacionModal"
+              >
+                <i class="bi bi-file-earmark-text-fill me-1"></i>
+                Generar Cotización
+              </a>
+            </li>
+    
+            <!-- Cobro con QR (abre modal "Próximamente") -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#proximamenteQRModal"
+              >
+                <i class="bi bi-qr-code me-1"></i>
+                Cobro con QR
+              </a>
+            </li>
+    
+            <!-- Tu Tienda En Línea -->
+            <li class="nav-item">
+              <a class="nav-link" href="e-commerce.html">
+                <i class="bi bi-shop me-1"></i>
+                Tu Tienda En Línea
+              </a>
+            </li>
+    
+            <!-- Pedidos -->
+            <li class="nav-item">
+              <a class="nav-link" href="pedidos.html">
+                <i class="bi bi-box-seam me-1"></i>
+                Pedidos
+              </a>
+            </li>
+    
+            <!-- Ayuda -->
+            <li class="nav-item">
+              <a class="nav-link" href="ayuda.html">
+                <i class="bi bi-question-circle-fill me-1"></i>
+                Ayuda
+              </a>
+            </li>
+          </ul>
+    
+          <!-- DERECHA: notificaciones, compartir, perfil y buscador -->
           <div class="d-flex align-items-center ms-auto">
             <button class="btn btn-link text-dark me-3" title="Notificaciones">
               <i class="bi bi-bell-fill fs-4"></i>
             </button>
-            <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3">
+            <a
+              href="#"
+              id="whatsapp-share-btn"
+              class="btn btn-link text-dark me-3"
+              title="Compartir en WhatsApp"
+            >
               <i class="bi bi-whatsapp fs-4"></i>
             </a>
-            <a href="perfil.html" class="btn btn-link text-dark me-3">
-              <i class="bi bi-gear-fill fs-4"></i>
-            </a>
             <div class="nav-item dropdown">
-              <a href="#" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdownPedidos" data-bs-toggle="dropdown">
-                <i class="bi bi-person-circle fs-4"></i>
+              <a
+                href="#"
+                class="btn btn-link text-dark me-3 dropdown-toggle d-flex align-items-center"
+                id="profileDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                title="Perfil"
+              >
+                <img
+                  id="profileImageLogo"
+                  src=""
+                  alt="Profile Logo"
+                  style="height: 28px; width: 28px; border-radius: 50%; margin-right: 8px; display: none;"
+                />
+                <i class="bi bi-person-circle fs-4 me-2" id="defaultProfileIcon"></i>
+                <span id="profileDropdownName">Perfil</span>
               </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdownPedidos">
-                <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
-                <li><a class="dropdown-item" href="iniciar.html">Iniciar Sesión</a></li>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="profileDropdown"
+                id="profileDropdownMenu"
+              >
+                <li>
+                  <a class="dropdown-item" href="perfil.html" id="viewProfileLink"
+                    >Crear Perfil</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="iniciar.html"
+                    id="loginOrLogoutLink"
+                    >Iniciar Sesión</a
+                  >
+                </li>
               </ul>
             </div>
-            <a href="ayuda.html" class="btn btn-link text-dark me-3">
+            <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
               <i class="bi bi-search fs-4"></i>
             </a>
           </div>
@@ -135,9 +256,10 @@
       </div>
     </nav>
 
+
     <main class="container custom-main">
       <section class="hero-blue-background text-left">
-        <h1>Resumen de los últimos 30 días</h1>
+        <h1>Resumen de Pedidos</h1>
         <p class="lead">Consulta tus métricas, últimos 10 pedidos, y gestiona tus ventas.</p>
       </section>
     <!-- Dashboard Metrics -->
@@ -187,6 +309,9 @@
       <button id="export-btn" type="button" class="btn btn-success btn-lg">
         <i class="bi bi-file-earmark-spreadsheet me-1"></i> Exportar CSV
       </button>
+      <a href="datos.html" class="ms-2 text-info">
+        <i class="bi bi-layout-text-window-reverse me-1"></i> Ver Dashboard Completo
+      </a>
     </div>
   </main>
 
@@ -218,27 +343,86 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/navbar-loader.js" defer></script>
+  <script src="js/auth-navbar.js" defer></script> 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
-      if (!localStorage.getItem('pedidos_initialized_example')) {
-        if (pedidos.length === 0) {
-          pedidos = [
-            {id:'1', client:'María Fernández', date:'2025-05-18', total:45.50, status:'Entregado'},
-            {id:'2', client:'Juan Pérez', date:'2025-05-19', total:32.00, status:'Enviado'},
-            {id:'3', client:'Ana Gómez', date:'2025-05-20', total:28.75, status:'Pendiente'},
-            {id:'4', client:'Carlos Ruiz', date:'2025-05-17', total:60.00, status:'Entregado'},
-            {id:'5', client:'Sofía López', date:'2025-05-16', total:22.30, status:'Enviado'},
-            {id:'6', client:'Miguel Torres', date:'2025-05-15', total:55.00, status:'Entregado'},
-            {id:'7', client:'Laura Mendoza', date:'2025-05-14', total:18.90, status:'Pendiente'},
-            {id:'8', client:'Roberto Castro', date:'2025-05-13', total:40.00, status:'Enviado'},
-            {id:'9', client:'Natalia Pérez', date:'2025-05-12', total:29.99, status:'Entregado'},
-            {id:'10', client:'Luis Sánchez', date:'2025-05-11', total:35.75, status:'Pendiente'}
-          ];
-          localStorage.setItem('pedidos', JSON.stringify(pedidos));
-          localStorage.setItem('pedidos_initialized_example', 'true');
+        // 1. Check if user is logged in (Protected Page)
+        const currentUser = JSON.parse(localStorage.getItem('currentUser_mealkitz'));
+        if (!currentUser) {
+            console.log('pedidos.html: No user logged in, redirecting to iniciar.html');
+            window.location.href = 'iniciar.html'; // Assuming pedidos.html is at the root
+            return; 
         }
-      }
+
+        const ordersListContainer = document.getElementById('ordersListContainer');
+        const noOrdersMessage = document.getElementById('noOrdersMessage');
+        const clearOrdersBtn = document.getElementById('clearOrdersBtn');
+        
+        let mealkitzConfig = {};
+        try {
+            const storedConfig = localStorage.getItem('mealkitzConfig');
+            if (storedConfig) mealkitzConfig = JSON.parse(storedConfig);
+        } catch (e) { console.error('Error loading mealkitzConfig:', e); }
+        mealkitzConfig.business = mealkitzConfig.business || {};
+        const currencySymbol = mealkitzConfig.business.currency || '$';
+
+        function displayOrders() {
+            const orders = JSON.parse(localStorage.getItem('mealkitz_orders')) || [];
+            ordersListContainer.innerHTML = ''; 
+
+            if (orders.length === 0) {
+                if(noOrdersMessage) noOrdersMessage.style.display = 'block';
+                if(clearOrdersBtn) clearOrdersBtn.style.display = 'none';
+            } else {
+                if(noOrdersMessage) noOrdersMessage.style.display = 'none';
+                if(clearOrdersBtn) clearOrdersBtn.style.display = 'inline-block';
+                orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                orders.forEach(order => {
+                    const orderCard = document.createElement('div');
+                    orderCard.className = 'order-card'; // Make sure this class matches your CSS
+                    
+                    const orderDate = new Date(order.timestamp).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                    const price = parseFloat(order.product.price);
+                    const formattedPrice = !isNaN(price) ? price.toFixed(2) : 'N/A';
+                    const productImage = (order.product && order.product.image) ? order.product.image : 'Images/default-product.png';
+
+                    // Ensure all elements exist before setting innerHTML or use optional chaining if appropriate
+                    orderCard.innerHTML = `
+                        <div class="d-flex align-items-start">
+                            <img src="${productImage}" alt="${order.product ? order.product.name : 'Producto'}" class="product-image">
+                            <div class="flex-grow-1 order-details">
+                                <h5>Pedido ID: ${order.id ? order.id.substring(order.id.length - 8) : 'N/A'}</h5>
+                                <p class="mb-1"><strong>Producto:</strong> ${order.product ? order.product.name : 'No especificado'}</p>
+                                <p class="mb-1"><strong>Precio:</strong> ${currencySymbol}${formattedPrice}</p>
+                                <p class="mb-1"><strong>Método de Pago:</strong> ${order.paymentMethod || 'No especificado'}</p>
+                                <p class="mb-1"><small class="text-muted">Fecha: ${orderDate}</small></p>
+                                ${order.whatsapp ? `<p class="mb-0"><small class="text-muted">WhatsApp: ${order.whatsapp}</small></p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    if(ordersListContainer) ordersListContainer.appendChild(orderCard);
+                });
+            }
+        }
+
+        if (clearOrdersBtn) {
+            clearOrdersBtn.addEventListener('click', () => {
+                if (confirm('¿Estás seguro de que quieres eliminar todos los pedidos? Esta acción no se puede deshacer.')) {
+                    localStorage.removeItem('mealkitz_orders');
+                    displayOrders(); 
+                    alert('Todos los pedidos han sido eliminados.');
+                }
+            });
+        }
+        
+        // Check if DOM elements exist before calling displayOrders
+        if(ordersListContainer && noOrdersMessage && clearOrdersBtn){
+            displayOrders();
+        } else {
+            console.error("Pedidos.html: Uno o más elementos DOM para la lista de pedidos no se encontraron.");
+        }
     });
   </script>
 </body>

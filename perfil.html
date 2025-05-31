@@ -30,16 +30,29 @@
       .form-label { font-weight: 500; color: #123A62; }
       .btn-primary { background-color: #123A62; color: #fff; border: 2px solid #123A62; }
       .btn-primary:hover { background-color: #0e3150; transform: translateY(-2px); }
+      #navbarIcons.collapsing {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.5s ease-in-out; /* Custom smooth transition */
+      }
     </style>
   </head>
   <body>
     <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
       <div class="container-fluid px-4">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
-          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
-          <span></span>
+          <img
+            src="Images/mk_logo.jpeg"
+            style="height: 35px; margin-right: 5px;"
+            alt="Mealkitz Logo"
+          />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarIcons"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarIcons">
@@ -47,16 +60,54 @@
             <button class="btn btn-link text-dark me-3" title="Notificaciones">
               <i class="bi bi-bell-fill fs-4"></i>
             </button>
-            <a href="#" id="whatsapp-share-btn-perfil" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
+            <a
+              href="#"
+              id="whatsapp-share-btn"
+              class="btn btn-link text-dark me-3"
+              title="Compartir en WhatsApp"
+            >
               <i class="bi bi-whatsapp fs-4"></i>
             </a>
-            <a href="config.html" class="btn btn-link text-dark me-3" title="Ajustes">
-              <i class="bi bi-gear-fill fs-4"></i>
-            </a>
             <div class="nav-item dropdown">
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdownPerfilPage">
-                <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
-                <li><a class="dropdown-item" href="iniciar.html">Iniciar Sesión</a></li>
+              <a
+                href="#"
+                class="btn btn-link text-dark me-3 dropdown-toggle d-flex align-items-center"
+                id="profileDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                title="Perfil"
+              >
+                <img
+                  id="profileImageLogo"
+                  src=""
+                  alt="Profile Logo"
+                  style="height: 28px; width: 28px; border-radius: 50%; margin-right: 8px; display: none;"
+                />
+                <i class="bi bi-person-circle fs-4 me-2" id="defaultProfileIcon"></i>
+                <span id="profileDropdownName">Perfil</span>
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="profileDropdown"
+                id="profileDropdownMenu"
+              >
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="perfil.html"
+                    id="viewProfileLink"
+                    >Crear Perfil</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="iniciar.html"
+                    id="loginOrLogoutLink"
+                    >Iniciar Sesión</a
+                  >
+                </li>
               </ul>
             </div>
             <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
@@ -114,9 +165,18 @@
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/navbar-loader.js" defer></script>
+    <script src="js/auth-navbar.js" defer></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const shareButton = document.getElementById('whatsapp-share-btn-perfil');
+        // Check login status
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (!loggedInUser) {
+          window.location.href = 'iniciar.html';
+          return; // Stop further script execution if not logged in
+        }
+
+        const shareButton = document.getElementById('whatsapp-share-btn');
         if (shareButton) {
           shareButton.addEventListener('click', function(event) {
             event.preventDefault();

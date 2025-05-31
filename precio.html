@@ -37,13 +37,13 @@
       transform: translateY(-2px);
     }
     .btn-success {
-        background-color: #198754;
-        color: #fff;
-        border: 2px solid #198754;
+      background-color: #198754;
+      color: #fff;
+      border: 2px solid #198754;
     }
     .btn-success:hover {
-        background-color: #157347;
-        transform: translateY(-2px);
+      background-color: #157347;
+      transform: translateY(-2px);
     }
     .btn[disabled], .btn:disabled {
       background-color: #6c757d !important;
@@ -102,27 +102,39 @@
       font-weight: 500;
     }
     #digitalKitModal .modal-header {
-        background-color: #198754;
+      background-color: #198754;
     }
     #digitalKitModal .modal-body {
-        text-align: center;
+      text-align: center;
     }
     #digitalKitModal .modal-body .bi-gift-fill {
-        font-size: 3rem;
-        color: #198754;
-        margin-bottom: 1rem;
+      font-size: 3rem;
+      color: #198754;
+      margin-bottom: 1rem;
+    }
+    #navbarIcons.collapsing {
+      height: 0;
+      overflow: hidden;
+      transition: height 0.5s ease-in-out;
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
   <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
     <div class="container-fluid px-4">
       <a class="navbar-brand d-flex align-items-center" href="index.html">
-        <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
-        <span></span>
+        <img
+          src="Images/mk_logo.jpeg"
+          style="height: 35px; margin-right: 5px;"
+          alt="Mealkitz Logo"
+        />
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarIcons"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarIcons">
@@ -130,19 +142,54 @@
           <button class="btn btn-link text-dark me-3" title="Notificaciones">
             <i class="bi bi-bell-fill fs-4"></i>
           </button>
-          <a href="#" id="whatsapp-share-btn-precio" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
+          <a
+            href="#"
+            id="whatsapp-share-btn"
+            class="btn btn-link text-dark me-3"
+            title="Compartir en WhatsApp"
+          >
             <i class="bi bi-whatsapp fs-4"></i>
           </a>
-          <a href="perfil.html" class="btn btn-link text-dark me-3" title="Ajustes">
-            <i class="bi bi-gear-fill fs-4"></i>
-          </a>
           <div class="nav-item dropdown">
-            <a href="#" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdownPrecio" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Perfil">
-              <i class="bi bi-person-circle fs-4"></i>
+            <a
+              href="#"
+              class="btn btn-link text-dark me-3 dropdown-toggle d-flex align-items-center"
+              id="profileDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              title="Perfil"
+            >
+              <img
+                id="profileImageLogo"
+                src=""
+                alt="Profile Logo"
+                style="height: 28px; width: 28px; border-radius: 50%; margin-right: 8px; display: none;"
+              />
+              <i class="bi bi-person-circle fs-4 me-2" id="defaultProfileIcon"></i>
+              <span id="profileDropdownName">Perfil</span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdownPrecio">
-              <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
-              <li><a class="dropdown-item" href="iniciar.html">Iniciar Sesión</a></li>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="profileDropdown"
+              id="profileDropdownMenu"
+            >
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="perfil.html"
+                  id="viewProfileLink"
+                  >Crear Perfil</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="iniciar.html"
+                  id="loginOrLogoutLink"
+                  >Iniciar Sesión</a
+                >
+              </li>
             </ul>
           </div>
           <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
@@ -153,70 +200,57 @@
     </div>
   </nav>
 
-  <div class="container py-4"> 
-
-    <div class="row justify-content-center">
-      <div class="col-lg-4 col-md-6">
-        <div class="plan-card h-100">
-          <h4 class="plan-title">Etapa 1: Lanza tu Negocio</h4>
-          <p class="h2 fw-light mb-3" style="color:#123A62;">$0<span class="fs-5">/mes</span></p>
-          <p class="text-muted mb-3">– Sin comisiones</p>
-          <ul class="list-unstyled mb-4">
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Tienda digital y link compartible</li>
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Menú editable + punto de venta móvil</li>
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Hasta 30 pedidos al mes</li>
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Guía de lanzamiento + tutoriales</li>
-          </ul>
-          <p class="small"><em>Desbloqueas Etapa 2 al procesar pedidos y usar el sistema de forma constante.</em></p>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <div class="plan-card h-100">
-          <h4 class="plan-title">Etapa 2: Opera como Pro</h4>
-          <p class="h2 fw-light mb-3" style="color:#123A62;">10%<span class="fs-5"> /venta</span></p>
-          <p class="text-muted mb-3">– Sin mensualidad fija</p>
-          <ul class="list-unstyled mb-4">
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Facturación automática y botón de cobro</li>
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Pedidos ilimitados + reportes con IA</li>
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>CRM de clientes + módulo de proveedores</li>
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Soporte 24/7 por WhatsApp y Chatbot</li>
-          </ul>
-          <p class="small"><em>Desbloqueas Etapa 3 si mantienes ventas constantes y operas con disciplina.</em></p>
-        </div>
-      </div>
-      
-      <div class="col-lg-4 col-md-6">
-        <div class="plan-card h-100">
-          <h4 class="plan-title">Etapa 3: Escala tu Negocio</h4>
-          <p class="h2 fw-light mb-3" style="color:#123A62;"><span class="fs-5">Powered by Mealkitz</span></p>
-          <p class="text-muted mb-3">– Acceso por invitación</p>
-          <ul class="list-unstyled mb-4">
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Acceso a inversión y aliados logísticos</li>
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Herramientas avanzadas con IA predictiva</li>
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Panel multi-negocio y visibilidad destacada</li>
-            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Marketing en redes y campañas personalizadas</li>
-          </ul>
-        </div>
-      </div>
+  <!-- Contenido Principal -->
+  <main class="container mt-4 mb-5">
+    <div class="text-center mb-5">
+      <h1 class="display-4" style="color:#123A62; font-weight: 600;">¿Qué hace Mealkitz?</h1>
     </div>
+
+    <section class="mb-5">
+      <h2 class="mb-3" style="color:#123A62; border-bottom: 2px solid #123A62; padding-bottom: 0.5rem;">1. Factura y gestiona tus pedidos</h2>
+      <p class="lead mb-3"><strong>Facturamos por ti:</strong> Emitimos comprobantes digitales oficiales válidos ante la DGI/MEF, para que puedas venderle sin contratiempos a empresas privadas y entidades gubernamentales.</p>
+      <p class="lead mb-3"><strong>Centraliza todos tus pedidos:</strong> Recibe ventas de tu local físico y de tu tienda en línea en un solo lugar. Visualiza en un clic si cada pedido está pendiente, en preparación o entregado, sin tener que saltar entre plataformas.</p>
+      <p class="lead mb-3"><strong>Registra a tus clientes:</strong> Guardamos nombre y teléfono de cada comprador, para que puedas enviarles promociones o avisos personalizados cuando lo necesites.</p>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="mb-3" style="color:#123A62; border-bottom: 2px solid #123A62; padding-bottom: 0.5rem;">2. Opera y toma decisiones con datos</h2>
+      <p class="lead mb-3"><strong>Reportes con Inteligencia Artificial:</strong> Obtén gráficos automáticos de ventas diarias y semanales, productos más populares y tendencias. En segundos sabrás cuánto ingresaste, cuál es tu ganancia promedio y qué artículos se están agotando.</p>
+      <p class="lead mb-3"><strong>Gestión avanzada de pedidos:</strong> Filtra órdenes por cliente, fecha o estado para dar prioridad a lo más urgente. Además, el sistema envía notificaciones automáticas ("Pedido listo para retiro") sin que tengas que hacerlo manualmente.</p>
+      <p class="lead mb-3"><strong>Documentos siempre disponibles en línea:</strong> Accede a facturas, reportes y contratos desde cualquier dispositivo. Descarga con un clic tu historial de ventas o la lista completa de clientes cuando lo necesites, y olvídate de buscar papeles.</p>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="mb-3" style="color:#123A62; border-bottom: 2px solid #123A62; padding-bottom: 0.5rem;">3. Mejora tus números y hazte atractivo</h2>
+      <p class="lead mb-3"><strong>Entiende tus métricas clave:</strong> Revisa en un tablero sencillo tu facturación mensual, ticket promedio y frecuencia de compra. Detecta los días y horarios en que vendes más para planificar mejor tu personal y promociones.</p>
+      <p class="lead mb-3"><strong>Todo tu back‐office en la nube:</strong> Sube contratos, comprobantes y cualquier archivo importante. Organiza toda tu documentación sin cajas ni archivadores, con acceso inmediato a tu historial administrativo y financiero.</p>
+      <p class="lead mb-3"><strong>Prepárate para atraer inversión:</strong> Creamos un informe detallado con cifras reales (ventas mes a mes, márgenes de ganancia, crecimiento de clientes). Con estos datos ordenados y accesibles, podrás presentar tu negocio a inversionistas o bancos y convencerlos de tu potencial. Además, te conectamos con aliados logísticos y opciones de financiamiento para escalar tu marca.</p>
+    </section>
+
+    <section class="mb-5 text-center p-4" style="background-color: #e9ecef; border-radius: .5rem;">
+      <h2 class="mb-3" style="color:#123A62;">¿Cuánto cuesta?</h2>
+      <p class="lead"><strong>Fase 1 y 2:</strong> Cobras un 10 % por transacción/venta sin mensualidad fija.</p>
+      <p class="lead"><strong>Fase 3:</strong> Acceso por invitación, una vez demuestres estabilidad en tus ventas y aproveches los datos para crecer.</p>
+    </section>
+
+    <p class="lead text-center mb-5">Con Mealkitz, facturas en segundos, gestionas tu operación con datos reales y preparas tu negocio para crecer o atraer inversión—todo en una sola plataforma.</p>
 
     <div class="text-center mt-4 mb-5">
-      <a class="btn btn-success btn-lg" href="#" data-bs-toggle="modal" data-bs-target="#lanzaNegocioModal">Empieza hoy con Mealkitz</a>
+      <a class="btn btn-success btn-lg" href="#" data-bs-toggle="modal" data-bs-target="#planModal">Empieza hoy con Mealkitz</a>
     </div>
-  </div>
+  </main>
 
-  <!-- Modal "Lanza tu Negocio" -->
-  <div class="modal fade" id="lanzaNegocioModal" tabindex="-1" aria-labelledby="lanzaNegocioModalLabel" aria-hidden="true">
+  <!-- Modal "Elige tu Plan" -->
+  <div class="modal fade" id="planModal" tabindex="-1" aria-labelledby="planModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="lanzaNegocioModalLabel">Lanza tu Negocio</h5>
+          <h5 class="modal-title" id="planModalLabel">Selecciona tu Etapa</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <p class="mb-3">Completa esta información para iniciar:</p>
-          <form id="lanzaNegocioForm">
+          <p class="mb-3">Para comenzar, cuéntanos sobre tu negocio:</p>
+          <form id="planForm">
             <div class="mb-3">
               <label for="nombreNegocio" class="form-label">Nombre del Negocio</label>
               <input type="text" class="form-control" id="nombreNegocio" placeholder="Ej. Antojitos de la Abuela" required>
@@ -230,122 +264,69 @@
               <input type="email" class="form-control" id="correoNegocio" placeholder="tu@correo.com" required>
             </div>
             <div class="mb-3">
-              <label for="planInteres" class="form-label">Plan de Interés</label>
+              <label for="planInteres" class="form-label">Etapa de Interés</label>
               <select class="form-select" id="planInteres" required>
-                <option value="" selected disabled>Selecciona un plan...</option>
-                <option value="Abre tu Negocio">Etapa 1: Abre tu Negocio</option>
-                <option value="Opera como Pro">Etapa 2: Opera como Pro</option>
-                <option value="Escala tu Negocio">Etapa 3: Escala tu Negocio</option>
+                <option value="" selected disabled>Selecciona una etapa...</option>
+                <option value="Etapa 1">Etapa 1: Factura & Gestión Básica</option>
+                <option value="Etapa 2">Etapa 2: Operaciones & Data</option>
+                <option value="Etapa 3">Etapa 3: Crece & Atrae Inversión</option>
               </select>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" form="lanzaNegocioForm" class="btn btn-primary">Crear Tienda</button>
+          <button type="submit" form="planForm" class="btn btn-primary">Continuar</button>
         </div>
-      </div>
-    </div>
-  </div>
-
       </div>
     </div>
   </div>
 
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/navbar-loader.js" defer></script>
+  <script src="js/auth-navbar.js" defer></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // WhatsApp Share Button for precio.html
-      const shareButtonPrecio = document.getElementById('whatsapp-share-btn-precio');
-      if (shareButtonPrecio) {
-        shareButtonPrecio.addEventListener('click', function(event) {
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check login status
+      const loggedInUser = localStorage.getItem('loggedInUser');
+      if (!loggedInUser) {
+        // For precio.html, we don't redirect immediately, 
+        // as it's a public info page. 
+        // The navbar will show "Iniciar Sesión".
+      } else {
+        // User is logged in, navbar will reflect this.
+      }
+
+      const planForm = document.getElementById('planForm');
+      if (planForm) {
+        planForm.addEventListener('submit', function(event) {
           event.preventDefault();
-          // Use the current page URL for sharing
-          const webAppURL = encodeURIComponent(window.location.href); 
-          const shareText = encodeURIComponent(`¡Echa un vistazo a los planes de Mealkitz!: ${webAppURL}`);
-          let whatsappLink = `https://wa.me/?text=${shareText}`;
-          // Basic check for mobile to use whatsapp:// protocol
-          if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            whatsappLink = `whatsapp://send?text=${shareText}`;
+          const formData = new FormData(planForm);
+          const data = {};
+          formData.forEach((value, key) => { data[key] = value; });
+          console.log('Datos del formulario de Planes:', data);
+          alert('Formulario recibido (simulación). Integra con tu backend para continuar.');
+
+          const modalElement = document.getElementById('planModal');
+          if (modalElement && typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) modalInstance.hide();
           }
-          window.open(whatsappLink, '_blank');
+          planForm.reset();
         });
       }
 
-      // Handle Lanza Negocio Form Submission
-      const lanzaNegocioForm = document.getElementById('lanzaNegocioForm');
-      if(lanzaNegocioForm) {
-        lanzaNegocioForm.addEventListener('submit', function(event) {
-          event.preventDefault(); // Prevent default form submission
-          const nombreNegocio = document.getElementById('nombreNegocio').value;
-          const whatsappNegocio = document.getElementById('whatsappNegocio').value;
-          const correoNegocio = document.getElementById('correoNegocio').value;
-          const planInteres = document.getElementById('planInteres').value; // Get selected plan
-
-          // Basic validation (you can expand this)
-          if (!nombreNegocio || !whatsappNegocio || !correoNegocio || !planInteres) {
-            alert('Por favor, completa todos los campos, incluyendo el plan de interés.');
-            return;
-          }
-
-          // Here you would typically send the data to a server or process it.
-          // For now, we'll just log it and simulate success.
-          console.log('Datos del negocio:', { nombreNegocio, whatsappNegocio, correoNegocio, planInteres });
-          
-          // Close the modal
-          const modalElement = document.getElementById('lanzaNegocioModal');
-          const modalInstance = bootstrap.Modal.getInstance(modalElement);
-          if (modalInstance) {
-            modalInstance.hide();
-          }
-          
-          // Optionally, show a success message or redirect
-          alert('¡Gracias! Pronto nos pondremos en contacto contigo para configurar tu tienda.');
-          lanzaNegocioForm.reset(); // Reset form fields
+      // WhatsApp Share Button functionality (LATAM-focused)
+      const whatsappBtn = document.getElementById('whatsapp-share-btn');
+      if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', function(event) {
+          event.preventDefault();
+          const mensaje = "¡Hola! Conoce Mealkitz, la plataforma integral para pequeños negocios de LATAM. Revisa nuestros planes aquí: ";
+          const pageUrl = window.location.href;
+          const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensaje + pageUrl)}`;
+          window.open(whatsappUrl, '_blank');
         });
-      }
-
-      // --- New Digital Kit Modal Logic ---
-      const digitalKitModalElement = document.getElementById('digitalKitModal');
-      if (digitalKitModalElement) {
-        const digitalKitModal = new bootstrap.Modal(digitalKitModalElement);
-        
-        // Show modal after a delay (e.g., 7 seconds)
-        setTimeout(() => {
-          // Optional: Check if modal was already shown/closed to prevent repeated popups on refresh
-          // For now, it will show every time after delay
-          digitalKitModal.show();
-        }, 7000); // 7 seconds delay
-
-        // Optional: Handle the "Get Kit" button click (if not using a form for email)
-        const getKitButton = document.getElementById('getKitButton');
-        if(getKitButton) {
-            getKitButton.addEventListener('click', () => {
-                alert('¡Genial! Tu kit está en camino (simulación).'); // Placeholder action
-                digitalKitModal.hide();
-                // Here you might redirect to a download or a page with more info.
-            });
-        }
-
-        // Optional: Handle form submission if you use the email form in the modal
-        /*
-        const digitalKitForm = document.getElementById('digitalKitForm');
-        if (digitalKitForm) {
-          digitalKitForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const kitEmail = document.getElementById('kitEmail').value;
-            if (kitEmail) {
-              console.log('Email for digital kit:', kitEmail);
-              alert('¡Gracias! Revisa tu correo para obtener el kit digital.');
-              digitalKitModal.hide();
-              digitalKitForm.reset();
-            } else {
-              alert('Por favor, ingresa tu correo electrónico.');
-            }
-          });
-        }
-        */
       }
     });
   </script>

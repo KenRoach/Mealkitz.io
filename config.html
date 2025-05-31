@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mealkitz</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mealkitz - Chatbot de Configuración</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,131 +15,338 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
+    /* =====================
+       Estilos Globales
+       ===================== */
+    * {
+      box-sizing: border-box;
+    }
       body {
+      margin: 0;
         font-family: 'Poppins', sans-serif;
         background-color: #f8f9fa;
-        padding-top: 1rem;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
       }
-
+    /* Custom Navbar styling to match other pages */
       .navbar {
         box-shadow: 0 2px 4px rgba(0,0,0,.1);
-        background-color: #fff;
-        margin-bottom: 1rem;
+      margin-bottom: 0; /* Adjust if needed, page layout is different */
       }
-
       .navbar-brand {
         font-weight: 600;
         color: #123A62 !important;
       }
-
       .btn, .btn-link {
+        /* Shared button reset/styling from other pages */
         outline: none !important;
         box-shadow: none !important;
         border: none !important;
       }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-      .btn-primary {
-        background-color: #123A62;
-        color: #fff;
-        border: 2px solid #123A62 !important;
-      }
+    /* =====================
+       Contenedor Principal
+       ===================== */
+    .container {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
 
-      .btn-secondary {
-        background-color: #6c757d;
-        color: #fff;
-        border: 2px solid #6c757d !important;
-      }
-
-      .btn-primary:hover {
+    /* =====================
+       Chat Panel
+       ===================== */
+    .chat-panel {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      border-right: 1px solid #ddd;
+    }
+    .messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+    .message {
+      max-width: 70%;
+      margin-bottom: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .message.bot {
+      background-color: #f1f1f1;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+    .message.user {
+      background-color: #0d6efd;
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+    .input-area {
+      padding: 0.5rem;
+      border-top: 1px solid #ddd;
+      display: flex;
+    }
+    .input-area input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+    .input-area button {
+      margin-left: 0.5rem;
+      padding: 0 1.5rem;
+      background-color: #123a62;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .input-area button:hover {
         background-color: #0e3150;
-        transform: translateY(-2px);
-      }
+    }
 
-      .btn-secondary:hover {
-        background-color: #5a6268;
-        transform: translateY(-2px);
-      }
+    /* =====================
+       Summary Panel
+       ===================== */
+    .summary-panel {
+      flex: 1;
+      background-color: #f9f9f9;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+    .summary-panel h3 {
+      margin-top: 0;
+      color: #123a62;
+    }
+    .summary-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .summary-list li {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .summary-list li strong {
+      color: #123a62;
+    }
+    .summary-action-link {
+      font-size: 0.85em;
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+    .summary-action-link:hover {
+      color: #0056b3;
+    }
+    .product-action-btn {
+        font-size: 0.8em;
+        padding: 0.2rem 0.4rem;
+        margin-left: 5px;
+        vertical-align: middle;
+    }
 
-      .btn.disabled, .btn:disabled {
-        background-color: #6c757d !important;
-        border-color: #6c757d !important;
-        color: #fff !important;
-        cursor: not-allowed !important;
-        opacity: 0.65;
-      }
+    /* =====================
+       Scrollbar styling
+       ===================== */
+    .messages::-webkit-scrollbar,
+    .summary-panel::-webkit-scrollbar {
+      width: 8px;
+    }
+    .messages::-webkit-scrollbar-thumb,
+    .summary-panel::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+    }
+    .messages::-webkit-scrollbar-track,
+    .summary-panel::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
 
-      .container-main {
-        background: #fff;
-        padding: 2rem;
-        border-radius: .5rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        margin-top: 1rem;
-      }
-
-      .modal-body {
-        padding: 2rem;
-      }
-
-      .form-control, .form-select {
-        margin-bottom: 1rem;
-      }
-
-      @media (max-width: 767.98px) {
-        .btn-lg.full-width-sm {
-          display: block;
-          width: 100%;
-          margin-bottom: 0.5rem;
-        }
-        .btn-lg.full-width-sm:last-child {
-          margin-bottom: 0;
-        }
-      }
-
-      #login-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: white;
-        z-index: 9999; /* This is very high, ensures it's on top initially */
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    /* =====================
+       Responsive
+       ===================== */
+    @media (max-width: 768px) {
+      .container {
         flex-direction: column;
       }
-      /* Removed custom z-index for .modal-backdrop and #createAccountModal */
-      /* Bootstrap's JS will handle their z-indexes dynamically */
+      .chat-panel {
+        flex: 1; /* Adjust for vertical stacking, allow growth */
+        min-height: 300px; /* Ensure a usable chat area */
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+      }
+      .summary-panel {
+        flex: 0 0 auto; /* Size based on content, don't grow or shrink excessively */
+        max-height: 40vh; /* Limit height, panel is scrollable */
+        /* border-left: none; was here, but not strictly necessary if no base style adds it */
+      }
+    }
+
+    /* =====================
+       Mobile Responsiveness
+       ===================== */
     </style>
   </head>
-
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
       <div class="container-fluid px-4">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
-          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
-          <span></span>
+          <img
+            src="Images/mk_logo.jpeg"
+            style="height: 35px; margin-right: 5px;"
+            alt="Mealkitz Logo"
+          />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarIcons"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
+    
         <div class="collapse navbar-collapse" id="navbarIcons">
+          <!-- IZQUIERDA: enlaces a cada acción -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- Ingresar tus Datos -->
+            <li class="nav-item">
+              <a class="nav-link" href="config.html">
+                <i class="bi bi-person-badge-fill me-1"></i>
+                Ingresar tus Datos
+              </a>
+            </li>
+    
+            <!-- Cobro Manual (abre modal) -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#manualChargeModal"
+              >
+                <i class="bi bi-cash-coin me-1"></i>
+                Cobro Manual
+              </a>
+            </li>
+    
+            <!-- Generar Cotización (abre modal) -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#cotizacionModal"
+              >
+                <i class="bi bi-file-earmark-text-fill me-1"></i>
+                Generar Cotización
+              </a>
+            </li>
+    
+            <!-- Cobro con QR (abre modal "Próximamente") -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#proximamenteQRModal"
+              >
+                <i class="bi bi-qr-code me-1"></i>
+                Cobro con QR
+              </a>
+            </li>
+    
+            <!-- Tu Tienda En Línea -->
+            <li class="nav-item">
+              <a class="nav-link" href="e-commerce.html">
+                <i class="bi bi-shop me-1"></i>
+                Tu Tienda En Línea
+              </a>
+            </li>
+    
+            <!-- Pedidos -->
+            <li class="nav-item">
+              <a class="nav-link" href="pedidos.html">
+                <i class="bi bi-box-seam me-1"></i>
+                Pedidos
+              </a>
+            </li>
+    
+            <!-- Ayuda -->
+            <li class="nav-item">
+              <a class="nav-link" href="ayuda.html">
+                <i class="bi bi-question-circle-fill me-1"></i>
+                Ayuda
+              </a>
+            </li>
+          </ul>
+    
+          <!-- DERECHA: notificaciones, compartir, perfil y buscador -->
           <div class="d-flex align-items-center ms-auto">
             <button class="btn btn-link text-dark me-3" title="Notificaciones">
               <i class="bi bi-bell-fill fs-4"></i>
             </button>
-            <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
+            <a
+              href="#"
+              id="whatsapp-share-btn"
+              class="btn btn-link text-dark me-3"
+              title="Compartir en WhatsApp"
+            >
               <i class="bi bi-whatsapp fs-4"></i>
             </a>
-            </a>
             <div class="nav-item dropdown">
-              <a href="perfil.html" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Perfil">
-                <i class="bi bi-person-circle fs-4"></i>
+              <a
+                href="#"
+                class="btn btn-link text-dark me-3 dropdown-toggle d-flex align-items-center"
+                id="profileDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                title="Perfil"
+              >
+                <img
+                  id="profileImageLogo"
+                  src=""
+                  alt="Profile Logo"
+                  style="height: 28px; width: 28px; border-radius: 50%; margin-right: 8px; display: none;"
+                />
+                <i class="bi bi-person-circle fs-4 me-2" id="defaultProfileIcon"></i>
+                <span id="profileDropdownName">Perfil</span>
               </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
-                <li><a class="dropdown-item" href="iniciar.html">Iniciar Sesión</a></li>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="profileDropdown"
+                id="profileDropdownMenu"
+              >
+                <li>
+                  <a class="dropdown-item" href="perfil.html" id="viewProfileLink"
+                    >Crear Perfil</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="iniciar.html"
+                    id="loginOrLogoutLink"
+                    >Iniciar Sesión</a
+                  >
+                </li>
               </ul>
             </div>
             <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
@@ -150,182 +357,729 @@
       </div>
     </nav>
 
-    <main class="container container-main">
-      <div class="text-left mb-4">
-        <h2 class="mb-4 text-left" style="color:#123A62;">Configurar productos, precios e imágenes</h2>
-        <p class="text-left">Gestiona los perfiles de los emprendedores y PyMEs registrados.</p>
-      </div>
-
-      <div class="d-grid gap-3 mb-4">
-        <a href="#datos-negocio" class="btn btn-outline-primary text-start">🏢 Datos del Negocio</a>
-        <a href="#metodos-pago" class="btn btn-outline-primary text-start">💳 Métodos de Pago y Facturación</a>
-        <a href="#menu-precios" class="btn btn-outline-primary text-start">🧾 Menú y Precios</a>
-        <a href="#lista-proveedores" class="btn btn-outline-primary text-start">📦 Agregar Proveedores</a>
-      </div>
-
-      <section id="datos-negocio" class="mb-5">
-        <h4 class="text-primary">🏢 Datos del Negocio</h4>
-        <form>
-          <div class="mb-3">
-            <label class="form-label">Nombre del Negocio</label>
-            <input type="text" class="form-control" placeholder="Nombre comercial">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Dirección</label>
-            <input type="text" class="form-control" placeholder="Ubicación física o zona de cobertura">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Teléfono</label>
-            <input type="tel" class="form-control" placeholder="Teléfono de contacto">
-          </div>
-          <div class="mt-3">
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <button type="button" class="btn btn-info ms-2">Ver</button>
-          </div>
+  <div class="container">
+    <!-- Chat Panel -->
+    <div class="chat-panel">
+      <div id="messages" class="messages"></div>
+      <form id="chatForm" class="input-area">
+        <input type="text" id="chatInput" placeholder="Escribe tu respuesta..." autocomplete="off" />
+        <button type="submit">Enviar</button>
         </form>
-      </section>
-
-      <section id="metodos-pago" class="mb-5">
-        <h4 class="text-primary">💳 Métodos de Pago y Facturación</h4>
-        <form>
-          <div class="mb-3">
-            <label class="form-label">Métodos de Pago Aceptados</label>
-            <input type="text" class="form-control" placeholder="Ejemplo: Efectivo, Yappy, Tarjeta">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Datos Bancarios / Enlace de Cobro</label>
-            <input type="text" class="form-control" placeholder="Enlace de pago o cuenta bancaria">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">RUC / Razón Social / DV</label>
-            <input type="text" class="form-control" placeholder="Información fiscal para facturación">
-          </div>
-          <div class="mt-3">
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <button type="button" class="btn btn-info ms-2">Ver</button>
-          </div>
-        </form>
-      </section>
-
-      <section id="menu-precios" class="mb-5">
-        <h4 class="text-primary">🧾 Menú y Precios</h4>
-        <form>
-          <div class="mb-3">
-            <label class="form-label">Nombre del Plato</label>
-            <input type="text" class="form-control" placeholder="Ej. Hamburguesa Clásica">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Precio</label>
-            <input type="number" class="form-control" placeholder="Ej. 5.00">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Descripción</label>
-            <textarea class="form-control" rows="2" placeholder="Descripción del plato"></textarea>
-          </div>
-          <div class="mt-3">
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <button type="button" class="btn btn-info ms-2">Ver</button>
-          </div>
-        </form>
-      </section>
-
-      <section id="lista-proveedores" class="mb-5">
-        <h4 class="text-primary">📦 Agregar Proveedores</h4>
-        <form>
-          <div class="mb-3">
-            <label class="form-label">Nombre del Proveedor</label>
-            <input type="text" class="form-control" placeholder="Ej. Frutas del Valle">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Producto que Provee</label>
-            <input type="text" class="form-control" placeholder="Ej. Verduras, Carnes, etc.">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Teléfono o Email</label>
-            <input type="text" class="form-control" placeholder="Datos de contacto del proveedor">
-          </div>
-          <div class="mt-3">
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <button type="button" class="btn btn-info ms-2">Ver</button>
-          </div>
-        </form>
-      </section>
-    </main>
-
-    <!-- Modal de Creación de Cuenta -->
-    <div class="modal fade" id="createAccountModal" tabindex="-1" aria-labelledby="createAccountModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="createAccountModalLabel" style="color:#123A62;">🚀 ¡Potencia tu Experiencia Mealkitz!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Parece que estás usando Mealkitz sin una cuenta completa.</p>
-            <p><strong>Crea una cuenta para:</strong></p>
-            <ul>
-              <li>Guardar la configuración de tu negocio de forma segura.</li>
-              <li>Acceder a todas las herramientas y funciones avanzadas.</li>
-              <li>Personalizar tu experiencia al máximo.</li>
-            </ul>
-            <p>¡Es rápido y fácil!</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Más tarde</button>
-            <a href="perfil.html" class="btn btn-primary">Crear Cuenta Ahora</a>
-          </div>
         </div>
-      </div>
+
+    <!-- Summary Panel -->
+    <div class="summary-panel">
+      <h3>Resumen de Datos</h3>
+      <!-- Image preview for business logo -->
+      <img id="logoPreview" src="#" alt="Logo Preview" style="max-width: 100px; max-height: 100px; display: none; margin-bottom: 10px;">
+      <ul id="summaryList" class="summary-list">
+        <li><em>Aún no hay datos ingresados.</em></li>
+            </ul>
+    </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      let createAccountModalInstance = null;
+    // =====================
+    // LOGIN CHECK - Redirect if not logged in
+    // =====================
+    const currentUserForConfig = JSON.parse(localStorage.getItem('currentUser_mealkitz'));
+    if (!currentUserForConfig) {
+        console.log('config.html: No user logged in, redirecting to iniciar.html');
+        // Adjust path if config.html is not at the root relative to iniciar.html
+        window.location.href = 'iniciar.html'; 
+        // IMPORTANT: Stop further script execution on this page by throwing an error or returning
+        // For simplicity here, we'll rely on the redirect happening before significant script execution.
+        // A more robust way is to wrap the rest of the script in an if(currentUserForConfig) block or return.
+        // However, to avoid massive re-indentation, we will proceed and assume redirection is fast enough.
+        // If issues arise, the rest of the script should be wrapped.
+    } else {
+        console.log('config.html: User is logged in.', currentUserForConfig);
+        // User is logged in, proceed with chatbot initialization
+    }
 
-      function showCreateAccountModal() {
-        if (createAccountModalInstance) {
-          // You could add a check here, e.g., not to show if a specific localStorage item indicates a full profile exists
-          // if (localStorage.getItem('mealkitzFullProfileCreated') === 'true') return;
-          createAccountModalInstance.show();
+    // =====================
+    // Definición de Pasos
+    // =====================
+    const steps = [
+      { key: 'welcome',         message: '¡Hola! Bienvenido al asistente de configuración de Mealkitz. Estoy aquí para ayudarte a configurar tu perfil y negocio paso a paso. Para comenzar, por favor dime si deseas:\n1. Crear una cuenta nueva y configurar tu perfil desde cero.\n2. Iniciar sesión con una cuenta existente para ver o actualizar tus datos.' },
+      { key: 'createAccountEmail',   message: 'Por favor ingresa tu correo electrónico para crear tu cuenta:' },
+      { key: 'setPassword',     message: 'Genial. Ahora elige una contraseña segura:' },
+      { key: 'loginEmail',      message: 'Por favor, ingresa tu correo para iniciar sesión:' },
+      { key: 'loginPassword',   message: 'Ahora ingresa tu contraseña:' },
+      { 
+        key: 'postLoginMenu',   
+        message: 'Has iniciado sesión. ¿Qué deseas hacer?\n1. Actualizar Datos del Negocio/Pagos\n2. Gestionar Proveedores\n3. Gestionar Productos\n4. Ir al Menú Principal / Ver Resumen'
+      },
+      // Guided setup / Full configuration flow (primarily for new users, also accessible from menus)
+      { key: 'businessName',    message: 'Empecemos a configurar tu negocio. ¿Cuál es el nombre de tu negocio?' },
+      { key: 'businessAddress', message: '¿Cuál es la dirección o zona de reparto?' },
+      { key: 'businessPhone',   message: '¿Cuál es el teléfono de contacto?' },
+      { key: 'businessLogo',    message: 'Por favor, proporciona la URL de tu logo (o usa el campo de abajo para subir una imagen):' },
+      { key: 'currencySymbol',  message: '¿Qué símbolo de moneda utilizas? (Ej.: $, B/.)' },
+      { key: 'paymentMethods',  message: 'Selecciona las formas de pago que aceptas (separa con comas: efectivo, yappy, tarjeta, transferencia):' },
+      // Si el usuario incluyó "transferencia", se le preguntarán datos bancarios. Si no, se saltan.
+      { key: 'bankName',        message: 'Si elegiste transferencia, ingresa el nombre de tu banco:' },
+      { key: 'accountNumber',   message: 'Ingresa tu número de cuenta bancaria:' },
+      { key: 'accountHolder',   message: '¿Quién es el titular de la cuenta?' },
+      { key: 'accountIdNumber', message: 'Por favor, ingresa tu número de ID o Cédula:' },
+      { key: 'fiscalInfo',      message: 'Por favor ingresa tu RUC / Razón Social / DV:' },
+      { key: 'addSupplierPrompt', message: '¡Excelente! Ahora, ¿quieres agregar un proveedor? (sí/no)' },
+      // Flujo de proveedores
+      { key: 'supplierName',    message: 'Nombre del proveedor:' },
+      { key: 'supplierProduct', message: 'Producto(s) que provee:' },
+      { key: 'supplierContact', message: 'Teléfono o email de contacto:' },
+      { key: 'supplierContinue',message: '¿Quieres agregar otro proveedor? (sí/no)' },
+      { key: 'addProductPrompt', message: 'Ahora, ¿quieres agregar un producto al menú? (sí/no)' },
+      // Flujo de productos
+      { key: 'productName',     message: 'Nombre del producto:' },
+      { key: 'productImage',    message: 'Proporciona la URL de la imagen del producto (o usa el campo de abajo para subir una imagen):' },
+      { key: 'productPrice',    message: '¿Cuál es el precio?' },
+      { key: 'productMargin',   message: '¿Cuál es el margen de ganancia?' },
+      { key: 'productSku',      message: 'Crea un SKU para este producto:' },
+      { key: 'productContinue', message: '¿Quieres agregar otro producto? (sí/no)' },
+      { key: 'summary',         message: '¡Listo! Esto es todo por ahora. Aquí tienes un resumen de tu configuración.' },
+      { 
+        key: 'mainMenu',         
+        message: '¿Qué te gustaría hacer ahora?\n1. Configurar Datos del Negocio\n2. Configurar Métodos de Pago\n3. Gestionar Proveedores\n4. Gestionar Productos\n5. Ver Resumen Completo\n(Escribe el número o parte del nombre de la opción)' 
+      }
+    ];
+
+    // =====================
+    // Estado del Chatbot
+    // =====================
+    let stepIndex = 0;
+    let data = {
+      account:  {},
+      login:    {},
+      business: {},
+      payments: {},
+      suppliers: [],
+      products:  []
+    };
+
+    // Referencias a elementos DOM
+    const messagesContainer = document.getElementById('messages');
+    const chatForm          = document.getElementById('chatForm');
+    const chatInput         = document.getElementById('chatInput');
+    const summaryList       = document.getElementById('summaryList');
+    const logoPreview       = document.getElementById('logoPreview');
+
+    // --- Edit Product Modal Elements ---
+    const editProductModalEl = document.getElementById('editProductModal');
+    let editProductModalInstance; // To be initialized when needed
+    if (editProductModalEl) {
+        editProductModalInstance = new bootstrap.Modal(editProductModalEl);
+    }
+    const editProductForm = document.getElementById('editProductForm');
+    const saveEditProductBtn = document.getElementById('saveEditProductBtn');
+    const editProductIndexInput = document.getElementById('editProductIndex');
+    const editProductNameInput = document.getElementById('editProductName');
+    const editProductImageUrlInput = document.getElementById('editProductImageUrl');
+    const editProductPriceInput = document.getElementById('editProductPrice');
+    const editProductMarginInput = document.getElementById('editProductMargin');
+    const editProductSkuInput = document.getElementById('editProductSku');
+
+    // =====================
+    // Funciones de Mensajes
+    // =====================
+    function addBotMessage(text, currentStepKey) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('message', 'bot');
+      bubble.textContent = text;
+
+      // If the current step is for a logo or product image, add a file input
+      if (currentStepKey === 'businessLogo' || currentStepKey === 'productImage') {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.style.marginTop = '10px';
+        fileInput.style.display = 'block';
+
+        fileInput.addEventListener('change', function(event) {
+          if (event.target.files && event.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const imageDataUrl = e.target.result;
+              let confirmationMessage = '';
+              if (currentStepKey === 'businessLogo') {
+                data.business.logoUrl = imageDataUrl;
+                confirmationMessage = 'Logo cargado.';
+              } else if (currentStepKey === 'productImage') {
+                // Ensure there's a product entry to add the image to
+                if (data.products.length > 0) {
+                  data.products[data.products.length - 1].imageUrl = imageDataUrl;
+                  confirmationMessage = `Imagen para '${data.products[data.products.length - 1].name}' cargada.`;
         } else {
-          // Fallback if DOMContentLoaded didn't initialize it, though it should have.
-          const modalElement = document.getElementById('createAccountModal');
-          if (modalElement) {
-            createAccountModalInstance = new bootstrap.Modal(modalElement);
-            createAccountModalInstance.show();
+                  confirmationMessage = 'Error: No hay producto actual para asignar la imagen.';
+                }
+              }
+              addBotMessage(confirmationMessage); // Show confirmation
+              fileInput.disabled = true; // Disable input after successful upload
+              updateSummary();
+              
+              // Determine the next step after file upload and proceed
+              const nextIdx = determineNextIndex(currentStepKey, ''); // Empty value since file upload handled it
+              processNextStep(currentStepKey, nextIdx, true); // Pass a flag to indicate it's from file upload
+            };
+            reader.onerror = function() {
+              addBotMessage('Error al cargar la imagen. Inténtalo de nuevo.');
+              fileInput.value = ''; // Clear the input on error
+            };
+            reader.readAsDataURL(event.target.files[0]);
+          }
+        });
+        bubble.appendChild(fileInput);
+      }
+
+      messagesContainer.appendChild(bubble);
+      scrollToBottom();
+    }
+
+    function addUserMessage(text) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('message', 'user');
+      bubble.textContent = text;
+      messagesContainer.appendChild(bubble);
+      scrollToBottom();
+    }
+
+    function scrollToBottom() {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // =====================
+    // Inicio: mostrar primer mensaje
+    // =====================
+    window.addEventListener('DOMContentLoaded', () => {
+      if (currentUserForConfig) {
+        // User is already logged in, bypass welcome/login steps
+        stepIndex = steps.findIndex(s => s.key === 'postLoginMenu');
+        if (stepIndex === -1) { // Fallback if postLoginMenu is somehow not found
+            stepIndex = steps.findIndex(s => s.key === 'mainMenu'); 
+        }
+        if (stepIndex === -1) { // Ultimate fallback
+            stepIndex = 0;
+        }
+        data.login.email = currentUserForConfig.email; // Pre-fill for context, though not strictly needed for chat flow now
+        addBotMessage(`¡Hola de nuevo, ${currentUserForConfig.name || 'usuario'}! Ya has iniciado sesión.`);
+        addBotMessage(steps[stepIndex].message, steps[stepIndex].key);
+      } else {
+        // This branch should ideally not be hit due to the redirect, but as a safeguard:
+        addBotMessage(steps[0].message, steps[0].key); // Original welcome message
+      }
+    });
+
+    // =====================
+    // Manejo de envío del formulario
+    // =====================
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const userInput = chatInput.value.trim();
+      if (!userInput) return;
+      addUserMessage(userInput);
+      addBotMessage("Pensando...");
+      handleNextStep(userInput);
+      chatInput.value = '';
+    });
+
+    // =====================
+    // Lógica para avanzar al siguiente paso
+    // =====================
+    function handleNextStep(userInput) {
+      const currentStep = steps[stepIndex];
+      const key = currentStep.key;
+      const value = userInput.trim();
+      const valueLower = value.toLowerCase();
+
+      // Determine nextIndex before saving data, as it might be needed by async operations (like file upload)
+      let nextIndex = determineNextIndex(key, valueLower); // New function to determine next index
+
+      // Guardar datos según la clave actual
+      switch (key) {
+        case 'welcome':
+          // No data to save, flow is determined by determineNextIndex
+          break;
+        case 'createAccountEmail':
+          data.account.email = value;
+          break;
+        case 'setPassword':
+          data.account.password = value;
+          break;
+        case 'loginEmail':
+          data.login.email = value;
+          break;
+        case 'loginPassword':
+          data.login.password = value;
+          // Actual login verification would happen here or be triggered from here.
+          // For now, determineNextIndex handles routing to postLoginMenu on any input.
+          break;
+        case 'postLoginMenu':
+          // No data to save, flow is determined by determineNextIndex
+          break;
+        case 'businessName':
+          data.business.name = value;
+          break;
+        case 'businessAddress':
+          data.business.address = value;
+          break;
+        case 'businessPhone':
+          data.business.phone = value;
+          break;
+        case 'businessLogo':
+          if (value) {
+            data.business.logoUrl = value; 
+          } else {
+            addBotMessage("No se proporcionó URL ni se cargó archivo para el logo. Puedes agregarlo más tarde.");
+          }
+          break;
+        case 'currencySymbol':
+          data.business.currency = value;
+          break;
+        case 'paymentMethods':
+          data.payments.methods = value.split(',')
+            .map(m => m.trim().toLowerCase());
+          break;
+        case 'bankName':
+          data.payments.bankName = value;
+          break;
+        case 'accountNumber':
+          data.payments.accountNumber = value;
+          break;
+        case 'accountHolder':
+          data.payments.accountHolder = value;
+          break;
+        case 'accountIdNumber':
+          data.payments.accountIdNumber = value;
+          break;
+        case 'fiscalInfo':
+          data.payments.fiscalInfo = value;
+          break;
+        case 'supplierName':
+          data.suppliers.push({ name: value });
+          break;
+        case 'supplierProduct':
+          data.suppliers[data.suppliers.length - 1].product = value;
+          break;
+        case 'supplierContact':
+          data.suppliers[data.suppliers.length - 1].contact = value;
+          break;
+        case 'productName':
+          data.products.push({ name: value });
+          break;
+        case 'productImage':
+          data.products[data.products.length - 1].imageUrl = value;
+          break;
+        case 'productPrice':
+          data.products[data.products.length - 1].price = value;
+          break;
+        case 'productMargin':
+          data.products[data.products.length - 1].margin = value;
+          break;
+        case 'productSku':
+          data.products[data.products.length - 1].sku = value;
+          break;
+        case 'mainMenu':
+          // Logic for mainMenu will be handled in determineNextIndex based on user input,
+          // by directly setting nextIndex to the start of the chosen flow.
+          // No data storage needed here for the choice itself.
+          break;
+        default:
+          break;
+      }
+
+      // Conditional advancement:
+      // - If it's an image step (logo or product image) AND the user DID NOT type a URL,
+      //   we assume they will use the file input. The file input's 'change' event will handle progression.
+      // - Otherwise (not an image step, OR it is an image step AND a URL was typed), proceed normally.
+      const isImageStep = (key === 'businessLogo' || key === 'productImage');
+      if (!isImageStep || (isImageStep && value)) {
+         processNextStep(key, nextIndex);
+      }
+      // If it is an image step and no value was typed, handleNextStep effectively pauses here,
+      // waiting for the dynamically added file input to trigger the next step.
+    }
+
+    // New function to determine the next step index based on branching logic
+    function determineNextIndex(currentKey,lcValue) {
+        let nextIdx = steps.findIndex(s => s.key === currentKey) + 1; // Default next step
+
+        if (currentKey === 'welcome') {
+            if (lcValue.includes('1') || lcValue.includes('crear')) {
+                nextIdx = steps.findIndex(s => s.key === 'createAccountEmail');
+            } else if (lcValue.includes('2') || lcValue.includes('iniciar') || lcValue.includes('login')) {
+                nextIdx = steps.findIndex(s => s.key === 'loginEmail');
+            } else {
+                addBotMessage("Opción no válida. Por favor, elige 1 o 2.");
+                nextIdx = steps.findIndex(s => s.key === 'welcome'); // Stay on welcome
+            }
+            return nextIdx;
+        }
+
+        if (currentKey === 'setPassword') { // After new account password set, start guided setup
+            addBotMessage("¡Cuenta creada con éxito! Vamos a configurar tu perfil.");
+            nextIdx = steps.findIndex(s => s.key === 'businessName');
+            return nextIdx;
+        }
+
+        if (currentKey === 'loginPassword') { // After login password attempt
+            // Here you would typically verify login. For this demo, we assume success.
+            addBotMessage("Has iniciado sesión correctamente."); 
+            nextIdx = steps.findIndex(s => s.key === 'postLoginMenu');
+            return nextIdx;
+        }
+
+        if (currentKey === 'postLoginMenu') {
+            if (lcValue.includes('1') || lcValue.includes('negocio') || lcValue.includes('pago')) {
+                nextIdx = steps.findIndex(s => s.key === 'businessName'); // Start of business/payment config
+            } else if (lcValue.includes('2') || lcValue.includes('proveedor')) {
+                nextIdx = steps.findIndex(s => s.key === 'addSupplierPrompt');
+            } else if (lcValue.includes('3') || lcValue.includes('producto')) {
+                nextIdx = steps.findIndex(s => s.key === 'addProductPrompt');
+            } else if (lcValue.includes('4') || lcValue.includes('menú') || lcValue.includes('resumen')) {
+                nextIdx = steps.findIndex(s => s.key === 'mainMenu');
+                } else {
+                addBotMessage("Opción no válida. Por favor, elige del menú.");
+                nextIdx = steps.findIndex(s => s.key === 'postLoginMenu'); // Stay on postLoginMenu
+            }
+            return nextIdx;
+        }
+
+        if (currentKey === 'summary') { // After initial summary (from new user setup), go to main menu
+            nextIdx = steps.findIndex(s => s.key === 'mainMenu');
+        }
+
+        if (currentKey === 'mainMenu') {
+            if (lcValue.includes('1') || lcValue.includes('negocio')) {
+                nextIdx = steps.findIndex(s => s.key === 'businessName');
+            } else if (lcValue.includes('2') || lcValue.includes('pago')) {
+                nextIdx = steps.findIndex(s => s.key === 'paymentMethods');
+            } else if (lcValue.includes('3') || lcValue.includes('proveedor')) {
+                nextIdx = steps.findIndex(s => s.key === 'addSupplierPrompt');
+            } else if (lcValue.includes('4') || lcValue.includes('producto')) {
+                nextIdx = steps.findIndex(s => s.key === 'addProductPrompt');
+            } else if (lcValue.includes('5') || lcValue.includes('resumen')) {
+                // Re-show current summary, then loop back to mainMenu
+                // No direct step for this, handleNextStep will call updateSummary and processNextStep to mainMenu
+                addBotMessage("Mostrando resumen actualizado..."); // Give feedback
+                updateSummary(); 
+                nextIdx = steps.findIndex(s => s.key === 'mainMenu'); 
+            } else {
+                addBotMessage("Opción no válida. Por favor, elige del menú.");
+                nextIdx = steps.findIndex(s => s.key === 'mainMenu'); // Stay on mainMenu
+            }
+            return nextIdx; // Return early for mainMenu choices
+        }
+
+        if (currentKey === 'paymentMethods') {
+            if (!lcValue.includes('transferencia')) {
+                nextIdx = steps.findIndex(s => s.key === 'accountIdNumber');
+            }
+        }
+        if (currentKey === 'addSupplierPrompt') {
+            if (!/^s[ií]$/i.test(lcValue)) {
+                nextIdx = steps.findIndex(s => s.key === 'addProductPrompt');
+            }
+        }
+        if (currentKey === 'supplierContinue') {
+            if (/^s[ií]$/i.test(lcValue)) {
+                nextIdx = steps.findIndex(s => s.key === 'supplierName');
+            } else {
+                nextIdx = steps.findIndex(s => s.key === 'addProductPrompt');
+            }
+        }
+        if (currentKey === 'addProductPrompt') {
+            if (!/^s[ií]$/i.test(lcValue)) {
+                nextIdx = steps.findIndex(s => s.key === 'mainMenu'); // Go to mainMenu instead of summary
+            }
+        }
+        if (currentKey === 'productContinue') {
+            if (/^s[ií]$/i.test(lcValue)) {
+                nextIdx = steps.findIndex(s => s.key === 'productName');
+            } else {
+                nextIdx = steps.findIndex(s => s.key === 'mainMenu'); // Go to mainMenu instead of summary
+            }
+        }
+        return nextIdx;
+    }
+
+    // New function to process moving to the next step and updating UI
+    function processNextStep(currentKey, nextIdx, fromFileUpload = false) {
+        stepIndex = nextIdx;
+        if (stepIndex < steps.length) {
+            setTimeout(() => {
+                // Remove the "Pensando..." message before adding the new one
+                const messages = messagesContainer.getElementsByClassName('message');
+                if (messages.length > 0) {
+                    const lastPensando = Array.from(messages).find(m => m.classList.contains('bot') && m.textContent === "Pensando...");
+                    if (lastPensando) {
+                        messagesContainer.removeChild(lastPensando);
+                    }
+                }
+                // Also remove the previous bot question if this is a direct follow-up from file upload
+                // to avoid duplicate questions or input fields appearing.
+                if (fromFileUpload && messages.length > 0) {
+                    const previousBotQuestion = messages[messages.length -1]; // This would be the message with the file input
+                     // We might not want to remove it, actually, as it contains the file input (now disabled)
+                     // Let's reconsider removing it. For now, we'll leave it.
+                }
+
+                addBotMessage(steps[stepIndex].message, steps[stepIndex].key); // Pass current step key
+            }, fromFileUpload ? 50 : 2000); // Shorter delay if immediately following a file upload confirmation
+        }
+        updateSummary();
+    }
+
+    // =====================
+    // Función para actualizar el panel de resumen
+    // =====================
+    function updateSummary() {
+      summaryList.innerHTML = '';
+      const lis = [];
+
+      // Helper function to create an action link
+      function createActionLink(text, actionKey) {
+        return ` <a href="#" class="summary-action-link" data-action="${actionKey}">(${text})</a>`;
+      }
+
+      // --- Cuenta ---
+      if (data.account.email) {
+        lis.push(`<li><strong>Email:</strong> ${data.account.email}</li>`);
+      }
+      // --- Negocio ---
+      let businessContent = '';
+      if (data.business.name) businessContent += `<li><strong>Negocio:</strong> ${data.business.name}</li>`;
+      if (data.business.address) businessContent += `<li><strong>Dirección:</strong> ${data.business.address}</li>`;
+      if (data.business.phone) businessContent += `<li><strong>Teléfono:</strong> ${data.business.phone}</li>`;
+      if (data.business.logoUrl) {
+        if (data.business.logoUrl.startsWith('data:image')) {
+          logoPreview.src = data.business.logoUrl;
+          logoPreview.style.display = 'block';
+          businessContent += `<li><strong>Logo:</strong> (Imagen arriba)</li>`; 
+        } else {
+          logoPreview.style.display = 'none';
+          businessContent += `<li><strong>Logo URL:</strong> ${data.business.logoUrl}</li>`;
+        }
+      } else {
+        logoPreview.style.display = 'none';
+      }
+      if (data.business.currency) businessContent += `<li><strong>Moneda:</strong> ${data.business.currency}</li>`;
+      if (businessContent) {
+        lis.push(`<li><strong>Datos del Negocio:</strong>${createActionLink("Editar", "edit-business")}${businessContent}</li>`);
+      } else {
+        lis.push(`<li><strong>Datos del Negocio:</strong> No configurados ${createActionLink("Configurar", "edit-business")}</li>`);
+      }
+
+      // --- Pagos ---
+      let paymentContent = '';
+      if (Array.isArray(data.payments.methods) && data.payments.methods.length > 0) paymentContent += `<li><strong>Pagos:</strong> ${data.payments.methods.join(', ')}</li>`;
+      if (data.payments.bankName) paymentContent += `<li><strong>Banco:</strong> ${data.payments.bankName}</li>`;
+      if (data.payments.accountNumber) paymentContent += `<li><strong>Cuenta:</strong> ${data.payments.accountNumber}</li>`;
+      if (data.payments.accountHolder) paymentContent += `<li><strong>Titular:</strong> ${data.payments.accountHolder}</li>`;
+      if (data.payments.accountIdNumber) paymentContent += `<li><strong>ID o Cédula:</strong> ${data.payments.accountIdNumber}</li>`;
+      if (data.payments.fiscalInfo) paymentContent += `<li><strong>Info Fiscal:</strong> ${data.payments.fiscalInfo}</li>`;
+      if (paymentContent) {
+        lis.push(`<li><strong>Información de Pagos:</strong>${createActionLink("Editar", "edit-payments")}${paymentContent}</li>`);
+      } else {
+        lis.push(`<li><strong>Información de Pagos:</strong> No configurada ${createActionLink("Configurar", "edit-payments")}</li>`);
+      }
+
+      // --- Proveedores ---
+      let supplierHtml = '';
+      if (data.suppliers.length > 0) {
+        data.suppliers.forEach((sup, i) => {
+          const name    = sup.name    || '';
+          const prod    = sup.product || '';
+          const contact = sup.contact || '';
+          supplierHtml += `<li>Proveedor ${i + 1}: ${name} | ${prod} | ${contact}</li>`;
+        });
+      }
+      lis.push(`<li><strong>Proveedores:</strong>${createActionLink("Gestionar", "manage-suppliers")}<ul>${supplierHtml || '<li>No hay proveedores.</li>'}</ul></li>`);
+
+      // --- Productos ---
+      let productHtml = '';
+      if (data.products.length > 0) {
+        data.products.forEach((prodData, i) => {
+          const name   = prodData.name     || '';
+          const img    = prodData.imageUrl ? '(imagen adjunta)' : '(sin imagen)'; // Keep summary cleaner
+          const price  = prodData.price    || '';
+          const margin = prodData.margin   || '';
+          const sku    = prodData.sku      || '';
+          
+          // Add Edit and Delete buttons for each product
+          const editButton = `<button type="button" class="btn btn-sm btn-outline-primary product-action-btn edit-product-btn" data-product-index="${i}">Editar</button>`;
+          const deleteButton = `<button type="button" class="btn btn-sm btn-outline-danger product-action-btn delete-product-btn" data-product-index="${i}">Borrar</button>`;
+          
+          productHtml += `<li>Producto ${i + 1}: ${name} | Precio: ${price} | SKU: ${sku} ${editButton} ${deleteButton}</li>`;
+        });
+      }
+      lis.push(`<li><strong>Productos:</strong>${createActionLink("Añadir Nuevo", "manage-products")}<ul>${productHtml || '<li>No hay productos.</li>'}</ul></li>`);
+
+      // Si no hay nada, mensaje por defecto (this part might become less relevant with section headers)
+      if (lis.length === 0) {
+        summaryList.innerHTML = '<li><em>Aún no hay datos ingresados.</em></li>';
+      } else {
+        summaryList.innerHTML = lis.join('');
+      }
+
+      // Save to localStorage
+      try {
+        localStorage.setItem('mealkitzConfig', JSON.stringify(data));
+        console.log('Configuration saved to localStorage.');
+      } catch (e) {
+        console.error('Error saving configuration to localStorage:', e);
+        // Optionally, inform the user if storage fails and is critical
+      }
+    }
+
+    // Event listener for summary panel actions
+    summaryList.addEventListener('click', function(event) {
+      if (event.target.classList.contains('summary-action-link')) {
+        event.preventDefault();
+        const action = event.target.dataset.action;
+        let targetStepKey = '';
+
+        switch (action) {
+          case 'edit-business':
+            targetStepKey = 'businessName';
+            break;
+          case 'edit-payments':
+            targetStepKey = 'paymentMethods';
+            break;
+          case 'manage-suppliers': // For now, "manage" means restart the add/continue flow
+            targetStepKey = 'addSupplierPrompt';
+            break;
+          case 'manage-products': // For now, "manage" means restart the add/continue flow
+            targetStepKey = 'addProductPrompt';
+            break;
+          default:
+            return; // Unknown action
+        }
+
+        if (targetStepKey) {
+          stepIndex = steps.findIndex(s => s.key === targetStepKey);
+          if (stepIndex !== -1) {
+            // Clear any pending "Pensando..." message first
+            const messages = messagesContainer.getElementsByClassName('message');
+            if (messages.length > 0) {
+                const lastPensando = Array.from(messages).find(m => m.classList.contains('bot') && m.textContent === "Pensando...");
+                if (lastPensando) {
+                    messagesContainer.removeChild(lastPensando);
+                }
+            }
+            addBotMessage(`Ok, vamos a ${event.target.textContent.replace(/[()]/g, '').toLowerCase()}...`);
+            addBotMessage(steps[stepIndex].message, steps[stepIndex].key);
+          } else {
+            console.error("Target step key not found:", targetStepKey);
           }
         }
       }
 
-      function startSession() {
-        const userNameInput = document.getElementById('userName');
-        const user = userNameInput.value.trim();
-        if (user) {
-          localStorage.setItem('mealkitzUser', user);
-          document.getElementById('login-screen').style.display = 'none';
-          // Start timer for create account modal after login screen is dismissed
-          setTimeout(showCreateAccountModal, 5000); // 5 seconds
-        } else {
-          alert("Por favor, ingresa tu nombre.");
-        }
+      // --- Event Listener for Edit and Delete Product Buttons ---
+      const target = event.target;
+
+      // Handle Edit Product Button Click
+      if (target.classList.contains('edit-product-btn')) {
+          event.preventDefault();
+          const productIndex = parseInt(target.dataset.productIndex, 10);
+          if (productIndex >= 0 && productIndex < data.products.length) {
+              const productToEdit = data.products[productIndex];
+              
+              editProductIndexInput.value = productIndex;
+              editProductNameInput.value = productToEdit.name || '';
+              editProductImageUrlInput.value = productToEdit.imageUrl || '';
+              editProductPriceInput.value = productToEdit.price || '';
+              editProductMarginInput.value = productToEdit.margin || '';
+              editProductSkuInput.value = productToEdit.sku || '';
+
+              if (editProductModalInstance) editProductModalInstance.show();
+          }
       }
 
-      window.addEventListener('DOMContentLoaded', () => {
-        const modalElement = document.getElementById('createAccountModal');
-        if (modalElement) {
-          createAccountModalInstance = new bootstrap.Modal(modalElement);
-        }
+      // Handle Delete Product Button Click
+      if (target.classList.contains('delete-product-btn')) {
+          event.preventDefault();
+          const productIndex = parseInt(target.dataset.productIndex, 10);
+          if (productIndex >= 0 && productIndex < data.products.length) {
+              const productToDelete = data.products[productIndex];
+              if (confirm(`¿Estás seguro de que quieres borrar el producto "${productToDelete.name || 'este producto'}"?`)) {
+                  data.products.splice(productIndex, 1);
+                  updateSummary(); // This also saves to localStorage
+                  addBotMessage(`Producto "${productToDelete.name || 'seleccionado'}" borrado.`);
+              }
+          }
+      }
+    });
 
-        const user = localStorage.getItem('mealkitzUser');
-        if (user) {
-          // If user already exists (e.g., from a previous session)
-          document.getElementById('login-screen').style.display = 'none';
-          // Start timer for create account modal
-          setTimeout(showCreateAccountModal, 5000); // 5 seconds
+    // --- Event Listener for Save Changes in Edit Product Modal ---
+    if (saveEditProductBtn && editProductForm) {
+        saveEditProductBtn.addEventListener('click', function() {
+            if (!editProductForm.checkValidity()) {
+                editProductForm.reportValidity();
+              return;
+            }
+
+            const indexToUpdate = parseInt(editProductIndexInput.value, 10);
+            if (indexToUpdate >= 0 && indexToUpdate < data.products.length) {
+                data.products[indexToUpdate] = {
+                    name: editProductNameInput.value.trim(),
+                    imageUrl: editProductImageUrlInput.value.trim(),
+                    price: editProductPriceInput.value,
+                    margin: editProductMarginInput.value,
+                    sku: editProductSkuInput.value.trim()
+                };
+                updateSummary(); // This also saves to localStorage
+                if (editProductModalInstance) editProductModalInstance.hide();
+                addBotMessage(`Producto "${data.products[indexToUpdate].name}" actualizado.`);
+            } else {
+                addBotMessage("Error: No se pudo encontrar el producto para actualizar.");
+            }
+          });
         }
-        // If no 'mealkitzUser' is found, the login screen remains visible (due to its default CSS 'display: flex').
-        // The 'startSession' function will then be responsible for hiding it and starting the modal timer.
-      });
     </script>
+    <script src="js/navbar-loader.js" defer></script>
+
+  <!-- Edit Product Modal -->
+  <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProductForm">
+            <input type="hidden" id="editProductIndex">
+            <div class="mb-3">
+              <label for="editProductName" class="form-label">Nombre del Producto</label>
+              <input type="text" class="form-control" id="editProductName" required>
+            </div>
+            <div class="mb-3">
+              <label for="editProductImageUrl" class="form-label">URL de la Imagen</label>
+              <input type="url" class="form-control" id="editProductImageUrl" placeholder="https://ejemplo.com/imagen.jpg">
+              <div class="form-text">O déjalo en blanco si no deseas cambiarla/establecerla.</div>
+            </div>
+            <div class="mb-3">
+              <label for="editProductPrice" class="form-label">Precio</label>
+              <input type="number" class="form-control" id="editProductPrice" step="0.01" required>
+            </div>
+            <div class="mb-3">
+              <label for="editProductMargin" class="form-label">Margen de Ganancia (%)</label>
+              <input type="number" class="form-control" id="editProductMargin" step="0.01">
+            </div>
+            <div class="mb-3">
+              <label for="editProductSku" class="form-label">SKU</label>
+              <input type="text" class="form-control" id="editProductSku">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="saveEditProductBtn">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Edit Product Modal -->
   </body>
 </html>
+

@@ -35,6 +35,12 @@
       }
 
       @media (max-width: 767.98px) { .btn-lg.full-width-sm { display: block; width: 100%; } }
+
+      #navbarIcons.collapsing {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.5s ease-in-out; /* Custom smooth transition */
+      }
     </style>
   </head>
   <body>
@@ -42,64 +48,225 @@
     <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
       <div class="container-fluid px-4">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
-          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
-          <span></span>
+          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 5px;" alt="Mealkitz Logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarIcons">
           <div class="d-flex align-items-center ms-auto">
-            <button class="btn btn-link text-dark me-3" title="Notificaciones"><i class="bi bi-bell-fill fs-4"></i></button>
-            <a href="#" id="whatsapp-share-btn-punto" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp"><i class="bi bi-whatsapp fs-4"></i></a>
-            <a href="perfil.html" class="btn btn-link text-dark me-3" title="Ajustes"><i class="bi bi-gear-fill fs-4"></i></a>
+            <button class="btn btn-link text-dark me-3" title="Notificaciones">
+              <i class="bi bi-bell-fill fs-4"></i>
+            </button>
+            <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
+              <i class="bi bi-whatsapp fs-4"></i>
+            </a>
             <div class="nav-item dropdown">
-              <a href="#" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdownPunto" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle fs-4"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdownPunto">
-                <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
-                <li><a class="dropdown-item" href="iniciar.html">Iniciar Sesión</a></li>
+              <a href="#" class="btn btn-link text-dark me-3 dropdown-toggle d-flex align-items-center" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Perfil">
+                <img id="profileImageLogo" src="" alt="Profile Logo" style="height: 28px; width: 28px; border-radius: 50%; margin-right: 8px; display: none;">
+                <i class="bi bi-person-circle fs-4 me-2" id="defaultProfileIcon"></i>
+                <span id="profileDropdownName">Perfil</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" id="profileDropdownMenu">
+                <li><a class="dropdown-item" href="perfil.html" id="viewProfileLink">Crear Perfil</a></li>
+                <li><a class="dropdown-item" href="iniciar.html" id="loginOrLogoutLink">Iniciar Sesión</a></li>
               </ul>
             </div>
-            <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar"><i class="bi bi-search fs-4"></i></a>
+            <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
+              <i class="bi bi-search fs-4"></i>
+            </a>
           </div>
         </div>
       </div>
     </nav>
 
   <!-- Main Content -->
-  <main class="container container-main">
-    <div class="login-form-container">
+  <main class="container container-main" style="max-width: 500px;">
+    <!-- Login Form Section -->
+    <div id="loginSection">
       <h2 class="text-center mb-4" style="color: #123A62;">Iniciar Sesión</h2>
+      <div id="loginMessage" class="alert" role="alert" style="display: none;"></div>
       <form id="loginForm">
         <div class="mb-3">
-          <label for="email" class="form-label">Correo Electrónico</label>
-          <input type="email" class="form-control" id="email" placeholder="tu@correo.com" required>
+          <label for="loginEmail" class="form-label">Correo Electrónico</label>
+          <input type="email" class="form-control" id="loginEmail" placeholder="tu@correo.com" required>
         </div>
         <div class="mb-3">
-          <label for="password" class="form-label">Contraseña</label>
-          <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+          <label for="loginPassword" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña" required>
         </div>
         <div class="d-grid mb-3">
           <button type="submit" class="btn btn-primary btn-lg">Iniciar Sesión</button>
         </div>
         <div class="text-center">
-          <a href="#" class="btn btn-link btn-sm">Olvidé mi contraseña</a>
+          <a href="#" class="btn btn-link btn-sm" id="forgotPasswordLink">Olvidé mi contraseña</a>
         </div>
       </form>
       <hr class="my-4">
-      <p class="text-center mb-0">¿No tienes una cuenta? <a href="perfil.html">Crear Cuenta</a></p>
+      <p class="text-center mb-0">¿No tienes una cuenta? <a href="#" id="showCreateAccountLink">Crear Cuenta</a></p>
     </div>
-  </div>
+
+    <!-- Create Account Form Section (Initially Hidden) -->
+    <div id="createAccountSection" style="display: none;">
+      <h2 class="text-center mb-4" style="color: #123A62;">Crear Cuenta</h2>
+      <div id="createAccountMessage" class="alert" role="alert" style="display: none;"></div>
+      <form id="createAccountForm">
+        <div class="mb-3">
+          <label for="createName" class="form-label">Nombre Completo</label>
+          <input type="text" class="form-control" id="createName" placeholder="Tu Nombre Completo" required>
+        </div>
+        <div class="mb-3">
+          <label for="createEmail" class="form-label">Correo Electrónico</label>
+          <input type="email" class="form-control" id="createEmail" placeholder="tu@correo.com" required>
+        </div>
+        <div class="mb-3">
+          <label for="createPassword" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="createPassword" placeholder="Crea una contraseña" required>
+        </div>
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirma tu contraseña" required>
+        </div>
+        <div class="d-grid mb-3">
+          <button type="submit" class="btn btn-success btn-lg">Crear Cuenta</button>
+        </div>
+      </form>
+      <hr class="my-4">
+      <p class="text-center mb-0">¿Ya tienes una cuenta? <a href="#" id="showLoginLink">Iniciar Sesión</a></p>
+    </div>
+  </main>
 
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/navbar-loader.js" defer></script>
   <script>
-    // Optional: Add form submission logic here if needed
-    // document.getElementById('loginForm').addEventListener('submit', function(event) {
-    //   event.preventDefault();
-    //   // Handle login
-    //   console.log('Login attempt');
-    // });
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginSection = document.getElementById('loginSection');
+      const createAccountSection = document.getElementById('createAccountSection');
+      const showCreateAccountLink = document.getElementById('showCreateAccountLink');
+      const showLoginLink = document.getElementById('showLoginLink');
+      const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+
+      const loginForm = document.getElementById('loginForm');
+      const createAccountForm = document.getElementById('createAccountForm');
+      const loginMessage = document.getElementById('loginMessage');
+      const createAccountMessage = document.getElementById('createAccountMessage');
+
+      // --- Helper function to display messages ---
+      function showMessage(element, message, type) {
+        element.textContent = message;
+        element.className = `alert alert-${type}`;
+        element.style.display = 'block';
+        setTimeout(() => { element.style.display = 'none'; }, 5000);
+      }
+
+      // --- Toggle between Login and Create Account views ---
+      if (showCreateAccountLink) {
+        showCreateAccountLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          loginSection.style.display = 'none';
+          createAccountSection.style.display = 'block';
+          loginMessage.style.display = 'none';
+        });
+      }
+
+      if (showLoginLink) {
+        showLoginLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          createAccountSection.style.display = 'none';
+          loginSection.style.display = 'block';
+          createAccountMessage.style.display = 'none';
+        });
+      }
+      
+      if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Funcionalidad de recuperación de contraseña no implementada en esta demostración.');
+        });
+      }
+
+      // --- Create Account Logic (Simulation) ---
+      if (createAccountForm) {
+        createAccountForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+          const name = document.getElementById('createName').value.trim();
+          const email = document.getElementById('createEmail').value.trim();
+          const password = document.getElementById('createPassword').value;
+          const confirmPassword = document.getElementById('confirmPassword').value;
+
+          if (!name || !email || !password || !confirmPassword) {
+            showMessage(createAccountMessage, 'Todos los campos son obligatorios.', 'danger');
+            return;
+          }
+
+          if (password !== confirmPassword) {
+            showMessage(createAccountMessage, 'Las contraseñas no coinciden.', 'danger');
+            return;
+          }
+
+          // Basic email validation
+          if (!/^\S+@\S+\.\S+$/.test(email)) {
+            showMessage(createAccountMessage, 'Por favor, ingresa un correo electrónico válido.', 'danger');
+            return;
+          }
+          
+          let users = JSON.parse(localStorage.getItem('users_mealkitz')) || [];
+          if (users.find(user => user.email === email)) {
+            showMessage(createAccountMessage, 'Este correo electrónico ya está registrado.', 'warning');
+            return;
+          }
+
+          // IMPORTANT: In a real application, hash the password securely before storing!
+          // For this simulation, we store it as is (NOT SECURE).
+          users.push({ name, email, password }); 
+          localStorage.setItem('users_mealkitz', JSON.stringify(users));
+          
+          showMessage(createAccountMessage, '¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.', 'success');
+          createAccountForm.reset();
+          // Switch to login view
+          setTimeout(() => {
+            createAccountSection.style.display = 'none';
+            loginSection.style.display = 'block';
+            createAccountMessage.style.display = 'none';
+          }, 2000);
+        });
+      }
+
+      // --- Login Logic (Simulation) ---
+      if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+          const email = document.getElementById('loginEmail').value.trim();
+          const password = document.getElementById('loginPassword').value;
+
+          if (!email || !password) {
+            showMessage(loginMessage, 'Correo y contraseña son obligatorios.', 'danger');
+            return;
+          }
+          
+          const users = JSON.parse(localStorage.getItem('users_mealkitz')) || [];
+          const foundUser = users.find(user => user.email === email);
+
+          // IMPORTANT: In a real application, compare hashed passwords!
+          if (foundUser && foundUser.password === password) { // Direct password comparison (NOT SECURE)
+            localStorage.setItem('currentUser_mealkitz', JSON.stringify({ email: foundUser.email, name: foundUser.name }));
+            showMessage(loginMessage, '¡Inicio de sesión exitoso! Redirigiendo...', 'success');
+            setTimeout(() => {
+              window.location.href = 'index.html'; // Redirect to homepage
+            }, 1500);
+          } else {
+            showMessage(loginMessage, 'Correo o contraseña incorrectos.', 'danger');
+          }
+        });
+      }
+
+      // Check if user is already logged in and redirect if so (optional)
+      // if (localStorage.getItem('currentUser_mealkitz')) {
+      //   console.log('User already logged in, redirecting to index.html');
+      //   window.location.href = 'index.html';
+      // }
+    });
   </script>
 </body>
 </html> 

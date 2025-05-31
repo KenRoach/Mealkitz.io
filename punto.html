@@ -1,32 +1,201 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mealkitz - Punto de Venta</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; padding-top: 1rem; }
-      .navbar { box-shadow: 0 2px 4px rgba(0,0,0,.08); background-color: #fff; margin-bottom: 1rem; }
-      .navbar-brand { font-weight: 600; color: #123A62 !important; }
-      .navbar-toggler { border: none; }
-      .navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(18,58,98,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f8f9fa;
+        padding-top: 1rem;
+      }
+      .navbar {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        background-color: #fff;
+        margin-bottom: 1rem;
+      }
+      .navbar-brand {
+        font-weight: 600;
+        color: #123a62 !important;
+      }
+      .navbar-toggler {
+        border: none;
+      }
+      .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(18,58,98,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      }
 
-      .btn { font-weight: normal; border-radius: 0.375rem; transition: all 0.2s ease-in-out; }
-      .btn-primary { background-color: #123A62; color: #fff; border-color: #123A62; }
-      .btn-primary:hover { background-color: #0e3150; border-color: #0e2d4e; transform: translateY(-1px); }
-      .btn-secondary { background-color: #6c757d; color: #fff; border-color: #6c757d; }
-      .btn-secondary:hover { background-color: #5a6268; transform: translateY(-1px); }
-      .hero-blue-background { background-color: #123A62; color: #fff; padding: 2rem 1rem; border-radius: .5rem; margin-bottom: 1rem; }
-      .hero-blue-background h1 { margin: 0; font-weight: normal; }
-      .hero-blue-background .lead { color: #f1f1f1; font-size: 1rem; }
-      main.container.custom-main { background: #fff; padding: 2rem; border-radius: .75rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin: 2rem auto; max-width: 800px; }
-      @media (max-width: 767.98px) { .btn-lg.full-width-sm { display: block; width: 100%; } }
+      .btn {
+        font-weight: normal;
+        border-radius: 0.375rem;
+        transition: all 0.2s ease-in-out;
+      }
+      .btn-primary {
+        background-color: #123a62;
+        color: #fff;
+        border-color: #123a62;
+      }
+      .btn-primary:hover {
+        background-color: #0e3150;
+        border-color: #0e2d4e;
+        transform: translateY(-1px);
+      }
+      .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+        border-color: #6c757d;
+      }
+      .btn-secondary:hover {
+        background-color: #5a6268;
+        transform: translateY(-1px);
+      }
+      .hero-blue-background {
+        background-color: #123a62;
+        color: #fff;
+        padding: 2rem 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .hero-blue-background h1 {
+        margin: 0;
+        font-weight: normal;
+      }
+      .hero-blue-background .lead {
+        color: #f1f1f1;
+        font-size: 1rem;
+      }
+      main.container.custom-main {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        margin: 2rem auto;
+        max-width: 800px;
+      }
+      @media (max-width: 767.98px) {
+        .btn-lg.full-width-sm {
+          display: block;
+          width: 100%;
+        }
+      }
+
+      #navbarIcons.collapsing {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.5s ease-in-out;
+      }
+
+      /* Action Card Styles */
+      .action-card-grid {
+        margin-top: 1.5rem;
+      }
+      .action-card {
+        display: block;
+        background-color: #ffffff;
+        border-radius: 0.75rem;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        padding: 1.5rem;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        color: inherit;
+      }
+      .action-card-icon {
+        font-size: 2.5rem;
+        color: #123a62;
+        margin-bottom: 0.75rem;
+      }
+      .action-card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #343a40;
+      }
+
+      /* Custom Navbar Link Styling */
+      @media (max-width: 767.98px) { /* Bootstrap's md breakpoint */
+        .navbar-collapse .navbar-nav .nav-item {
+          text-align: center;
+        }
+        .navbar-collapse .navbar-nav .nav-link {
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
+          /* border-bottom: 1px solid #eee; */ /* Optional separator */
+        }
+        /* .navbar-collapse .navbar-nav .nav-item:last-child .nav-link {
+          border-bottom: none;
+        } */
+        .navbar-collapse .navbar-nav {
+          margin-top: 0.5rem;
+        }
+        .navbar-collapse .navbar-nav.me-auto {
+            margin-right: 0 !important; /* Override me-auto for centering */
+            margin-left: 0 !important;
+            width: 100%;
+        }
+         .navbar-collapse .d-flex.ms-auto {
+            width: 100%;
+            justify-content: center;
+            margin-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+      }
+
+      /* Desktop Navbar Link Centering */
+      @media (min-width: 768px) {
+        .navbar-collapse {
+          /* justify-content: space-between; */ /* This might be too much if brand is not also flex item */
+        }
+        /* Attempt to center the me-auto block */
+        .navbar-collapse ul.navbar-nav.me-auto {
+            position: absolute; /* Take out of flow */
+            left: 50%;
+            transform: translateX(-50%); /* Center it */
+            /* Ensure it doesn't overlap with other elements like brand or right-side icons */
+            /* This might need adjustments based on the exact width of your brand and right-side icons */
+        }
+      }
+
+      .navbar-nav .nav-link {
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      }
+      .navbar-nav .nav-link:hover,
+      .navbar-nav .nav-link:focus {
+        background-color: #e9ecef; /* Light hover/focus background */
+        color: #0056b3; /* Darker blue for text on hover/focus */
+        border-radius: 0.375rem; /* Rounded corners on hover */
+      }
+      .navbar-nav .nav-link i {
+        font-size: 1.1em;
+        vertical-align: text-bottom; /* Align icon better with text */
+        margin-right: 0.35em !important; /* Ensure spacing from text */
+      }
     </style>
   </head>
   <body>
@@ -34,25 +203,151 @@
     <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
       <div class="container-fluid px-4">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
-          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 10px;" alt="Mealkitz Logo">
-          <span></span>
+          <img
+            src="Images/mk_logo.jpeg"
+            style="height: 35px; margin-right: 5px;"
+            alt="Mealkitz Logo"
+          />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarIcons"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
+    
         <div class="collapse navbar-collapse" id="navbarIcons">
+          <!-- IZQUIERDA: enlaces a cada acción -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- Ingresar tus Datos -->
+            <li class="nav-item">
+              <a class="nav-link" href="config.html">
+                <i class="bi bi-person-badge-fill me-1"></i>
+                Ingresar tus Datos
+              </a>
+            </li>
+    
+            <!-- Cobro Manual (abre modal) -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#manualChargeModal"
+              >
+                <i class="bi bi-cash-coin me-1"></i>
+                Cobro Manual
+              </a>
+            </li>
+    
+            <!-- Generar Cotización (abre modal) -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#cotizacionModal"
+              >
+                <i class="bi bi-file-earmark-text-fill me-1"></i>
+                Generar Cotización
+              </a>
+            </li>
+    
+            <!-- Cobro con QR (abre modal "Próximamente") -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#proximamenteQRModal"
+              >
+                <i class="bi bi-qr-code me-1"></i>
+                Cobro con QR
+              </a>
+            </li>
+    
+            <!-- Tu Tienda En Línea -->
+            <li class="nav-item">
+              <a class="nav-link" href="e-commerce.html">
+                <i class="bi bi-shop me-1"></i>
+                Tu Tienda En Línea
+              </a>
+            </li>
+    
+            <!-- Pedidos -->
+            <li class="nav-item">
+              <a class="nav-link" href="pedidos.html">
+                <i class="bi bi-box-seam me-1"></i>
+                Pedidos
+              </a>
+            </li>
+    
+            <!-- Ayuda -->
+            <li class="nav-item">
+              <a class="nav-link" href="ayuda.html">
+                <i class="bi bi-question-circle-fill me-1"></i>
+                Ayuda
+              </a>
+            </li>
+          </ul>
+    
+          <!-- DERECHA: notificaciones, compartir, perfil y buscador -->
           <div class="d-flex align-items-center ms-auto">
-            <button class="btn btn-link text-dark me-3" title="Notificaciones"><i class="bi bi-bell-fill fs-4"></i></button>
-            <a href="#" id="whatsapp-share-btn-punto" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp"><i class="bi bi-whatsapp fs-4"></i></a>
-            <a href="perfil.html" class="btn btn-link text-dark me-3" title="Ajustes"><i class="bi bi-gear-fill fs-4"></i></a>
+            <button class="btn btn-link text-dark me-3" title="Notificaciones">
+              <i class="bi bi-bell-fill fs-4"></i>
+            </button>
+            <a
+              href="#"
+              id="whatsapp-share-btn"
+              class="btn btn-link text-dark me-3"
+              title="Compartir en WhatsApp"
+            >
+              <i class="bi bi-whatsapp fs-4"></i>
+            </a>
             <div class="nav-item dropdown">
-              <a href="#" class="btn btn-link text-dark me-3 dropdown-toggle" id="profileDropdownPunto" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle fs-4"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdownPunto">
-                <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
-                <li><a class="dropdown-item" href="iniciar.html">Iniciar Sesión</a></li>
+              <a
+                href="#"
+                class="btn btn-link text-dark me-3 dropdown-toggle d-flex align-items-center"
+                id="profileDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                title="Perfil"
+              >
+                <img
+                  id="profileImageLogo"
+                  src=""
+                  alt="Profile Logo"
+                  style="height: 28px; width: 28px; border-radius: 50%; margin-right: 8px; display: none;"
+                />
+                <i class="bi bi-person-circle fs-4 me-2" id="defaultProfileIcon"></i>
+                <span id="profileDropdownName">Perfil</span>
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="profileDropdown"
+                id="profileDropdownMenu"
+              >
+                <li>
+                  <a class="dropdown-item" href="perfil.html" id="viewProfileLink"
+                    >Crear Perfil</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="iniciar.html"
+                    id="loginOrLogoutLink"
+                    >Iniciar Sesión</a
+                  >
+                </li>
               </ul>
             </div>
-            <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar"><i class="bi bi-search fs-4"></i></a>
+            <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
+              <i class="bi bi-search fs-4"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -60,253 +355,565 @@
 
     <main class="container custom-main">
       <section class="hero-blue-background text-left">
-        <h1>Punto de Venta</h1>
-        <p class="lead">Configura productos, inicia cobros y gestiona tu tienda online.</p>
+        <h1>Mealkitz.io (DEMO)</h1>
+        <p class="lead">
+          Esta es una herramienta para configurar productos, iniciar cobros y
+          gestionar tu tienda en línea.
+        </p>
       </section>
-      <div class="d-flex flex-column flex-md-row flex-wrap justify-content-start gap-3 mt-4">
-        <a href="#" class="btn btn-primary btn-lg full-width-sm" data-bs-toggle="modal" data-bs-target="#modal-1">Cobro Manual</a>
-        <a href="#" class="btn btn-secondary btn-lg full-width-sm" data-bs-toggle="modal" data-bs-target="#proximamenteQRModal">Cobro con QR</a>
-        <a href="e-commerce.html" class="btn btn-primary btn-lg full-width-sm">Tu Tienda En Línea</a>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 action-card-grid">
+        <!-- Ingresar tus Datos -->
+        <div class="col">
+          <a href="config.html" class="action-card">
+            <div class="action-card-icon"><i class="bi bi-person-badge-fill"></i></div>
+            <div class="action-card-title">Ingresar tus Datos</div>
+          </a>
+        </div>
+
+        <!-- Cobro Manual -->
+        <div class="col">
+          <a href="#" class="action-card" data-bs-toggle="modal" data-bs-target="#manualChargeModal">
+            <div class="action-card-icon"><i class="bi bi-cash-coin"></i></div>
+            <div class="action-card-title">Cobro Manual</div>
+          </a>
+        </div>
+
+        <!-- Generar Cotización -->
+        <div class="col">
+          <a href="#" class="action-card" data-bs-toggle="modal" data-bs-target="#cotizacionModal">
+            <div class="action-card-icon"><i class="bi bi-file-earmark-text-fill"></i></div>
+            <div class="action-card-title">Generar Cotización</div>
+          </a>
+        </div>
+
+        <!-- Cobro con QR -->
+        <div class="col">
+          <a href="#" class="action-card" data-bs-toggle="modal" data-bs-target="#proximamenteQRModal">
+            <div class="action-card-icon"><i class="bi bi-qr-code"></i></div>
+            <div class="action-card-title">Cobro con QR</div>
+          </a>
+        </div>
+
+        <!-- Tu Tienda En Línea -->
+        <div class="col">
+          <a href="e-commerce.html" class="action-card">
+            <div class="action-card-icon"><i class="bi bi-shop"></i></div>
+            <div class="action-card-title">Tu Tienda En Línea</div>
+          </a>
+        </div>
+
+        <!-- Pedidos -->
+        <div class="col">
+          <a href="pedidos.html" class="action-card">
+            <div class="action-card-icon"><i class="bi bi-box-seam"></i></div>
+            <div class="action-card-title">Pedidos</div>
+          </a>
+        </div>
+
+        <!-- Ayuda -->
+        <div class="col">
+          <a href="ayuda.html" class="action-card">
+            <div class="action-card-icon"><i class="bi bi-question-circle-fill"></i></div>
+            <div class="action-card-title">Ayuda</div>
+          </a>
+        </div>
       </div>
+
     </main>
 
-
-    <!-- Modals -->
-    <div class="modal fade" id="modal-1" tabindex="-1" aria-labelledby="modal1Label" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
+    <!-- Modal Único: Cobro Manual (con checkbox para encuesta) -->
+    <div
+      class="modal fade"
+      id="manualChargeModal"
+      tabindex="-1"
+      aria-labelledby="manualChargeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modal1Label">Paso 1: Selecciona un producto</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <h5 class="modal-title" id="manualChargeModalLabel">
+              Cobro Manual
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
           </div>
           <div class="modal-body">
-            <select id="product-select" class="form-select">
-              <option value="">Seleccione un producto...</option>
-            </select>
+            <form id="manualChargeForm">
+              <!-- 1) Selección de Producto -->
+              <div class="mb-3">
+                <label for="mcProduct" class="form-label"
+                  >Selecciona un producto</label
+                >
+                <select
+                  id="mcProduct"
+                  class="form-select"
+                  required
+                  aria-describedby="mcProductHelp"
+                >
+                  <option value="" selected disabled>
+                    Elige un producto...
+                  </option>
+                </select>
+                <div id="mcProductHelp" class="form-text">
+                  Elige de tu catálogo el producto que deseas cobrar.
+                </div>
+              </div>
+
+              <!-- 2) Revisión de datos (negocio, fecha y precio) -->
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="mcBusiness" class="form-label">Negocio</label>
+                  <input
+                    type="text"
+                    id="mcBusiness"
+                    class="form-control"
+                    readonly
+                    placeholder="Negocio"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="mcDatetime" class="form-label">Fecha / Hora</label>
+                  <input
+                    type="text"
+                    id="mcDatetime"
+                    class="form-control"
+                    readonly
+                    placeholder="Fecha y Hora"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="mcPrice" class="form-label">Precio</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    id="mcPrice"
+                    class="form-control"
+                    readonly
+                    placeholder="Precio"
+                  />
+                </div>
+              </div>
+
+              <!-- 3) Método de pago -->
+              <div class="mb-3">
+                <label class="form-label">Método de pago</label>
+                <div
+                  id="mcPaymentMethodsContainer"
+                  class="d-flex gap-2 flex-wrap"
+                >
+                  <!-- Botones de métodos se insertarán por JavaScript -->
+                </div>
+                <div id="mcPaymentHelp" class="form-text">
+                  Selecciona cómo deseas que el cliente pague.
+                </div>
+              </div>
+
+              <!-- 4) WhatsApp del cliente (opcional) -->
+              <div class="mb-3">
+                <label for="mcWhatsapp" class="form-label"
+                  >Número de WhatsApp (opcional)</label
+                >
+                <input
+                  type="tel"
+                  id="mcWhatsapp"
+                  class="form-control"
+                  placeholder="Ej: +507 6123-4567"
+                />
+                <div id="mcWhatsappHelp" class="form-text">
+                  Si desea enviar confirmación automática por WhatsApp.
+                </div>
+              </div>
+
+              <!-- 5) Checkbox: Enviar encuesta -->
+              <div class="form-check mb-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="mcSurvey"
+                />
+                <label class="form-check-label" for="mcSurvey">
+                  Deseo recibir encuesta después de mi compra
+                </label>
+              </div>
+
+              <!-- 6) Botón Finalizar Cobro -->
+              <div class="text-end mt-4">
+                <button
+                  type="submit"
+                  id="mcSubmit"
+                  class="btn btn-success"
+                  disabled
+                >
+                  Procesar y Enviar
+                </button>
+              </div>
+            </form>
           </div>
-          <div class="modal-footer d-flex justify-content-end">
-            <button id="next-1" class="btn btn-primary" disabled>Siguiente</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="modal-2" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header"><h5 class="modal-title" id="modal2Label">Paso 2: Revisa negocio, fecha y precio</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-          <div class="modal-body">
-            <input type="text" id="business" class="form-control mb-2" readonly placeholder="Empresa">
-            <input type="text" id="datetime" class="form-control mb-2" readonly placeholder="Fecha y Hora">
-            <input type="number" id="price" class="form-control" readonly placeholder="Precio">
-          </div>
-          <div class="modal-footer d-flex justify-content-between">
-            <button id="prev-2" class="btn btn-outline-secondary">Atrás</button><button id="next-2" class="btn btn-primary">Siguiente</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="modal-3" tabindex="-1" aria-labelledby="modal3Label" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header"><h5 class="modal-title" id="modal3Label">Paso 3: Método de pago</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-          <div class="modal-body">
-            <div class="d-grid gap-2">
-              <button class="btn btn-outline-primary pay-btn" data-pay="Yappy">Yappy</button>
-              <button class="btn btn-outline-primary pay-btn" data-pay="Efectivo">Efectivo</button>
-              <button class="btn btn-outline-primary pay-btn" data-pay="Tarjeta">Tarjeta de Crédito/Débito</button>
-              <button class="btn btn-outline-primary pay-btn" data-pay="Bitcoin">Bitcoin</button>
-            </div>
-          </div>
-          <div class="modal-footer d-flex justify-content-between"><button id="prev-3" class="btn btn-outline-secondary">Atrás</button></div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="modal-4" tabindex="-1" aria-labelledby="modal4Label" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header"><h5 class="modal-title" id="modal4Label">Paso 4: Confirmar y enviar</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-          <div class="modal-body">
-            <ul class="list-group mb-3" id="summary"></ul>
-            <input type="tel" id="whatsapp" class="form-control" placeholder="Número de WhatsApp (opcional)">
-            <!-- <button id="photo-btn" class="btn btn-primary w-100 mb-2" style="display:none;">Tomar Foto</button> -->
-          </div>
-          <div class="modal-footer d-flex justify-content-between">
-            <button id="prev-4" class="btn btn-outline-secondary">Atrás</button><button id="send-btn" class="btn btn-success">Procesar y Enviar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="modal-5" tabindex="-1" aria-labelledby="modal5Label" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-center">
-          <div class="modal-header"><h5 class="modal-title" id="modal5Label">Confirmación</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-          <div class="modal-body"><p class="fw-bold">¡Pedido procesado y enviado!</p></div>
-          <div class="modal-footer justify-content-center"><button id="restart" class="btn btn-link">Nuevo Pedido</button></div>
         </div>
       </div>
     </div>
 
-    <!-- New Modal for Próximamente QR -->
-    <div class="modal fade" id="proximamenteQRModal" tabindex="-1" aria-labelledby="proximamenteQRModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
+    <!-- Cotización Modal -->
+    <div
+      class="modal fade"
+      id="cotizacionModal"
+      tabindex="-1"
+      aria-labelledby="cotizacionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="proximamenteQRModalLabel">Funcionalidad Avanzada</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <h5 class="modal-title" id="cotizacionModalLabel">
+              Generador de Cotización
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
           </div>
           <div class="modal-body">
-            <p>Cobros con QR, Reportes avanzados e acceso a inversiones son funciones avanzadas que se desbloquearán al usar el sistema de forma constante.</p>
+            <form id="cotizacionForm">
+              <div class="mb-3">
+                <label for="cotizacionClienteNombre" class="form-label"
+                  >Nombre del Cliente</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cotizacionClienteNombre"
+                  required
+                />
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="cotizacionClienteEmail" class="form-label"
+                    >Correo Electrónico del Cliente</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="cotizacionClienteEmail"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="cotizacionClienteTelefono" class="form-label"
+                    >Teléfono del Cliente (Opcional)</label
+                  >
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="cotizacionClienteTelefono"
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="cotizacionDescripcion" class="form-label"
+                  >Descripción de Servicios/Productos</label
+                >
+                <textarea
+                  class="form-control"
+                  id="cotizacionDescripcion"
+                  rows="4"
+                  placeholder="Detallar los ítems de la cotización, uno por línea si es posible. Ej:
+Diseño de Logo - $XXX
+Desarrollo Web Básico - $YYY"
+                  required
+                ></textarea>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="cotizacionMontoTotal" class="form-label"
+                    >Monto Total de la Cotización</label
+                  >
+                  <div class="input-group">
+                    <span class="input-group-text" id="cotizacionCurrencySymbol"
+                      >$</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="cotizacionMontoTotal"
+                      step="0.01"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="cotizacionNotas" class="form-label"
+                  >Notas Adicionales (Opcional)</label
+                >
+                <textarea
+                  class="form-control"
+                  id="cotizacionNotas"
+                  rows="2"
+                  placeholder="Ej: Validez de la cotización: 30 días. Condiciones de pago."
+                ></textarea>
+              </div>
+              <div class="form-text mb-3">
+                Esta cotización utilizará los datos de tu negocio configurados (si
+                aplica para la presentación).
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="generarCotizacionBtn"
+            >
+              Generar y Enviar Cotización
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <!-- End New Modal -->
+    <!-- End Cotización Modal -->
+
+    <!-- Modal Próximamente QR -->
+    <div
+      class="modal fade"
+      id="proximamenteQRModal"
+      tabindex="-1"
+      aria-labelledby="proximamenteQRModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="proximamenteQRModalLabel">
+              Funcionalidad Avanzada
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Cobros con QR, Reportes avanzados e acceso a inversiones son
+              funciones avanzadas que se desbloquearán al usar el sistema de forma
+              constante.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+              Entendido
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal Próximamente QR -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/navbar-loader.js" defer></script>
+    <script src="js/auth-navbar.js" defer></script>
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const modals = {
-          1: new bootstrap.Modal(document.getElementById('modal-1')),
-          2: new bootstrap.Modal(document.getElementById('modal-2')),
-          3: new bootstrap.Modal(document.getElementById('modal-3')),
-          4: new bootstrap.Modal(document.getElementById('modal-4')),
-          5: new bootstrap.Modal(document.getElementById('modal-5'))
+      document.addEventListener("DOMContentLoaded", () => {
+        // Cargar configuración (negocio, productos, métodos de pago) desde localStorage
+        let mealkitzConfig = {};
+        try {
+          const storedConfig = localStorage.getItem("mealkitzConfig");
+          if (storedConfig) {
+            mealkitzConfig = JSON.parse(storedConfig);
+          } else {
+            mealkitzConfig = {
+              business: { name: "Mi Tienda (defecto)", currency: "$" },
+              payments: { methods: ["Efectivo"] },
+              products: [],
+            };
+          }
+        } catch {
+          mealkitzConfig = {
+            business: { name: "Mi Tienda (defecto)", currency: "$" },
+            payments: { methods: ["Efectivo"] },
+            products: [],
+          };
+        }
+        // Si no hay productos configurados, ejemplo por defecto
+        if (
+          !Array.isArray(mealkitzConfig.products) ||
+          mealkitzConfig.products.length === 0
+        ) {
+          mealkitzConfig.products = [
+            { id: 1, name: "Producto A", price: 10.0 },
+            { id: 2, name: "Producto B", price: 15.5 },
+            { id: 3, name: "Producto C", price: 7.25 },
+          ];
+        }
+        // Variables DOM
+        const mcProduct = document.getElementById("mcProduct");
+        const mcBusiness = document.getElementById("mcBusiness");
+        const mcDatetime = document.getElementById("mcDatetime");
+        const mcPrice = document.getElementById("mcPrice");
+        const mcPaymentContainer = document.getElementById("mcPaymentMethodsContainer");
+        const mcWhatsapp = document.getElementById("mcWhatsapp");
+        const mcSurvey = document.getElementById("mcSurvey");
+        const mcSubmit = document.getElementById("mcSubmit");
+
+        // Rellenar select de productos
+        function populateProductSelect() {
+          mcProduct.innerHTML =
+            '<option value="" disabled selected>Elige un producto...</option>';
+          mealkitzConfig.products.forEach((p, idx) => {
+            const opt = document.createElement("option");
+            opt.value = idx;
+            opt.textContent = `${p.name} - ${
+              mealkitzConfig.business.currency
+            }${p.price.toFixed(2)}`;
+            mcProduct.appendChild(opt);
+          });
+        }
+        // Rellenar métodos de pago
+        function populatePaymentMethods() {
+          mcPaymentContainer.innerHTML = "";
+          let methods = ["Efectivo"];
+          if (
+            mealkitzConfig.payments &&
+            Array.isArray(mealkitzConfig.payments.methods) &&
+            mealkitzConfig.payments.methods.length > 0
+          ) {
+            methods = mealkitzConfig.payments.methods;
+          }
+          methods.forEach((m) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "btn btn-outline-primary me-2 mb-2 pay-btn";
+            btn.textContent = m.charAt(0).toUpperCase() + m.slice(1);
+            btn.dataset.pay = m;
+            mcPaymentContainer.appendChild(btn);
+          });
+        }
+        // Estado de orden en memoria
+        let currentOrder = {
+          product: null,
+          paymentMethod: null,
+          whatsapp: "",
+          survey: false,
         };
-        let order = {};
-
-        const products = [
-          {id:'GG001', name:'BBQ Burger', price: 9.50, business:'Garage Grill'},
-          {id:'GG002', name:'Alias', price: 5.00, business:'Garage Grill'},
-          {id:'GG003', name:'Hotdog', price: 6.00, business:'Garage Grill'},
-          {id:'GG004', name:'Ribs', price: 18.00, business:'Garage Grill'},
-          {id:'GG005', name:'Nachos', price: 7.00, business:'Garage Grill'}
-        ];
-
-        // Get DOM elements
-        const productSelect = document.getElementById('product-select');
-        const businessEl = document.getElementById('business');
-        const datetimeEl = document.getElementById('datetime');
-        const priceEl = document.getElementById('price');
-        const summaryEl = document.getElementById('summary');
-        const whatsappEl = document.getElementById('whatsapp');
-
-        // Populate product select dropdown
-        if (productSelect) {
-            products.forEach(product => {
-                const option = document.createElement('option');
-                option.value = product.id;
-                option.textContent = `${product.name} - $${product.price.toFixed(2)}`;
-                productSelect.appendChild(option);
-            });
-        }
-
-        // Reset and show first modal
-        function startManualCharge() {
-            order = {};
-            if (productSelect) productSelect.value = ''; // Reset dropdown
-            if (next1Btn) next1Btn.disabled = true; // Disable next button
-            modals[1].show();
-        }
-
-        const cobroManualBtn = document.querySelector('a[data-bs-target="#modal-1"]');
-        if (cobroManualBtn) {
-            cobroManualBtn.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent default link behavior
-                startManualCharge();
-            });
-        }
-
-        // Modal 1: Product Selection
-        const next1Btn = document.getElementById('next-1');
-        if (productSelect && next1Btn) {
-            productSelect.addEventListener('change', () => {
-                next1Btn.disabled = !productSelect.value;
-            });
-            next1Btn.addEventListener('click', () => {
-                if (productSelect.value) {
-                    const selectedProduct = products.find(p => p.id === productSelect.value);
-                    order.product = selectedProduct;
-                    if (businessEl) businessEl.value = selectedProduct.business;
-                    if (datetimeEl) datetimeEl.value = new Date().toLocaleString();
-                    if (priceEl) priceEl.value = selectedProduct.price.toFixed(2);
-                    modals[1].hide();
-                    modals[2].show();
-                }
-            });
-        }
-
-        // Modal 2: Review Details
-        const prev2Btn = document.getElementById('prev-2');
-        const next2Btn = document.getElementById('next-2');
-        if (prev2Btn) {
-            prev2Btn.addEventListener('click', () => {
-                modals[2].hide();
-                modals[1].show();
-            });
-        }
-        if (next2Btn) {
-            next2Btn.addEventListener('click', () => {
-                modals[2].hide();
-                modals[3].show();
-            });
-        }
-
-        // Modal 3: Payment Method
-        const prev3Btn = document.getElementById('prev-3');
-        const paymentButtons = document.querySelectorAll('.pay-btn');
-        if (prev3Btn) {
-            prev3Btn.addEventListener('click', () => {
-                modals[3].hide();
-                modals[2].show();
-            });
-        }
-        paymentButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                order.paymentMethod = button.getAttribute('data-pay');
-                // Populate summary for modal 4
-                if (summaryEl && order.product) {
-                    summaryEl.innerHTML = 
-                        `<li class="list-group-item">Producto: ${order.product.name}</li>
-                         <li class="list-group-item">Precio: $${order.product.price.toFixed(2)}</li>
-                         <li class="list-group-item">Método de Pago: ${order.paymentMethod}</li>`;
-                }
-                modals[3].hide();
-                modals[4].show();
-            });
+        // Cuando cambia producto:
+        mcProduct.addEventListener("change", () => {
+          const idx = parseInt(mcProduct.value, 10);
+          const selected = mealkitzConfig.products[idx];
+          if (selected) {
+            currentOrder.product = selected;
+            mcBusiness.value = mealkitzConfig.business.name;
+            mcDatetime.value = new Date().toLocaleString();
+            mcPrice.value = selected.price.toFixed(2);
+          }
+          updateSubmitState();
         });
-
-        // Modal 4: Confirm and Send
-        const prev4Btn = document.getElementById('prev-4');
-        const sendBtn = document.getElementById('send-btn');
-        if (prev4Btn) {
-            prev4Btn.addEventListener('click', () => {
-                modals[4].hide();
-                modals[3].show();
-            });
+        // Cuando selecciona método de pago:
+        mcPaymentContainer.addEventListener("click", (e) => {
+          if (e.target.classList.contains("pay-btn")) {
+            // Limpiar clases "activo"
+            document
+              .querySelectorAll("#mcPaymentMethodsContainer .pay-btn")
+              .forEach((b) => {
+                b.classList.remove("btn-primary");
+                b.classList.add("btn-outline-primary");
+              });
+            // Marcar este botón como activo
+            e.target.classList.remove("btn-outline-primary");
+            e.target.classList.add("btn-primary");
+            currentOrder.paymentMethod = e.target.dataset.pay;
+          }
+          updateSubmitState();
+        });
+        // Cuando cambia WhatsApp:
+        mcWhatsapp.addEventListener("input", () => {
+          currentOrder.whatsapp = mcWhatsapp.value.trim();
+        });
+        // Checkbox encuesta:
+        mcSurvey.addEventListener("change", () => {
+          currentOrder.survey = mcSurvey.checked;
+        });
+        // Habilitar botón de submit solo si hay producto y método de pago
+        function updateSubmitState() {
+          if (currentOrder.product && currentOrder.paymentMethod) {
+            mcSubmit.removeAttribute("disabled");
+          } else {
+            mcSubmit.setAttribute("disabled", "true");
+          }
         }
-        if (sendBtn) {
-            sendBtn.addEventListener('click', () => {
-                order.whatsapp = whatsappEl ? whatsappEl.value : '';
-                console.log('Pedido Finalizado:', order); // Simulate sending order
-                // Here you would typically send data to a backend
-                modals[4].hide();
-                modals[5].show();
-            });
-        }
+        // Manejo del formulario de Cobro Manual
+        document
+          .getElementById("manualChargeForm")
+          .addEventListener("submit", (ev) => {
+            ev.preventDefault();
+            // Construir mensaje de confirmación
+            const p = currentOrder.product;
+            const payM = currentOrder.paymentMethod;
+            const wsp = currentOrder.whatsapp.replace(/\D/g, "");
+            let msg = `¡Hola! Quiero ordenar: ${p.name} por ${
+              mealkitzConfig.business.currency
+            }${p.price.toFixed(2)}. Método de pago: ${payM}.`;
+            if (currentOrder.survey) {
+              msg += " Por favor, envíenme la encuesta de satisfacción.";
+            }
+            const finalMsg = wsp
+              ? `${msg} Mi WhatsApp: +${wsp}`
+              : msg + " (No proporcionó WhatsApp).";
+            // Enviar por WhatsApp a número fijo del negocio:
+            const negocioWA = "507XXXXXXXX"; // <-- Ajustar al WA real del negocio
+            const urlWA = `https://wa.me/${negocioWA}?text=${encodeURIComponent(
+              finalMsg
+            )}`;
+            window.open(urlWA, "_blank");
+            // Reiniciar estado:
+            document.getElementById("manualChargeForm").reset();
+            currentOrder = {
+              product: null,
+              paymentMethod: null,
+              whatsapp: "",
+              survey: false,
+            };
+            updateSubmitState();
+            bootstrap
+              .Modal.getInstance(
+                document.getElementById("manualChargeModal")
+              )
+              .hide();
+            alert("Pedido procesado (simulación). Revisa WhatsApp para confirmar.");
+          });
 
-        // Modal 5: Confirmation
-        const restartBtn = document.getElementById('restart');
-        if (restartBtn) {
-            restartBtn.addEventListener('click', () => {
-                modals[5].hide();
-                startManualCharge(); // Start a new order
-            });
-        }
+        // Al abrir el modal, poblamos todo
+        document
+          .getElementById("manualChargeModal")
+          .addEventListener("show.bs.modal", () => {
+            populateProductSelect();
+            populatePaymentMethods();
+            mcBusiness.value = "";
+            mcDatetime.value = "";
+            mcPrice.value = "";
+            mcWhatsapp.value = "";
+            mcSurvey.checked = false;
+            updateSubmitState();
+          });
 
-      });
+        // Make sure all other event listeners and functions are properly closed
+        // ... (rest of the script, assuming it's correct or to be reviewed if errors persist)
+      }); // This is the closing for DOMContentLoaded
     </script>
   </body>
 </html>
