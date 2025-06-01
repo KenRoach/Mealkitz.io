@@ -20,57 +20,127 @@
       rel="stylesheet"
     />
     <style>
-      /* ---------------------------------------------------
-         Base Reset & Typography
-      --------------------------------------------------- */
+      /* Adjust body padding to accommodate fixed footer alert */
       body {
-        font-family: "Poppins", sans-serif;
+        font-family: 'Poppins', sans-serif;
         background-color: #f8f9fa;
-        padding-top: 1rem;
+        padding-top: 1rem;      /* added to match second code */
         padding-bottom: 5rem;
       }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        font-weight: 600;
-      }
-      p,
-      li {
-        font-weight: 400;
-      }
 
-      /* ---------------------------------------------------
-         Navbar
-      --------------------------------------------------- */
+      /* Navbar styling adapted from second code */
       .navbar {
-        background-color: #ffffff;
-        box-shadow: 0 2px 4px rgba(0,0,0,.08);
+        box-shadow: 0 2px 4px rgba(0,0,0,.08);  /* softer shadow */
+        background-color: #fff;
         margin-bottom: 1rem;
       }
       .navbar-brand {
-        color: #123a62 !important;
         font-weight: 600;
+        color: #123A62 !important;
       }
-      .nav-link {
-        color: #495057 !important;
-        transition: color 0.2s;
-      }
-      .nav-link:hover {
-        color: #123a62 !important;
-      }
-
-      /* Navbar toggler from index.html */
       .navbar-toggler {
-        border: none;
+        border: none;  /* remove default border */
       }
       .navbar-toggler-icon {
+        /* custom hamburger colored to match brand */
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(18,58,98,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
       }
 
-      /* Navbar link responsive and hover from index.html */
-      @media (max-width: 767.98px) { 
+      .btn, .btn-link {
+        outline: none !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .btn-primary {
+        background-color: #123A62;
+        color: #fff;
+        border: 2px solid #123A62 !important;
+      }
+      .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+        border: 2px solid #6c757d !important;
+      }
+      .btn-primary:hover {
+        background-color: #0e3150;
+        transform: translateY(-2px);
+      }
+      .btn-secondary:hover {
+        background-color: #5a6268;
+        transform: translateY(-2px);
+      }
+      .btn.disabled, .btn:disabled {
+        background-color: #6c757d !important;
+        border-color: #6c757d !important;
+        color: #fff !important;
+        cursor: not-allowed !important;
+        opacity: 0.65;
+      }
+      .container-main {
+        background: #fff;
+        padding: 2rem;
+        border-radius: .5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-top: 1rem;
+      }
+      .modal-body {
+        padding: 2rem;
+      }
+      .form-control, .form-select {
+        margin-bottom: 1rem;
+      }
+      /* Responsive styling for large buttons to take full width on small screens */
+      @media (max-width: 767.98px) {
+        .btn-lg.full-width-sm {
+          display: block;
+          width: 100%;
+          margin-bottom: 0.5rem;
+        }
+        .btn-lg.full-width-sm:last-child {
+          margin-bottom: 0;
+        }
+      }
+      /* Styles for the main hero section with a blue background */
+      .hero-blue-background {
+        background-color: #123A62;
+        color: #fff;
+        padding: 2rem;
+        border-radius: .5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      .hero-blue-background h1 {
+        margin: 0;
+        font-weight: normal;
+      }
+      .hero-blue-background p {
+        color: #f1f1f1;
+        font-size: 1rem;
+      }
+      /* Floating footer sign-up alert with slide-up animation */
+      #signupAlert {
+        position: fixed;
+        bottom: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 600px;
+        z-index: 1050;
+        border-radius: 0;
+        transition: bottom 0.5s ease-out;
+      }
+      #signupAlert.visible {
+        bottom: 0;
+      }
+
+      #navbarIcons.collapsing {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.5s ease-in-out;
+      }
+
+      /* Custom Navbar Link Styling (copied from punto.html & datos.html) */
+      @media (max-width: 767.98px) { /* Bootstrap's md breakpoint */
         .navbar-collapse .navbar-nav .nav-item {
           text-align: center;
         }
@@ -95,7 +165,7 @@
       }
 
       @media (min-width: 768px) {
-        .navbar-collapse ul.navbar-nav.mx-auto {
+        .navbar-collapse ul.navbar-nav.me-auto {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
@@ -108,7 +178,7 @@
       .navbar-nav .nav-link:hover,
       .navbar-nav .nav-link:focus {
         background-color: #e9ecef;
-        color: #0056b3 !important;
+        color: #0056b3;
         border-radius: 0.375rem;
       }
       .navbar-nav .nav-link i {
@@ -117,70 +187,49 @@
         margin-right: 0.35em !important;
       }
 
-      /* ---------------------------------------------------
-         Hero Section
-      --------------------------------------------------- */
-      .hero {
-        background: linear-gradient(135deg, #123a62 0%, #0e3050 100%);
-        color: #ffffff;
-        padding: 4rem 1rem;
-        text-align: left;
+      @media (max-width: 575.98px) {
+        .card-value {
+          font-size: 2.25em; /* Smaller font for mobile */
+          margin-bottom: .25rem; /* Reduced margin for mobile */
+        }
+        .card-label {
+          font-size: 0.8rem; /* Even smaller label on mobile */
+        }
       }
-      .hero h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
+
+      .card-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        text-align: center; /* Added to ensure centering */
       }
-      .hero p {
-        font-size: 1.125rem;
-        max-width: 600px;
-        margin: 0 0 2rem 0;
+
+      .card-value {
+        font-size: 3em;
+        margin-bottom: .5rem;
+        color: #123A62;
+        font-weight: 600;
+        text-align: center; /* Added to ensure centering */
       }
-      .hero .btn-cta {
-        background-color: #198754;
-        color: #ffffff;
+
+      /* Specific styles for hacemos.html sections to be restored/added */
+
+      /* Hero CTA button styling (based on original hacemos.html hero CTA) */
+      .btn-cta {
+        background-color: #198754; /* Green for CTA */
+        color: #ffffff !important; /* Ensure text is white */
         font-weight: 600;
         padding: 0.75rem 2rem;
         border-radius: 0.5rem;
         transition: background-color 0.2s, transform 0.2s;
+        text-decoration: none; /* Ensure no underline if it's an <a> tag */
       }
-      .hero .btn-cta:hover {
-        background-color: #157347;
+      .btn-cta:hover {
+        background-color: #157347; /* Darker green on hover */
+        color: #ffffff !important;
         transform: translateY(-2px);
       }
 
-      /* General Button styles from index.html */
-      .btn, .btn-link {
-        outline: none !important;
-        box-shadow: none !important;
-        border: none !important;
-      }
-      .btn-primary {
-        background-color: #123A62;
-        color: #fff;
-        border: 2px solid #123A62 !important;
-      }
-      .btn-secondary {
-        background-color: #6c757d;
-        color: #fff;
-        border: 2px solid #6c757d !important;
-      }
-      .btn-primary:hover {
-        background-color: #0e3150;
-      }
-      .btn-secondary:hover {
-        background-color: #5a6268;
-      }
-      .btn.disabled, .btn:disabled {
-        background-color: #6c757d !important;
-        border-color: #6c757d !important;
-        color: #fff !important;
-        cursor: not-allowed !important;
-        opacity: 0.65;
-      }
-
-      /* ---------------------------------------------------
-         Features Section
-      --------------------------------------------------- */
+      /* Features Section */
       .features-section {
         padding: 3rem 1rem;
       }
@@ -191,7 +240,7 @@
       }
       .feature-card {
         background-color: #ffffff;
-        border: none;
+        border: none; /* Assuming a borderless look is preferred, aligned with global .btn */
         border-radius: 0.75rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         padding: 1.5rem;
@@ -204,35 +253,35 @@
       }
       .feature-card i {
         font-size: 2rem;
-        color: #198754;
+        color: #198754; /* Green icons for features */
         margin-bottom: 0.75rem;
       }
       .feature-card h5 {
         margin-bottom: 0.5rem;
         color: #123a62;
         font-size: 1.1rem;
+        font-weight: 600; /* Ensuring consistent heading weight */
       }
       .feature-card p {
         color: #6c757d;
         font-size: 0.9rem;
       }
 
-      /* ---------------------------------------------------
-         Steps Section
-      --------------------------------------------------- */
+      /* Steps Section */
       .steps-section {
         padding: 3rem 1rem;
-        background-color: #ffffff;
-        border-radius: 0.75rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        /* background-color: #ffffff; Removed: sections are inside .container-main which has white bg */
+        /* border-radius: 0.75rem; Removed: sections are inside .container-main */
+        /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); Removed: sections are inside .container-main */
       }
       .steps-section h3 {
         text-align: center;
         color: #123a62;
         margin-bottom: 2rem;
+        font-weight: 600; /* Ensuring consistent heading weight */
       }
       .step-card {
-        background-color: #fefefe;
+        background-color: #fefefe; /* Slight off-white for cards */
         border: 1px solid #e9ecef;
         border-radius: 0.75rem;
         padding: 1.5rem;
@@ -245,7 +294,7 @@
       }
       .step-card i {
         font-size: 2rem;
-        color: #123a62;
+        color: #123a62; /* Dark blue icons for steps */
         margin-bottom: 0.75rem;
       }
       .step-card h5 {
@@ -258,9 +307,7 @@
         color: #6c757d;
       }
 
-      /* ---------------------------------------------------
-         "Ideal para" List
-      --------------------------------------------------- */
+      /* "Ideal para" List */
       .ideal-section {
         padding: 2rem 1rem;
       }
@@ -268,61 +315,26 @@
         text-align: center;
         color: #123a62;
         margin-bottom: 1.5rem;
+        font-weight: 600; /* Ensuring consistent heading weight */
       }
       .ideal-section ul li {
         margin-bottom: 0.75rem;
         font-size: 0.95rem;
+        font-weight: 400; /* Ensuring consistent paragraph weight */
       }
       .ideal-section ul li i {
-        color: #28a745;
+        color: #28a745; /* Green checkmark icons */
         margin-right: 0.5rem;
       }
 
-      /* ---------------------------------------------------
-         Footer Note & Modal Adjustments
-      --------------------------------------------------- */
+      /* Footer Note Banner */
       .note-banner {
         padding: 1rem;
-        background-color: #198754;
+        background-color: #198754; /* Green banner */
         color: #ffffff;
         text-align: center;
         border-radius: 0.5rem;
         margin-top: 2rem;
-      }
-      .modal .modal-content {
-        border-radius: 0.75rem;
-      }
-      .modal-header h5 {
-        font-weight: 600;
-      }
-      .modal-footer .btn {
-        border-radius: 0.375rem;
-      }
-
-      /* Container-main from index.html */
-      .container-main {
-        background: #fff;
-        padding: 2rem;
-        border-radius: .5rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        margin-top: 1rem;
-      }
-
-      /* Modal body padding from index.html */
-      .modal-body {
-        padding: 2rem;
-      }
-      
-      .modal .modal-content {
-        border-radius: 0.75rem;
-      }
-      .modal-footer .btn {
-        border-radius: 0.375rem;
-      }
-
-      /* Form control margin from index.html */
-      .form-control, .form-select {
-        margin-bottom: 1rem;
       }
     </style>
   </head>
