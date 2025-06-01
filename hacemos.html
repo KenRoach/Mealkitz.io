@@ -1,132 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mealkitz.io – Historia de tu Punto de Venta</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      /* ---------------------------------------------------
+         Base Reset & Typography
+      --------------------------------------------------- */
       body {
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #f8f9fa;
         padding-top: 1rem;
         padding-bottom: 5rem;
       }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: 600;
+      }
+      p,
+      li {
+        font-weight: 400;
+      }
+
+      /* ---------------------------------------------------
+         Navbar
+      --------------------------------------------------- */
       .navbar {
+        background-color: #ffffff;
         box-shadow: 0 2px 4px rgba(0,0,0,.08);
-        background-color: #fff;
         margin-bottom: 1rem;
       }
       .navbar-brand {
+        color: #123a62 !important;
         font-weight: 600;
-        color: #123A62 !important;
       }
+      .nav-link {
+        color: #495057 !important;
+        transition: color 0.2s;
+      }
+      .nav-link:hover {
+        color: #123a62 !important;
+      }
+
+      /* Navbar toggler from index.html */
       .navbar-toggler {
         border: none;
       }
       .navbar-toggler-icon {
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(18,58,98,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
       }
-      .btn {
-        font-weight: normal;
-        border-radius: 0.375rem;
-        transition: all 0.2s ease-in-out;
-      }
-      .btn-primary {
-        background-color: #123A62;
-        color: #fff;
-        border-color: #123A62;
-      }
-      .btn-primary:hover {
-        background-color: #0e3150;
-        border-color: #0e2d4e;
-        transform: translateY(-1px);
-      }
-      .btn-secondary {
-        background-color: #6c757d;
-        color: #fff;
-        border-color: #6c757d;
-      }
-      .btn-secondary:hover {
-        background-color: #5a6268;
-        transform: translateY(-1px);
-      }
-      .hero {
-        background-color: #123A62;
-        color: #fff;
-        padding: 2rem 1rem;
-        border-radius: .5rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      }
-      .hero h1 {
-        margin: 0;
-        font-weight: normal;
-      }
-      .hero .lead {
-        color: #f1f1f1;
-        font-size: 1rem;
-      }
-      main.container.custom-main {
-        background: #fff;
-        padding: 2rem;
-        border-radius: .75rem;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        margin: 2rem auto;
-        max-width: 900px;
-      }
-      .step-card {
-        background: #ffffff;
-        border-radius: 0.75rem;
-        border: 1px solid #e9ecef;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        padding: 1.75rem;
-        text-align: center;
-        transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-      .step-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-      }
-      .step-icon {
-        font-size: 2.75rem;
-        color: #123A62;
-        margin-bottom: 1.25rem;
-      }
-      .step-title {
-        font-weight: 600;
-        font-size: 1.1rem;
-        margin-bottom: 0.75rem;
-        color: #123A62;
-      }
-      .step-desc {
-        color: #5a6268;
-        font-size: 0.9rem;
-        line-height: 1.6;
-        flex-grow: 1;
-      }
-      @media (max-width: 767.98px) {
-        .btn-lg.full-width-sm {
-          display: block;
-          width: 100%;
-        }
-      }
-      #navbarIcons.collapsing {
-        height: 0;
-        overflow: hidden;
-        transition: height 0.5s ease-in-out;
-      }
 
-      /* Custom Navbar Link Styling (copied from index.html) */
-      @media (max-width: 767.98px) { /* Bootstrap's md breakpoint */
+      /* Navbar link responsive and hover from index.html */
+      @media (max-width: 767.98px) { 
         .navbar-collapse .navbar-nav .nav-item {
           text-align: center;
         }
@@ -151,7 +95,7 @@
       }
 
       @media (min-width: 768px) {
-        .navbar-collapse ul.navbar-nav.me-auto {
+        .navbar-collapse ul.navbar-nav.mx-auto {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
@@ -164,7 +108,7 @@
       .navbar-nav .nav-link:hover,
       .navbar-nav .nav-link:focus {
         background-color: #e9ecef;
-        color: #0056b3;
+        color: #0056b3 !important;
         border-radius: 0.375rem;
       }
       .navbar-nav .nav-link i {
@@ -172,187 +116,570 @@
         vertical-align: text-bottom;
         margin-right: 0.35em !important;
       }
+
+      /* ---------------------------------------------------
+         Hero Section
+      --------------------------------------------------- */
+      .hero {
+        background: linear-gradient(135deg, #123a62 0%, #0e3050 100%);
+        color: #ffffff;
+        padding: 4rem 1rem;
+        text-align: left;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+      .hero p {
+        font-size: 1.125rem;
+        max-width: 600px;
+        margin: 0 0 2rem 0;
+      }
+      .hero .btn-cta {
+        background-color: #198754;
+        color: #ffffff;
+        font-weight: 600;
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.2s, transform 0.2s;
+      }
+      .hero .btn-cta:hover {
+        background-color: #157347;
+        transform: translateY(-2px);
+      }
+
+      /* General Button styles from index.html */
+      .btn, .btn-link {
+        outline: none !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .btn-primary {
+        background-color: #123A62;
+        color: #fff;
+        border: 2px solid #123A62 !important;
+      }
+      .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+        border: 2px solid #6c757d !important;
+      }
+      .btn-primary:hover {
+        background-color: #0e3150;
+      }
+      .btn-secondary:hover {
+        background-color: #5a6268;
+      }
+      .btn.disabled, .btn:disabled {
+        background-color: #6c757d !important;
+        border-color: #6c757d !important;
+        color: #fff !important;
+        cursor: not-allowed !important;
+        opacity: 0.65;
+      }
+
+      /* ---------------------------------------------------
+         Features Section
+      --------------------------------------------------- */
+      .features-section {
+        padding: 3rem 1rem;
+      }
+      .features-section h2 {
+        text-align: center;
+        color: #123a62;
+        margin-bottom: 2rem;
+      }
+      .feature-card {
+        background-color: #ffffff;
+        border: none;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+      .feature-card i {
+        font-size: 2rem;
+        color: #198754;
+        margin-bottom: 0.75rem;
+      }
+      .feature-card h5 {
+        margin-bottom: 0.5rem;
+        color: #123a62;
+        font-size: 1.1rem;
+      }
+      .feature-card p {
+        color: #6c757d;
+        font-size: 0.9rem;
+      }
+
+      /* ---------------------------------------------------
+         Steps Section
+      --------------------------------------------------- */
+      .steps-section {
+        padding: 3rem 1rem;
+        background-color: #ffffff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+      .steps-section h3 {
+        text-align: center;
+        color: #123a62;
+        margin-bottom: 2rem;
+      }
+      .step-card {
+        background-color: #fefefe;
+        border: 1px solid #e9ecef;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .step-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+      }
+      .step-card i {
+        font-size: 2rem;
+        color: #123a62;
+        margin-bottom: 0.75rem;
+      }
+      .step-card h5 {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #123a62;
+      }
+      .step-card p {
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+
+      /* ---------------------------------------------------
+         "Ideal para" List
+      --------------------------------------------------- */
+      .ideal-section {
+        padding: 2rem 1rem;
+      }
+      .ideal-section h3 {
+        text-align: center;
+        color: #123a62;
+        margin-bottom: 1.5rem;
+      }
+      .ideal-section ul li {
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+      }
+      .ideal-section ul li i {
+        color: #28a745;
+        margin-right: 0.5rem;
+      }
+
+      /* ---------------------------------------------------
+         Footer Note & Modal Adjustments
+      --------------------------------------------------- */
+      .note-banner {
+        padding: 1rem;
+        background-color: #198754;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 0.5rem;
+        margin-top: 2rem;
+      }
+      .modal .modal-content {
+        border-radius: 0.75rem;
+      }
+      .modal-header h5 {
+        font-weight: 600;
+      }
+      .modal-footer .btn {
+        border-radius: 0.375rem;
+      }
+
+      /* Container-main from index.html */
+      .container-main {
+        background: #fff;
+        padding: 2rem;
+        border-radius: .5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-top: 1rem;
+      }
+
+      /* Modal body padding from index.html */
+      .modal-body {
+        padding: 2rem;
+      }
+      
+      .modal .modal-content {
+        border-radius: 0.75rem;
+      }
+      .modal-footer .btn {
+        border-radius: 0.375rem;
+      }
+
+      /* Form control margin from index.html */
+      .form-control, .form-select {
+        margin-bottom: 1rem;
+      }
     </style>
   </head>
   <body>
-    <!-- Detailed Navbar HTML -->
-    <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
-      <div class="container-fluid px-4">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
-          <img src="Images/mk_logo.jpeg" style="height: 35px; margin-right: 5px;" alt="Mealkitz Logo" />
+          <img
+            src="Images/mk_logo.jpeg"
+            alt="Mealkitz Logo"
+            style="height: 35px; margin-right: 0.5rem;"
+          />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
-    
-        <div class="collapse navbar-collapse" id="navbarIcons">
-          <!-- IZQUIERDA: enlaces a cada acción -->
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav mx-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link" href="hacemos.html"><i class="bi bi-info-circle-fill me-1"></i>¿Qué hacemos?</a>
+              <a class="nav-link" href="hacemos.html">¿Qué hacemos?</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="punto.html"><i class="bi bi-hdd-stack-fill me-1"></i>Mealkitz.io (DEMO)</a>
+              <a class="nav-link" href="punto.html">Mealkitz.io (DEMO)</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#comenzarRegistroModal"><i class="bi bi-person-plus-fill me-1"></i>Regístrate Ahora</a> <!-- Changed from Analitica & Inversion, points to existing modal -->
+              <a class="nav-link" href="iniciar.html">Iniciar Sesión</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="iniciar.html"><i class="bi bi-box-arrow-in-right me-1"></i>Iniciar Sesión</a>
-            </li>
-             <li class="nav-item">
-              <a class="nav-link" href="ayuda.html"><i class="bi bi-question-circle-fill me-1"></i>Ayuda</a>
+              <a class="nav-link" href="ayuda.html">Ayuda</a>
             </li>
           </ul>
-    
-          <!-- DERECHA: notificaciones, compartir, perfil y buscador -->
-          <div class="d-flex align-items-center ms-auto">
-            <button class="btn btn-link text-dark me-3" title="Notificaciones">
-              <i class="bi bi-bell-fill fs-4"></i>
-            </button>
-            <a href="#" id="whatsapp-share-btn" class="btn btn-link text-dark me-3" title="Compartir en WhatsApp">
-              <i class="bi bi-whatsapp fs-4"></i>
-            </a>
-            <div class="nav-item dropdown">
-              <a href="#" class="btn btn-link text-dark me-3 dropdown-toggle d-flex align-items-center" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Perfil">
-                <img id="profileImageLogo" src="" alt="Profile Logo" style="height: 28px; width: 28px; border-radius: 50%; margin-right: 8px; display: none;" />
-                <i class="bi bi-person-circle fs-4 me-2" id="defaultProfileIcon"></i>
-                <span id="profileDropdownName">Perfil</span>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" id="profileDropdownMenu">
-                <li><a class="dropdown-item" href="perfil.html" id="viewProfileLink">Crear Perfil</a></li>
-                <li><a class="dropdown-item" href="iniciar.html" id="loginOrLogoutLink">Iniciar Sesión</a></li>
-              </ul>
-            </div>
-            <!-- Search icon on the far right, matching index.html, instead of a second Ayuda link -->
-            <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar (Ayuda)">
-              <i class="bi bi-search fs-4"></i>
-            </a>
-          </div>
+          <a href="punto.html" class="btn btn-primary ms-md-3">Regístrate Ahora</a>
         </div>
       </div>
     </nav>
 
-    <main class="container custom-main">
-      <!-- Hero -->
-      <section class="hero text-left">
-        <h1>Así funciona Mealkitz.io</h1>
-        <p class="lead">Sigue 4 pasos sencillos para comenzar a vender con Mealkitz.io (DEMO).</p>
+    <!-- Hero Section -->
+    <main class="container container-main">
+      <section class="hero hero-blue-background">
+        <h1>Bienvenido a Mealkitz.io</h1>
+        <p>Usamos tecnología sencilla y confiable para que emprendedores gastronómicos,
+          artesanos y pequeños negocios facturen de forma segura, organicen operaciones
+          y comprendan sus finanzas para crecer.</p>
+        <a href="punto.html" class="btn btn-cta">Comenzar Ahora</a>
       </section>
 
-      <!-- Grid responsivo para 4 pasos -->
-      <div class="row g-4">
-        <!-- Paso 1: Regístrate -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="step-card">
-            <div class="step-icon">
-              <i class="bi bi-person-plus-fill"></i>
-            </div>
-            <h4 class="step-title">1. Regístrate</h4>
-            <p class="step-desc">Crea tu cuenta con nombre, correo y contraseña para acceder al sistema.</p>
+    <!-- Features Section -->
+    <section class="features-section">
+      <div class="container">
+        <h2>Lo que puedes hacer con Mealkitz.io</h2>
+        <div class="row g-4">
+          <div class="col-6 col-md-4 col-lg-3">
+            <a href="punto.html" class="feature-link text-decoration-none">
+              <div class="feature-card h-100">
+                <i class="bi bi-shop"></i>
+                <h5>Punto de Venta</h5>
+                <p>Administra ventas en tienda física y en línea.</p>
+              </div>
+            </a>
           </div>
-        </div>
-        <!-- Paso 2: Configura tu negocio -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="step-card">
-            <div class="step-icon">
-              <i class="bi bi-gear-fill"></i>
-            </div>
-            <h4 class="step-title">2. Configura tu negocio</h4>
-            <p class="step-desc">Ingresa nombre, dirección y productos para tener todo listo antes de cobrar.</p>
+          <div class="col-6 col-md-4 col-lg-3">
+            <a href="punto.html" class="feature-link text-decoration-none">
+              <div class="feature-card h-100">
+                <i class="bi bi-cart"></i>
+                <h5>Vender Online</h5>
+                <p>Implementa tu tienda en línea sin complicaciones.</p>
+              </div>
+            </a>
           </div>
-        </div>
-        <!-- Paso 3: Factura -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="step-card">
-            <div class="step-icon">
-              <i class="bi bi-receipt-cutoff"></i>
-            </div>
-            <h4 class="step-title">3. Factura</h4>
-            <p class="step-desc">Emite facturas electrónicas en segundos para clientes privados o entidades gubernamentales.</p>
+          <div class="col-6 col-md-4 col-lg-3">
+            <a href="punto.html" class="feature-link text-decoration-none">
+              <div class="feature-card h-100">
+                <i class="bi bi-receipt"></i>
+                <h5>Facturar</h5>
+                <p>Genera facturas electrónicas homologadas en segundos.</p>
+              </div>
+            </a>
           </div>
-        </div>
-        <!-- Paso 4: Gestiona pedidos -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <div class="step-card">
-            <div class="step-icon">
-              <i class="bi bi-basket3-fill"></i>
-            </div>
-            <h4 class="step-title">4. Gestiona pedidos</h4>
-            <p class="step-desc">Recibe y organiza pedidos en un solo lugar, mantén un control claro de cada venta.</p>
+          <div class="col-6 col-md-4 col-lg-3">
+            <a href="punto.html" class="feature-link text-decoration-none">
+              <div class="feature-card h-100">
+                <i class="bi bi-file-earmark-text"></i>
+                <h5>Generar Cotizaciones</h5>
+                <p>Crea presupuestos personalizados para tus clientes.</p>
+              </div>
+            </a>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <a href="punto.html" class="feature-link text-decoration-none">
+              <div class="feature-card h-100">
+                <i class="bi bi-bar-chart"></i>
+                <h5>Analizar Tus Datos</h5>
+                <p>Visualiza reportes de ventas e inventario en tiempo real.</p>
+              </div>
+            </a>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <a href="punto.html" class="feature-link text-decoration-none">
+              <div class="feature-card h-100">
+                <i class="bi bi-cash-stack"></i>
+                <h5>Cobrar</h5>
+                <p>Gestiona cobros y pagos de forma segura.</p>
+              </div>
+            </a>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Llamada a la acción -->
-      <section class="text-center mt-5">
-        <button type="button" class="btn btn-primary btn-lg full-width-sm mb-3" data-bs-toggle="modal" data-bs-target="#comenzarRegistroModal">Comenzar Ahora</button>
-        <p class="text-muted">¿Necesitas ayuda? Visita la sección <a href="ayuda.html">Ayuda</a>.</p>
-      </section>
-    </main>
+    <!-- Ideal Para Section -->
+    <section class="ideal-section">
+      <div class="container">
+        <h3>Ideal para</h3>
+        <div class="row gx-4 gy-3">
+          <div class="col-6 col-md-3">
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle-fill"></i>Bakery casera</li>
+              <li><i class="bi bi-check-circle-fill"></i>Food truck</li>
+              <li><i class="bi bi-check-circle-fill"></i>Restaurante pop-up</li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-3">
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle-fill"></i>Cocina oculta</li>
+              <li><i class="bi bi-check-circle-fill"></i>Catering pequeño</li>
+              <li><i class="bi bi-check-circle-fill"></i>Artesanías alimenticias</li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-3">
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle-fill"></i>Jabones y cremas</li>
+              <li><i class="bi bi-check-circle-fill"></i>Consultoría</li>
+              <li><i class="bi bi-check-circle-fill"></i>Chef privado</li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-3">
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle-fill"></i>Talleres de cocina</li>
+              <li><i class="bi bi-check-circle-fill"></i>Fonda</li>
+              <li><i class="bi bi-check-circle-fill"></i>Almuerzos corporate</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- Modal de Registro "Comenzar Ahora" -->
-    <div class="modal fade" id="comenzarRegistroModal" tabindex="-1" aria-labelledby="comenzarRegistroModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
+    <!-- Steps Section -->
+    <section class="steps-section mx-auto my-5" style="max-width: 900px;">
+      <h3>Paso a Paso</h3>
+      <div class="row g-4">
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="step-card h-100">
+            <i class="bi bi-person-plus-fill"></i>
+            <h5>1. Regístrate</h5>
+            <p>Regístrate gratis con nombre, correo y contraseña.</p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="step-card h-100">
+            <i class="bi bi-gear-fill"></i>
+            <h5>2. Configura tu negocio</h5>
+            <p>Agrega ubicación, datos fiscales y catálogo de productos.</p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="step-card h-100">
+            <i class="bi bi-receipt-cutoff"></i>
+            <h5>3. Factura</h5>
+            <p>Emite facturas electrónicas con validación automática.</p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="step-card h-100">
+            <i class="bi bi-basket3-fill"></i>
+            <h5>4. Gestiona pedidos</h5>
+            <p>Centraliza pedidos, controla inventario y reportes en tiempo real.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action & Note -->
+    <div class="text-center mb-5">
+      <a href="punto.html" class="btn btn-cta mb-3">Comenzar Ahora</a>
+      <div class="note-banner">
+        Mealkitz opera con una tarifa transparente del <strong>10% por transacción</strong>. Sin costos fijos ni sorpresas.
+      </div>
+    </div>
+
+    <!-- Modals (unchanged, but simplified) -->
+    <!-- Registro Modal -->
+    <div
+      class="modal fade"
+      id="comenzarRegistroModal"
+      tabindex="-1"
+      aria-labelledby="comenzarRegistroModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="comenzarRegistroModalLabel">Regístrate para Comenzar con Mealkitz</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <h5 class="modal-title" id="comenzarRegistroModalLabel">
+              Regístrate con Mealkitz
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
           </div>
           <div class="modal-body">
             <form id="comenzarRegistroForm">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="registroNombreCompleto" class="form-label">Nombre Completo del Contacto<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="registroNombreCompleto" required>
+              <div class="row g-3">
+                <div class="col-12">
+                  <label for="registroNombreCompleto" class="form-label"
+                    >Nombre Completo<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="registroNombreCompleto"
+                    required
+                  />
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="registroNombreNegocio" class="form-label">Nombre del Negocio<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="registroNombreNegocio" required>
+                <div class="col-12">
+                  <label for="registroNombreNegocio" class="form-label"
+                    >Nombre de Negocio<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="registroNombreNegocio"
+                    required
+                  />
                 </div>
-              </div>
-              <div class="mb-3">
-                <label for="registroTipoNegocio" class="form-label">Tipo de Negocio<span class="text-danger">*</span></label>
-                <select class="form-select" id="registroTipoNegocio" required>
-                  <option value="" disabled selected>Selecciona uno...</option>
-                  <option value="Emprendedor Gastronómico">Emprendedor Gastronómico (Chef, Repostería, etc.)</option>
-                  <option value="Artesano">Artesano (Productos manuales, arte)</option>
-                  <option value="Pequeño Negocio">Pequeño Negocio (Tienda, servicios, otros)</option>
-                  <option value="Restaurante/Cafetería">Restaurante / Cafetería</option>
-                  <option value="Food Truck">Food Truck</option>
-                  <option value="Otro">Otro</option>
-                </select>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="registroEmail" class="form-label">Correo Electrónico del Contacto<span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" id="registroEmail" required>
+                <div class="col-12">
+                  <label for="registroTipoNegocio" class="form-label"
+                    >Tipo de Negocio<span class="text-danger">*</span></label
+                  >
+                  <select
+                    class="form-select"
+                    id="registroTipoNegocio"
+                    required
+                  >
+                    <option value="" disabled selected>Selecciona uno...</option>
+                    <option value="Emprendedor Gastronómico">
+                      Emprendedor Gastronómico
+                    </option>
+                    <option value="Artesano">Artesano</option>
+                    <option value="Pequeño Negocio">Pequeño Negocio</option>
+                    <option value="Restaurante/Cafetería">
+                      Restaurante / Cafetería
+                    </option>
+                    <option value="Food Truck">Food Truck</option>
+                    <option value="Otro">Otro</option>
+                  </select>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="registroTelefono" class="form-label">Teléfono de Contacto (WhatsApp)<span class="text-danger">*</span></label>
-                  <input type="tel" class="form-control" id="registroTelefono" placeholder="+507 6xxxxxxx" required>
+                <div class="col-12">
+                  <label for="registroEmail" class="form-label"
+                    >Correo Electrónico<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="registroEmail"
+                    required
+                  />
                 </div>
-              </div>
-              <div class="mb-3">
-                <label for="registroMensaje" class="form-label">Mensaje Adicional (Opcional)</label>
-                <textarea class="form-control" id="registroMensaje" rows="3" placeholder="Cuéntanos un poco sobre tus necesidades o cómo Mealkitz podría ayudarte."></textarea>
+                <div class="col-12">
+                  <label for="registroTelefono" class="form-label"
+                    >Teléfono (WhatsApp)<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="registroTelefono"
+                    placeholder="+507 6xxxxxxx"
+                    required
+                  />
+                </div>
+                <div class="col-12">
+                  <label for="registroMensaje" class="form-label"
+                    >Mensaje (Opcional)</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="registroMensaje"
+                    rows="2"
+                    placeholder="Cuéntanos tus necesidades..."
+                  ></textarea>
+                </div>
               </div>
               <div id="registroFormFeedback" class="mt-3"></div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" form="comenzarRegistroForm" class="btn btn-success">Enviar Correo</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="submit" form="comenzarRegistroForm" class="btn btn-primary">
+              Enviar Solicitud
+            </button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Alerta flotante -->
-    <div id="signupAlert" class="alert alert-warning alert-dismissible text-center" role="alert">
-      <strong>¡Sé de los primeros 100 usuarios!</strong>
-      <a href="iniciar.html" class="btn btn-sm btn-primary fw-bold ms-3 text-center">Regístrate Hoy</a>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    <!-- Login Required Modal -->
+    <div
+      class="modal fade"
+      id="loginRequiredModal"
+      tabindex="-1"
+      aria-labelledby="loginRequiredModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginRequiredModalLabel">
+              <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+              Inicio de Sesión Requerido
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Para acceder a esta función, por favor, inicia sesión o crea una
+              cuenta.
+            </p>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <a href="iniciar.html" class="btn btn-primary">Iniciar Sesión</a>
+            <a href="iniciar.html?action=register" class="btn btn-secondary">
+              Crear Cuenta
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bootstrap JS Bundle -->
@@ -360,77 +687,108 @@
     <script src="js/auth-navbar.js" defer></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // Comprobar si el usuario está logueado (no redirigimos en esta página)
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        
-        // Mostrar alerta después de 2 segundos
-        const signupAlert = document.getElementById('signupAlert');
-        if (signupAlert) {
-          setTimeout(() => signupAlert.classList.add('visible'), 2000);
+        const loginRequiredModalEl = document.getElementById('loginRequiredModal');
+        const loginRequiredModalInstance = loginRequiredModalEl ? new bootstrap.Modal(loginRequiredModalEl) : null;
+        let postLoginRedirectData = null;
+
+        try {
+            const postLoginRedirectRAW = sessionStorage.getItem('postLoginRedirect');
+            if (postLoginRedirectRAW) {
+                postLoginRedirectData = JSON.parse(postLoginRedirectRAW);
+            }
+        } catch (e) {
+            console.error("Error parsing postLoginRedirect from sessionStorage (hacemos.html):", e);
+            sessionStorage.removeItem('postLoginRedirect'); // Clear corrupted data
         }
 
-        // Manejo del formulario de registro "Comenzar Ahora"
+        const currentUser = localStorage.getItem('currentUser_mealkitz');
+
+        const commonLoginCheck = (event, destination) => {
+            if (!currentUser) {
+                if (event) event.preventDefault();
+                if (loginRequiredModalInstance) {
+                    sessionStorage.setItem('postLoginRedirect', JSON.stringify(destination));
+                    loginRequiredModalInstance.show();
+                } else {
+                    console.error('Login Required Modal not found/initialized on hacemos.html.');
+                    window.location.href = 'iniciar.html'; 
+                }
+                return false;
+            }
+            return true;
+        };
+
+        if (postLoginRedirectData && postLoginRedirectData.page === 'hacemos.html' && postLoginRedirectData.hash && currentUser) {
+            const targetModalId = postLoginRedirectData.hash.substring(1);
+            const modalElement = document.getElementById(targetModalId);
+            if (modalElement && bootstrap.Modal) {
+                const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                if (modalInstance) modalInstance.show();
+            }
+            sessionStorage.removeItem('postLoginRedirect');
+        }
+
+        const navbarRegistrateBtn = document.querySelector('.navbar .btn-primary[href="punto.html"]');
+        if (navbarRegistrateBtn) {
+            navbarRegistrateBtn.addEventListener('click', function(event) {
+                if (!commonLoginCheck(event, { page: 'punto.html' })) return;
+            });
+        }
+
+        const navbarDemoLink = document.querySelector('.navbar-nav a[href="punto.html"]:not(.btn-primary)');
+        if (navbarDemoLink) {
+            navbarDemoLink.addEventListener('click', function(event) {
+                if (!commonLoginCheck(event, { page: 'punto.html', hash: '#manualChargeModal' })) return;
+            });
+        }
+        
+        const heroComenzarBtn = document.querySelector('.hero .btn-cta[href="punto.html"]');
+        if (heroComenzarBtn) {
+            heroComenzarBtn.addEventListener('click', function(event) {
+                if (!commonLoginCheck(event, { page: 'punto.html' })) return;
+            });
+        }
+
+        document.querySelectorAll('.feature-link[href="punto.html"]').forEach(link => {
+            link.addEventListener('click', function(event) {
+                if (!commonLoginCheck(event, { page: 'punto.html' })) return; 
+            });
+        });
+        
+        const callToActionBtn = document.querySelector('.text-center.mb-5 .btn-cta[href="punto.html"]');
+        if(callToActionBtn){
+            callToActionBtn.addEventListener('click', function(event){
+                if (!commonLoginCheck(event, { page: 'punto.html' })) return;
+            });
+        }
+
+        const viewProfileLink = document.getElementById('viewProfileLink'); 
+        if (viewProfileLink && viewProfileLink.getAttribute('href') === 'perfil.html') {
+            viewProfileLink.addEventListener('click', function(event) {
+                 if (!commonLoginCheck(event, { page: 'perfil.html' })) return;
+            });
+        }
+
         const registroForm = document.getElementById('comenzarRegistroForm');
-        const registroModalEl = document.getElementById('comenzarRegistroModal');
-        const registroFormFeedback = document.getElementById('registroFormFeedback');
+        const registroFormFeedbackEl = document.getElementById('registroFormFeedback');
+        const comenzarRegistroModalEl = document.getElementById('comenzarRegistroModal');
 
-        if (registroForm && registroModalEl) {
-          const modal = new bootstrap.Modal(registroModalEl);
-
-          registroForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            if (!registroForm.checkValidity()) {
-              registroForm.classList.add('was-validated');
-              registroFormFeedback.innerHTML = '<div class="alert alert-danger">Por favor, completa todos los campos requeridos.</div>';
-              return;
-            }
-            registroForm.classList.remove('was-validated');
-            registroFormFeedback.innerHTML = '';
-
-            const nombreCompleto = document.getElementById('registroNombreCompleto').value;
-            const nombreNegocio = document.getElementById('registroNombreNegocio').value;
-            const tipoNegocio = document.getElementById('registroTipoNegocio').value;
-            const email = document.getElementById('registroEmail').value;
-            const telefono = document.getElementById('registroTelefono').value;
-            const mensaje = document.getElementById('registroMensaje').value;
-
-            const mailtoRecep = 'hello@mealkitz.io';
-            const mailtoSubject = encodeURIComponent('Nueva Solicitud de Registro - Mealkitz: ' + nombreNegocio);
-            let mailtoBody = `Nueva solicitud de registro recibida a través de la página "Qué Hacemos":\n
-----------------------------------------------------------\n
-Nombre del Contacto: ${nombreCompleto}\n
-Nombre del Negocio: ${nombreNegocio}\n
-Tipo de Negocio: ${tipoNegocio}\n
-Correo Electrónico: ${email}\n
-Teléfono (WhatsApp): ${telefono}\n
-----------------------------------------------------------\n`;
-            if (mensaje) {
-              mailtoBody += `Mensaje Adicional:\n${mensaje}\n----------------------------------------------------------\n`;
-            }
-            mailtoBody += `\nPor favor, contactar para dar seguimiento.\n`;
-            
-            const mailtoLink = `mailto:${mailtoRecep}?subject=${mailtoSubject}&body=${encodeURIComponent(mailtoBody)}`;
-
-            // Informar al usuario y luego intentar abrir el cliente de correo
-            registroFormFeedback.innerHTML = '<div class="alert alert-info">Preparando tu correo... Se abrirá tu aplicación de correo para que puedas enviar la solicitud.</div>';
-            
-            setTimeout(() => {
-              window.location.href = mailtoLink;
-              // No podemos saber con certeza si el cliente de correo se abrió o si el correo se envió.
-              // Así que damos un mensaje genérico.
-              registroFormFeedback.innerHTML = '<div class="alert alert-success">Se intentó abrir tu cliente de correo. Por favor, revisa y envía el mensaje para completar tu registro. Puedes cerrar esta ventana.</div>';
-              
-              // Opcional: cerrar modal y resetear formulario después de un delay
-              // setTimeout(() => {
-              //   modal.hide();
-              //   registroForm.reset();
-              //   registroForm.classList.remove('was-validated');
-              //   registroFormFeedback.innerHTML = '';
-              // }, 5000); // Cierra después de 5 segundos
-            }, 1000); // Pequeño delay para que el usuario lea el primer feedback
-          });
+        if (registroForm && comenzarRegistroModalEl) {
+            registroForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(registroForm);
+                const data = Object.fromEntries(formData.entries());
+                console.log("Solicitud de Registro (Mealkitz - hacemos.html):", data);
+                
+                if (registroFormFeedbackEl) {
+                    registroFormFeedbackEl.innerHTML = '<div class="alert alert-success" role="alert">¡Solicitud enviada! Gracias por registrarte. Nos pondremos en contacto contigo pronto.</div>';
+                }
+                registroForm.reset();
+                const modalInstance = bootstrap.Modal.getInstance(comenzarRegistroModalEl);
+                if (modalInstance) {
+                    modalInstance.hide();
+                }
+            });
         }
       });
     </script>
