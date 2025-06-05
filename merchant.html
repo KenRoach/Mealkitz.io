@@ -1535,6 +1535,13 @@
             >
               Cerrar
             </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="createDocumentBtn"
+            >
+              Crear Documento
+            </button>
           </div>
         </div>
       </div>
@@ -3232,47 +3239,47 @@
         // Rolling Sushi Menu Data
         const ROLLING_SUSHI_MENU = [
           // Rolls
-          { id: "R001", name: "Roll California", category: "Rolls", price: 10.00, image: "images/sushi/california.jpg" },
-          { id: "R002", name: "Roll Filadelfia (Philly Roll)", category: "Rolls", price: 11.00, image: "images/sushi/philadelphia.jpg" },
-          { id: "R003", name: "Roll Atún Picante (Spicy Tuna Roll)", category: "Rolls", price: 12.00, image: "images/sushi/spicy_tuna.jpg" },
-          { id: "R004", name: "Roll Dragón (Dragon Roll)", category: "Rolls", price: 14.00, image: "images/sushi/dragon.jpg" },
-          { id: "R005", name: "Roll Tempura de Camarón", category: "Rolls", price: 13.00, image: "images/sushi/shrimp_tempura.jpg" },
-          { id: "R006", name: "Roll Vegetariano (Aguacate, Pepino y Zanahoria)", category: "Rolls", price: 9.00, image: "images/sushi/vegetarian.jpg" },
+          { id: "R001", name: "Roll California", category: "Rolls", price: 10.00, image: "Images/california.png" },
+          { id: "R002", name: "Roll Filadelfia (Philly Roll)", category: "Rolls", price: 11.00, image: "Images/philadelfia.png" },
+          { id: "R003", name: "Roll Atún Picante (Spicy Tuna Roll)", category: "Rolls", price: 12.00, image: "Images/nagirituna.png" },
+          { id: "R004", name: "Roll Dragón (Dragon Roll)", category: "Rolls", price: 14.00, image: "Images/dragon.png" },
+          { id: "R005", name: "Roll Tempura de Camarón", category: "Rolls", price: 13.00, image: "Images/dinamita.png" },
+          { id: "R006", name: "Roll Vegetariano (Aguacate, Pepino y Zanahoria)", category: "Rolls", price: 9.00, image: "Images/california.png" },
           // Nigiris
-          { id: "N001", name: "Nigiri de Salmón (Sake)", category: "Nigiris", price: 5.00, image: "images/sushi/nigiri_salmon.jpg" },
-          { id: "N002", name: "Nigiri de Atún (Maguro)", category: "Nigiris", price: 5.50, image: "images/sushi/nigiri_tuna.jpg" },
-          { id: "N003", name: "Nigiri de Camarón (Ebi)", category: "Nigiris", price: 4.50, image: "images/sushi/nigiri_ebi.jpg" },
-          { id: "N004", name: "Nigiri de Pulpo (Tako)", category: "Nigiris", price: 6.00, image: "images/sushi/nigiri_tako.jpg" },
+          { id: "N001", name: "Nigiri de Salmón (Sake)", category: "Nigiris", price: 5.00, image: "Images/nagirisalmon.png" },
+          { id: "N002", name: "Nigiri de Atún (Maguro)", category: "Nigiris", price: 5.50, image: "Images/nagirituna.png" },
+          { id: "N003", name: "Nigiri de Camarón (Ebi)", category: "Nigiris", price: 4.50, image: "Images/nagirisalmon.png" },
+          { id: "N004", name: "Nigiri de Pulpo (Tako)", category: "Nigiris", price: 6.00, image: "Images/nagirituna.png" },
           // Sashimis
-          { id: "S001", name: "Sashimi de Salmón", category: "Sashimis", price: 15.00, image: "images/sushi/sashimi_salmon.jpg" },
-          { id: "S002", name: "Sashimi de Atún", category: "Sashimis", price: 16.00, image: "images/sushi/sashimi_tuna.jpg" },
-          { id: "S003", name: "Sashimi Variado (mezcla de 3 pescados)", category: "Sashimis", price: 20.00, image: "images/sushi/sashimi_mixed.jpg" },
+          { id: "S001", name: "Sashimi de Salmón", category: "Sashimis", price: 15.00, image: "Images/sashimi.png" },
+          { id: "S002", name: "Sashimi de Atún", category: "Sashimis", price: 16.00, image: "Images/sashimi.png" },
+          { id: "S003", name: "Sashimi Variado (mezcla de 3 pescados)", category: "Sashimis", price: 20.00, image: "Images/sashimi.png" },
           // Makis Especiales
-          { id: "ME001", name: "Maki Especial Rolling (Salmón, queso crema y aguacate)", category: "Makis Especiales", price: 15.00, image: "images/sushi/maki_special_rolling.jpg" },
-          { id: "ME002", name: "Maki Tempurizado (Roll relleno de camarón tempura)", category: "Makis Especiales", price: 16.00, image: "images/sushi/maki_tempura.jpg" },
-          { id: "ME003", name: "Maki Crunch (Roll cubierto de tempura flakes)", category: "Makis Especiales", price: 15.50, image: "images/sushi/maki_crunch.jpg" },
+          { id: "ME001", name: "Maki Especial Rolling (Salmón, queso crema y aguacate)", category: "Makis Especiales", price: 15.00, image: "Images/rolling_sushi_logo.png" },
+          { id: "ME002", name: "Maki Tempurizado (Roll relleno de camarón tempura)", category: "Makis Especiales", price: 16.00, image: "Images/dinamita.png" },
+          { id: "ME003", name: "Maki Crunch (Roll cubierto de tempura flakes)", category: "Makis Especiales", price: 15.50, image: "Images/dragon.png" },
           // Apertivos / Entradas
-          { id: "A001", name: "Edamame", category: "Apertivos / Entradas", price: 6.00, image: "images/appetizers/edamame.jpg" },
-          { id: "A002", name: "Gyozas de Cerdo (5 unidades)", category: "Apertivos / Entradas", price: 8.00, image: "images/appetizers/gyoza_pork.jpg" },
-          { id: "A003", name: "Gyozas Vegetarianas (5 unidades)", category: "Apertivos / Entradas", price: 7.50, image: "images/appetizers/gyoza_veg.jpg" },
-          { id: "A004", name: "Sopa de Miso", category: "Apertivos / Entradas", price: 4.00, image: "images/appetizers/miso_soup.jpg" },
-          { id: "A005", name: "Wakame (Ensalada de alga)", category: "Apertivos / Entradas", price: 7.00, image: "images/appetizers/wakame.jpg" },
+          { id: "A001", name: "Edamame", category: "Apertivos / Entradas", price: 6.00, image: "Images/edemame.png" },
+          { id: "A002", name: "Gyozas de Cerdo (5 unidades)", category: "Apertivos / Entradas", price: 8.00, image: "Images/gyozas.png" },
+          { id: "A003", name: "Gyozas Vegetarianas (5 unidades)", category: "Apertivos / Entradas", price: 7.50, image: "Images/gyozas.png" },
+          { id: "A004", name: "Sopa de Miso", category: "Apertivos / Entradas", price: 4.00, image: "Images/edemame.png" },
+          { id: "A005", name: "Wakame (Ensalada de alga)", category: "Apertivos / Entradas", price: 7.00, image: "Images/edemame.png" },
           // Platos Fáciles / Combos
-          { id: "C001", name: "Bento Box Rolling (Incluye miso, arroz, ensalada y diferentes piezas)", category: "Platos Fáciles / Combos", price: 22.00, image: "images/combos/bento_rolling.jpg" },
-          { id: "C002", name: "Combo Sushi Mix (6 nigiris + 1 roll a elegir)", category: "Platos Fáciles / Combos", price: 25.00, image: "images/combos/sushi_mix.jpg" },
-          { id: "C003", name: "Combo Sashimi Mix (12 piezas variadas)", category: "Platos Fáciles / Combos", price: 28.00, image: "images/combos/sashimi_mix.jpg" },
+          { id: "C001", name: "Bento Box Rolling (Incluye miso, arroz, ensalada y diferentes piezas)", category: "Platos Fáciles / Combos", price: 22.00, image: "Images/rolling_sushi_logo.png" },
+          { id: "C002", name: "Combo Sushi Mix (6 nigiris + 1 roll a elegir)", category: "Platos Fáciles / Combos", price: 25.00, image: "Images/nagirisalmon.png" },
+          { id: "C003", name: "Combo Sashimi Mix (12 piezas variadas)", category: "Platos Fáciles / Combos", price: 28.00, image: "Images/sashimi.png" },
           // Bebidas
-          { id: "B001", name: "Té Verde Caliente", category: "Bebidas", price: 3.00, image: "images/drinks/tea_hot.jpg" },
-          { id: "B002", name: "Té Verde Frío", category: "Bebidas", price: 3.50, image: "images/drinks/tea_cold.jpg" },
-          { id: "B003", name: "Sake (Copa pequeña)", category: "Bebidas", price: 7.00, image: "images/drinks/sake_cup.jpg" },
-          { id: "B004", name: "Sake (Botella 300 ml)", category: "Bebidas", price: 18.00, image: "images/drinks/sake_bottle.jpg" },
-          { id: "B005", name: "Cerveza Japonesa (Asahi o Kirin)", category: "Bebidas", price: 6.00, image: "images/drinks/beer_jp.jpg" },
-          { id: "B006", name: "Refrescos (Coca-Cola, Sprite)", category: "Bebidas", price: 3.00, image: "images/drinks/soda.jpg" },
-          { id: "B007", name: "Agua Embotellada", category: "Bebidas", price: 2.50, image: "images/drinks/water.jpg" },
+          { id: "B001", name: "Té Verde Caliente", category: "Bebidas", price: 3.00, image: "Images/limonada.png" },
+          { id: "B002", name: "Té Verde Frío", category: "Bebidas", price: 3.50, image: "Images/limonada.png" },
+          { id: "B003", name: "Sake (Copa pequeña)", category: "Bebidas", price: 7.00, image: "Images/limonada.png" },
+          { id: "B004", name: "Sake (Botella 300 ml)", category: "Bebidas", price: 18.00, image: "Images/limonada.png" },
+          { id: "B005", name: "Cerveza Japonesa (Asahi o Kirin)", category: "Bebidas", price: 6.00, image: "Images/limonada.png" },
+          { id: "B006", name: "Refrescos (Coca-Cola, Sprite)", category: "Bebidas", price: 3.00, image: "Images/limonada.png" },
+          { id: "B007", name: "Agua Embotellada", category: "Bebidas", price: 2.50, image: "Images/limonada.png" },
           // Postres
-          { id: "P001", name: "Helado Mochi (Varios sabores)", category: "Postres", price: 5.00, image: "images/desserts/mochi.jpg" },
-          { id: "P002", name: "Cheesecake Japonés", category: "Postres", price: 7.00, image: "images/desserts/cheesecake.jpg" },
-          { id: "P003", name: "Tempura de Helado (Helado rebozado y frito)", category: "Postres", price: 8.00, image: "images/desserts/tempura_icecream.jpg" }
+          { id: "P001", name: "Helado Mochi (Varios sabores)", category: "Postres", price: 5.00, image: "Images/mochis.png" },
+          { id: "P002", name: "Cheesecake Japonés", category: "Postres", price: 7.00, image: "Images/heladote.png" },
+          { id: "P003", name: "Tempura de Helado (Helado rebozado y frito)", category: "Postres", price: 8.00, image: "Images/heladote.png" }
         ];
 
         // Define menu data for all businesses
@@ -3284,16 +3291,16 @@
           "garage-grill": {
             name: "Garage Grill",
             products: [
-              { id: "GG001", name: "Costillas BBQ", category: "Carnes", price: 24.99, image: "images/garage/bbq_ribs.jpg" },
-              { id: "GG002", name: "Brisket Ahumado", category: "Carnes", price: 22.99, image: "images/garage/brisket.jpg" },
-              { id: "GG003", name: "Pollo a la Parrilla", category: "Carnes", price: 18.99, image: "images/garage/grilled_chicken.jpg" },
-              { id: "GG004", name: "Pulled Pork", category: "Carnes", price: 16.99, image: "images/garage/pulled_pork.jpg" },
-              { id: "GG005", name: "Mac & Cheese", category: "Guarniciones", price: 6.99, image: "images/garage/mac_cheese.jpg" },
-              { id: "GG006", name: "Frijoles BBQ", category: "Guarniciones", price: 5.99, image: "images/garage/bbq_beans.jpg" },
-              { id: "GG007", name: "Cerveza Fría", category: "Bebidas", price: 4.99, image: "images/garage/cold_beer.jpg" },
-              { id: "GG008", name: "Pie de Manzana", category: "Postres", price: 7.99, image: "images/garage/apple_pie.jpg" },
-              { id: "GG009", name: "Alitas Picantes", category: "Carnes", price: 12.99, image: "images/garage/hot_wings.jpg" },
-              { id: "GG010", name: "Nachos Supreme", category: "Aperitivos", price: 9.99, image: "images/garage/nachos.jpg" }
+              { id: "GG001", name: "Costillas BBQ", category: "Carnes", price: 24.99, image: "Images/costillas.png" },
+              { id: "GG002", name: "Brisket Ahumado", category: "Carnes", price: 22.99, image: "Images/lomo.png" },
+              { id: "GG003", name: "Pollo a la Parrilla", category: "Carnes", price: 18.99, image: "Images/pollo.png" },
+              { id: "GG004", name: "Pulled Pork", category: "Carnes", price: 16.99, image: "Images/cerdo.png" },
+              { id: "GG005", name: "Mac & Cheese", category: "Guarniciones", price: 6.99, image: "Images/quesadilla.png" },
+              { id: "GG006", name: "Frijoles BBQ", category: "Guarniciones", price: 5.99, image: "Images/frijoles.png" },
+              { id: "GG007", name: "Cerveza Fría", category: "Bebidas", price: 4.99, image: "Images/limonada.png" },
+              { id: "GG008", name: "Pie de Manzana", category: "Postres", price: 7.99, image: "Images/heladote.png" },
+              { id: "GG009", name: "Alitas Picantes", category: "Carnes", price: 12.99, image: "Images/alas.png" },
+              { id: "GG010", name: "Nachos Supreme", category: "Aperitivos", price: 9.99, image: "Images/nachos.png" }
             ]
           }
         };
@@ -3315,10 +3322,11 @@
             business: {
               name: business.name,
               currencySymbol: "$",
-              address: "123 Main Street",
-              phone: "+1 234 567 8900",
-              email: `info@${businessKey.replace('-', '')}.com`,
-              storeHours: "Lunes a Domingo: 11:00 AM - 10:00 PM"
+              address: "Delivery & Takeout - Ubicación: Panamá Norte",
+              phone: "+507 6123-4567",
+              email: "rollingsushi01@mealkitz.io",
+              storeHours: "Delivery & Takeout",
+              whatsapp: "+507 6123-4567"
             },
             ecommerce: {
               appearance: {
@@ -3403,7 +3411,7 @@
   <footer class="text-center py-3 mt-auto bg-light">
     <div class="container d-flex justify-content-center align-items-center">
       
-      <span class="text-muted small">Powered by</span> <img src="images/mk_logo.jpeg" alt="Mealkitz Logo" style="height: 24px; width: auto; margin-right: 8px;">
+      <span class="text-muted small">Powered by</span> <img src="Images/mk_logo.jpeg" alt="Mealkitz Logo" style="height: 24px; width: auto; margin-right: 8px;">
     </div>
   </footer>
 
