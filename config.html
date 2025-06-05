@@ -88,7 +88,7 @@
     }
     .message.user {
       background-color: #0d6efd;
-      color: #fff;
+        color: #fff;
       align-self: flex-end;
       border-bottom-right-radius: 0;
     }
@@ -365,7 +365,7 @@
         <input type="text" id="chatInput" placeholder="Escribe tu respuesta..." autocomplete="off" />
         <button type="submit">Enviar</button>
         </form>
-        </div>
+              </div>
 
     <!-- Summary Panel -->
     <div class="summary-panel">
@@ -375,8 +375,8 @@
       <ul id="summaryList" class="summary-list">
         <li><em>Aún no hay datos ingresados.</em></li>
             </ul>
-    </div>
-    </div>
+          </div>
+            </div>
 
     <script>
     // =====================
@@ -628,7 +628,7 @@
         case 'businessLogo':
           if (value) {
             data.business.logoUrl = value; 
-          } else {
+            } else {
             addBotMessage("No se proporcionó URL ni se cargó archivo para el logo. Puedes agregarlo más tarde.");
           }
           break;
@@ -708,7 +708,7 @@
                 nextIdx = steps.findIndex(s => s.key === 'createAccountEmail');
             } else if (lcValue.includes('2') || lcValue.includes('iniciar') || lcValue.includes('login')) {
                 nextIdx = steps.findIndex(s => s.key === 'loginEmail');
-            } else {
+                } else {
                 addBotMessage("Opción no válida. Por favor, elige 1 o 2.");
                 nextIdx = steps.findIndex(s => s.key === 'welcome'); // Stay on welcome
             }
@@ -859,7 +859,7 @@
           logoPreview.style.display = 'none';
           businessContent += `<li><strong>Logo URL:</strong> ${data.business.logoUrl}</li>`;
         }
-      } else {
+            } else {
         logoPreview.style.display = 'none';
       }
       if (data.business.currency) businessContent += `<li><strong>Moneda:</strong> ${data.business.currency}</li>`;
@@ -968,7 +968,7 @@
             }
             addBotMessage(`Ok, vamos a ${event.target.textContent.replace(/[()]/g, '').toLowerCase()}...`);
             addBotMessage(steps[stepIndex].message, steps[stepIndex].key);
-          } else {
+            } else {
             console.error("Target step key not found:", targetStepKey);
           }
         }
@@ -1037,49 +1037,16 @@
         }
     </script>
     <script src="js/navbar-loader.js" defer></script>
+    <script src="js/auth-navbar.js"></script>
+    <script src="js/login-required-modal.js"></script>
 
-  <!-- Edit Product Modal -->
-  <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="editProductForm">
-            <input type="hidden" id="editProductIndex">
-            <div class="mb-3">
-              <label for="editProductName" class="form-label">Nombre del Producto</label>
-              <input type="text" class="form-control" id="editProductName" required>
-            </div>
-            <div class="mb-3">
-              <label for="editProductImageUrl" class="form-label">URL de la Imagen</label>
-              <input type="url" class="form-control" id="editProductImageUrl" placeholder="https://ejemplo.com/imagen.jpg">
-              <div class="form-text">O déjalo en blanco si no deseas cambiarla/establecerla.</div>
-            </div>
-            <div class="mb-3">
-              <label for="editProductPrice" class="form-label">Precio</label>
-              <input type="number" class="form-control" id="editProductPrice" step="0.01" required>
-            </div>
-            <div class="mb-3">
-              <label for="editProductMargin" class="form-label">Margen de Ganancia (%)</label>
-              <input type="number" class="form-control" id="editProductMargin" step="0.01">
-            </div>
-            <div class="mb-3">
-              <label for="editProductSku" class="form-label">SKU</label>
-              <input type="text" class="form-control" id="editProductSku">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" id="saveEditProductBtn">Guardar Cambios</button>
-        </div>
-      </div>
-    </div>
+<footer class="text-center py-3 mt-auto bg-light">
+  <div class="container d-flex justify-content-center align-items-center">
+    
+    <span class="text-muted small">Powered by</span> <img src="images/mk_logo.jpeg" alt="Mealkitz Logo" style="height: 24px; width: auto; margin-right: 8px;">
   </div>
-  <!-- End Edit Product Modal -->
+</footer>
+
   </body>
 </html>
 

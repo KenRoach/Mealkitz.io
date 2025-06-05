@@ -344,6 +344,7 @@
       <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
           <img
+            href="index.html"
             src="Images/mk_logo.jpeg"
             alt="Mealkitz Logo"
             style="height: 35px; margin-right: 0.5rem;"
@@ -373,7 +374,7 @@
               <a class="nav-link" href="ayuda.html">Ayuda</a>
             </li>
           </ul>
-          <a href="punto.html" class="btn btn-primary ms-md-3">Regístrate Ahora</a>
+          <a href="#" class="btn btn-primary ms-md-3" data-bs-toggle="modal" data-bs-target="#contactRequestModalHacemos">Comenzar Ahora</a>
         </div>
       </div>
     </nav>
@@ -385,7 +386,7 @@
         <p>Usamos tecnología sencilla y confiable para que emprendedores gastronómicos,
           artesanos y pequeños negocios facturen de forma segura, organicen operaciones
           y comprendan sus finanzas para crecer.</p>
-        <a href="punto.html" class="btn btn-cta">Comenzar Ahora</a>
+        <a href="#" class="btn btn-cta" data-bs-toggle="modal" data-bs-target="#contactRequestModalHacemos">Comenzar Ahora</a>
       </section>
 
     <!-- Features Section -->
@@ -393,39 +394,83 @@
       <div class="container">
         <h2>Lo que puedes hacer con Mealkitz.io</h2>
         <div class="row g-4">
+          <!-- Card 1: Punto de Venta -->
           <div class="col-12 col-sm-6 col-md-3">
-            <a href="punto.html" class="feature-link text-decoration-none">
+            <a href="merchant.html" class="feature-link text-decoration-none" data-feature="pos">
               <div class="feature-card h-100">
-                <i class="bi bi-shop"></i>
+                <i class="bi bi-calculator-fill"></i>
                 <h5>Punto de Venta</h5>
-                <p>Administra ventas en tienda física y en línea.</p>
+                <p>Administra ventas en tienda o eventos con interfaz intuitiva. Registra transacciones, pagos y descuentos. Todo integrado para tu control.</p>
               </div>
             </a>
           </div>
+          <!-- Card 2: Mi Tienda en Línea -->
           <div class="col-12 col-sm-6 col-md-3">
-            <a href="punto.html" class="feature-link text-decoration-none">
+            <a href="merchant.html" class="feature-link text-decoration-none" data-feature="ecommerce">
               <div class="feature-card h-100">
-                <i class="bi bi-cart"></i>
-                <h5>Vender Online</h5>
-                <p>Implementa tu tienda en línea sin complicaciones.</p>
+                <i class="bi bi-shop-window"></i>
+                <h5>Mi Tienda en Línea</h5>
+                <p>Define apariencia, gestiona catálogo online y configura cómo clientes te encuentran y compran en internet. Lanza tu vitrina digital.</p>
               </div>
             </a>
           </div>
+          <!-- Card 3: Documentos Financieros -->
           <div class="col-12 col-sm-6 col-md-3">
-            <a href="punto.html" class="feature-link text-decoration-none">
+            <a href="merchant.html" class="feature-link text-decoration-none" data-feature="docs">
               <div class="feature-card h-100">
-                <i class="bi bi-receipt"></i>
-                <h5>Facturar</h5>
-                <p>Genera facturas electrónicas homologadas en segundos.</p>
+                <i class="bi bi-files"></i>
+                <h5>Documentos Financieros</h5>
+                <p>Profesionaliza tu negocio. Crea y envía cotizaciones, emite órdenes de compra y genera facturas electrónicas cumpliendo requisitos fiscales.</p>
               </div>
             </a>
           </div>
+          <!-- Card 4: Pedidos -->
           <div class="col-12 col-sm-6 col-md-3">
-            <a href="punto.html" class="feature-link text-decoration-none">
+            <a href="merchant.html" class="feature-link text-decoration-none" data-feature="orders">
               <div class="feature-card h-100">
-                <i class="bi bi-bar-chart"></i>
-                <h5>Analizar Tus Datos</h5>
-                <p>Visualiza reportes de ventas e inventario en tiempo real.</p>
+                <i class="bi bi-box-seam"></i>
+                <h5>Gestión de Pedidos</h5>
+                <p>Controla todas tus ventas. Accede a un resumen consolidado de pedidos de tu punto de venta y tienda en línea.</p>
+            </div>
+            </a>
+          </div>
+          <!-- Card 5: CRM -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <a href="merchant.html" class="feature-link text-decoration-none" data-feature="crm">
+              <div class="feature-card h-100">
+                <i class="bi bi-people-fill"></i>
+                <h5>CRM (Clientes)</h5>
+                <p>Construye relaciones duraderas. Registra y organiza datos de clientes, su historial de compras para un servicio personalizado y leal.</p>
+              </div>
+            </a>
+          </div>
+          <!-- Card 6: Inversión -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <a href="merchant.html" class="feature-link text-decoration-none" data-feature="investment">
+              <div class="feature-card h-100">
+                <i class="bi bi-currency-dollar"></i>
+                <h5>Herramientas de Inversión</h5>
+                <p>Planifica el futuro financiero. Analiza costos, proyecta ingresos y evalúa oportunidades de inversión que impulsen el crecimiento de tu negocio.</p>
+              </div>
+            </a>
+          </div>
+          <!-- Card 7: Analítica de Negocio -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <a href="merchant.html" class="feature-link text-decoration-none" data-feature="analytics">
+              <div class="feature-card h-100">
+                <i class="bi bi-graph-up-arrow"></i>
+                <h5>Analítica de Negocio</h5>
+                <p>Toma decisiones basadas en datos. Visualiza reportes claros sobre ventas, productos y tendencias para optimizar estrategias y rendimiento.</p>
+              </div>
+            </a>
+          </div>
+          <!-- Card 8: Configuración -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <a href="merchant.html" class="feature-link text-decoration-none" data-feature="config">
+              <div class="feature-card h-100">
+                <i class="bi bi-sliders"></i>
+                <h5>Configuración</h5>
+                <p>Adapta Mealkitz.io a tu medida. Personaliza información, productos, pagos y otros ajustes de la plataforma como lo necesites.</p>
               </div>
             </a>
           </div>
@@ -468,7 +513,7 @@
           </div>
         </div>
       </div>
-    </section>
+      </section>
 
     <!-- Steps Section -->
     <section class="steps-section mx-auto my-5" style="max-width: 900px;">
@@ -505,15 +550,57 @@
       </div>
     </section>
 
-    <!-- Call to Action & Note -->
-    <div class="text-center mb-5">
-      <a href="punto.html" class="btn btn-cta mb-3">Comenzar Ahora</a>
-      <div class="note-banner">
-        Mealkitz opera con una tarifa transparente del <strong>10% por transacción</strong>. Sin costos fijos ni sorpresas.
+    <!-- NEW Bottom Call to Action Button -->
+    <section class="final-cta-section text-center py-5">
+      <div class="container">
+        <a href="#" class="btn btn-cta btn-lg" data-bs-toggle="modal" data-bs-target="#contactRequestModalHacemos">Comenzar Ahora</a>
+      </div>
+    </section>
+    <!-- END NEW Bottom Call to Action Button -->
+
+    <!-- MODALS SECTION -->
+    <!-- Contact Request Modal (New) -->
+    <div class="modal fade" id="contactRequestModalHacemos" tabindex="-1" aria-labelledby="contactRequestModalLabelHacemos" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="contactRequestModalLabelHacemos">Contáctanos para Más Información</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="contactRequestFormHacemosModal">
+              <div class="mb-3">
+                <label for="contactNameHacemosModal" class="form-label">Nombre Completo<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="contactNameHacemosModal" required>
+              </div>
+              <div class="mb-3">
+                <label for="contactEmailHacemosModal" class="form-label">Correo Electrónico<span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="contactEmailHacemosModal" required>
+              </div>
+              <div class="mb-3">
+                <label for="contactWhatsappHacemosModal" class="form-label">Número de WhatsApp (Opcional)</label>
+                <input type="tel" class="form-control" id="contactWhatsappHacemosModal" placeholder="+123 4567890">
+              </div>
+              <div class="mb-3">
+                <label for="contactMessageHacemosModal" class="form-label">Mensaje (Opcional)</label>
+                <textarea class="form-control" id="contactMessageHacemosModal" rows="4" placeholder="Escribe tu consulta aquí..."></textarea>
+              </div>
+              <div id="contactFormFeedbackHacemosModal" class="mt-3 mb-3"></div>
+              <!-- Early Adopter Incentive Text -->
+              <p class="text-center text-muted small mb-3">
+                <strong>¡Sé uno de los primeros 100 en transformar tu negocio con Mealkitz.io!</strong><br>
+                Déjanos tus datos y te contactaremos con acceso prioritario.
+              </p>
+              <!-- End Early Adopter Incentive Text -->
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Enviar Consulta</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Modals (unchanged, but simplified) -->
     <!-- Registro Modal -->
     <div
       class="modal fade"
@@ -722,11 +809,20 @@
             sessionStorage.removeItem('postLoginRedirect');
         }
 
-        const navbarRegistrateBtn = document.querySelector('.navbar .btn-primary[href="punto.html"]');
+        const navbarRegistrateBtn = document.querySelector('.navbar .btn-primary.ms-md-3');
         if (navbarRegistrateBtn) {
-            navbarRegistrateBtn.addEventListener('click', function(event) {
-                if (!commonLoginCheck(event, { page: 'punto.html' })) return;
-            });
+            if (navbarRegistrateBtn.getAttribute('data-bs-target') === '#contactRequestModalHacemos') {
+                // If it's already set up for the modal, we might not need to attach commonLoginCheck, 
+                // or ensure any old one for 'punto.html' is removed.
+                // For now, we assume this button, once changed to open a modal, does not need commonLoginCheck.
+                // If a previous event listener for commonLoginCheck was attached to this specific element and needs removal,
+                // it would require storing a reference to that specific listener function, which is not currently done.
+                // By changing its href and adding modal attributes, its old navigation purpose is overridden.
+            } else if (navbarRegistrateBtn.getAttribute('href') === 'punto.html') {
+                 // This block would have been for the old button linking to punto.html.
+                 // We are effectively removing this behavior by changing the button's attributes above.
+                 // So, no specific commonLoginCheck for 'punto.html' needed for this button anymore.
+            }
         }
 
         const navbarDemoLink = document.querySelector('.navbar-nav a[href="punto.html"]:not(.btn-primary)');
@@ -736,55 +832,80 @@
             });
         }
         
-        const heroComenzarBtn = document.querySelector('.hero .btn-cta[href="punto.html"]');
+        const heroComenzarBtn = document.querySelector('.hero .btn-cta[data-bs-target="#contactRequestModalHacemos"]');
         if (heroComenzarBtn) {
-            heroComenzarBtn.addEventListener('click', function(event) {
-                if (!commonLoginCheck(event, { page: 'punto.html' })) return;
-            });
+            // Remove previous commonLoginCheck if it was targeting direct navigation
+            // This part is tricky without knowing exactly how it was attached. For now, we assume
+            // the new behavior (modal toggle) doesn't need commonLoginCheck.
+            // If login IS required before opening this contact modal, the logic would need to be different.
         }
 
-        document.querySelectorAll('.feature-link[href="punto.html"]').forEach(link => {
-            link.addEventListener('click', function(event) {
-                if (!commonLoginCheck(event, { page: 'punto.html' })) return; 
-            });
+        const featureLinkTargets = {
+            "pos": { page: 'merchant.html', hash: '#basicPosModal' },
+            "ecommerce": { page: 'merchant.html', hash: '#eCommerceAdminModal' },
+            "docs": { page: 'merchant.html', hash: '#documentCreationModal' },
+            "orders": { page: 'merchant.html', hash: '#pedidosSummaryModal' },
+            "crm": { page: 'merchant.html' }, 
+            "investment": { page: 'merchant.html' }, 
+            "analytics": { page: 'merchant.html' }, 
+            "config": { page: 'merchant.html' }  
+        };
+
+        document.querySelectorAll('.feature-link[href="merchant.html"][data-feature]').forEach(link => {
+            const featureKey = link.dataset.feature;
+            if (featureLinkTargets[featureKey]) {
+                link.addEventListener('click', function(event) {
+                    if (!commonLoginCheck(event, featureLinkTargets[featureKey])) return;
+                    // If commonLoginCheck is true, default navigation to merchant.html occurs.
+                    // The hash for opening a modal will be handled by merchant.html's own logic 
+                    // when it processes postLoginRedirectData.
+                });
+            }
         });
         
-        const callToActionBtn = document.querySelector('.text-center.mb-5 .btn-cta[href="punto.html"]');
-        if(callToActionBtn){
-            callToActionBtn.addEventListener('click', function(event){
-                if (!commonLoginCheck(event, { page: 'punto.html' })) return;
-            });
-        }
+        const contactRequestFormElHacemosModal = document.getElementById('contactRequestFormHacemosModal');
+        const contactFormFeedbackElHacemosModal = document.getElementById('contactFormFeedbackHacemosModal');
+        // const contactRequestModalInstance = document.getElementById('contactRequestModalHacemos') ? new bootstrap.Modal(document.getElementById('contactRequestModalHacemos')) : null;
 
-        const viewProfileLink = document.getElementById('viewProfileLink'); 
-        if (viewProfileLink && viewProfileLink.getAttribute('href') === 'perfil.html') {
-            viewProfileLink.addEventListener('click', function(event) {
-                 if (!commonLoginCheck(event, { page: 'perfil.html' })) return;
-            });
-        }
-
-        const registroForm = document.getElementById('comenzarRegistroForm');
-        const registroFormFeedbackEl = document.getElementById('registroFormFeedback');
-        const comenzarRegistroModalEl = document.getElementById('comenzarRegistroModal');
-
-        if (registroForm && comenzarRegistroModalEl) {
-            registroForm.addEventListener('submit', function(event) {
+        if (contactRequestFormElHacemosModal && contactFormFeedbackElHacemosModal) {
+            contactRequestFormElHacemosModal.addEventListener('submit', function(event) {
                 event.preventDefault();
-                const formData = new FormData(registroForm);
-                const data = Object.fromEntries(formData.entries());
-                console.log("Solicitud de Registro (Mealkitz - hacemos.html):", data);
+                const contactName = document.getElementById('contactNameHacemosModal').value;
+                const contactEmail = document.getElementById('contactEmailHacemosModal').value;
+                const contactWhatsapp = document.getElementById('contactWhatsappHacemosModal').value;
+                const contactMessage = document.getElementById('contactMessageHacemosModal').value;
+
+                const formData = {
+                    name: contactName,
+                    email: contactEmail,
+                    whatsapp: contactWhatsapp,
+                    message: contactMessage,
+                    source: 'hacemos.html contact MODAL',
+                    timestamp: new Date().toISOString()
+                };
+
+                console.log("Nueva Consulta de Contacto (hacemos.html MODAL):", formData);
                 
-                if (registroFormFeedbackEl) {
-                    registroFormFeedbackEl.innerHTML = '<div class="alert alert-success" role="alert">¡Solicitud enviada! Gracias por registrarte. Nos pondremos en contacto contigo pronto.</div>';
-                }
-                registroForm.reset();
-                const modalInstance = bootstrap.Modal.getInstance(comenzarRegistroModalEl);
-                if (modalInstance) {
-                    modalInstance.hide();
-                }
+                contactFormFeedbackElHacemosModal.innerHTML = '<div class="alert alert-success" role="alert">¡Gracias por tu consulta! Nos pondremos en contacto contigo pronto.</div>';
+                contactRequestFormElHacemosModal.reset();
+
+                setTimeout(() => {
+                    if (contactFormFeedbackElHacemosModal) contactFormFeedbackElHacemosModal.innerHTML = '';
+                    // Optionally close the modal after success:
+                    // const modalToClose = bootstrap.Modal.getInstance(document.getElementById('contactRequestModalHacemos'));
+                    // if (modalToClose) modalToClose.hide();
+                }, 6000); // Clear feedback after 6 seconds
             });
         }
       });
     </script>
+
+    <footer class="text-center py-3 mt-auto bg-light">
+      <div class="container d-flex justify-content-center align-items-center">
+        
+        <span class="text-muted small">Powered by</span> <img src="images/mk_logo.jpeg" alt="Mealkitz Logo" style="height: 24px; width: auto; margin-right: 8px;">
+      </div>
+    </footer>
+
   </body>
 </html>

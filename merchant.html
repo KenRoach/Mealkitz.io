@@ -1,0 +1,3411 @@
+<!--
+  Archivo: merchant.html
+  Este es el "Merchant's View" para Mealkitz, mostrando las 8 funciones principales,
+  con CRM básica para gestión de clientes y pedidos, y modales informativos para funciones premium.
+-->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mealkitz - Vista Comerciante</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f8f9fa;
+        padding-top: 1rem;
+      }
+      .navbar {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        background-color: #fff;
+        margin-bottom: 1rem;
+      }
+      .navbar-brand {
+        font-weight: 600;
+        color: #123a62 !important;
+      }
+      .navbar-toggler {
+        border: none;
+      }
+      .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(18,58,98,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      }
+      .btn {
+        font-weight: normal;
+        border-radius: 0.375rem;
+        transition: all 0.2s ease-in-out;
+      }
+      .btn-primary {
+        background-color: #123a62;
+        color: #fff;
+        border-color: #123a62;
+      }
+      .btn-primary:hover {
+        background-color: #0e3150;
+        border-color: #0e2d4e;
+        transform: translateY(-1px);
+      }
+      .hero-blue-background {
+        background-color: #123a62;
+        color: #fff;
+        padding: 2rem 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .hero-blue-background h1 {
+        margin: 0;
+        font-weight: normal;
+      }
+      .hero-blue-background .lead {
+        color: #f1f1f1;
+        font-size: 1rem;
+      }
+      main.container.custom-main {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        margin: 2rem auto;
+        max-width: 1000px;
+      }
+      @media (max-width: 767.98px) {
+        .btn-lg.full-width-sm {
+          display: block;
+          width: 100%;
+        }
+      }
+      .action-card-grid {
+        margin-top: 1.5rem;
+      }
+      .action-card {
+        background-color: #ffffff;
+        border-radius: 0.75rem;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        padding: 1.5rem;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        color: inherit;
+      }
+      .action-card-icon {
+        font-size: 2.5rem;
+        color: #123a62;
+        margin-bottom: 0.75rem;
+      }
+      .action-card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #343a40;
+      }
+      @media (max-width: 767.98px) {
+        .navbar-collapse .navbar-nav .nav-item {
+          text-align: center;
+        }
+        .navbar-collapse .navbar-nav .nav-link {
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
+        }
+        .navbar-collapse .navbar-nav {
+          margin-top: 0.5rem;
+        }
+        .navbar-collapse .navbar-nav.me-auto {
+          margin-right: 0 !important;
+          margin-left: 0 !important;
+          width: 100%;
+        }
+        .navbar-collapse .d-flex.ms-auto {
+          width: 100%;
+          justify-content: center;
+          margin-top: 0.5rem;
+          padding-bottom: 0.5rem;
+        }
+      }
+      @media (min-width: 768px) {
+        .navbar-collapse ul.navbar-nav.me-auto {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+      .navbar-nav .nav-link {
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      }
+      .navbar-nav .nav-link:hover,
+      .navbar-nav .nav-link:focus {
+        background-color: #e9ecef;
+        color: #0056b3;
+        border-radius: 0.375rem;
+      }
+      .navbar-nav .nav-link i {
+        font-size: 1.1em;
+        vertical-align: text-bottom;
+        margin-right: 0.35em !important;
+      }
+
+      /* Basic POS Modal Styles */
+      #posProductListContainer {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+      }
+      .pos-product-item {
+        cursor: pointer;
+        padding: 0.75rem;
+        border-bottom: 1px solid #eee;
+      }
+      .pos-product-item:hover {
+        background-color: #f8f9fa;
+      }
+      .pos-product-item:last-child {
+        border-bottom: none;
+      }
+      #posCartItemsContainer {
+        min-height: 150px;
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 0.375rem;
+      }
+      .pos-cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .pos-cart-item:last-child {
+        border-bottom: none;
+      }
+      .pos-cart-item-details span {
+        display: block;
+      }
+      .pos-cart-item-name {
+        font-weight: 600;
+      }
+      .pos-cart-item-qty-price {
+        font-size: 0.9em;
+        color: #6c757d;
+      }
+      #posTotalAmount {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #123a62;
+        text-align: right;
+        margin-top: 1rem;
+      }
+      /* End POS Modal Styles */
+
+      /* CRM Modal Styles */
+      .crm-list {
+        max-height: 250px;
+        overflow-y: auto;
+      }
+      .crm-list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .crm-list-item:last-child {
+        border-bottom: none;
+      }
+      .crm-orders-table th,
+      .crm-orders-table td {
+        vertical-align: middle;
+      }
+      /* End CRM Styles */
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <img
+            href="index.html"
+            src="Images/mk_logo.jpeg"
+            style="height: 35px; margin-right: 5px;"
+            alt="Mealkitz Logo"
+          />
+          <span></span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarIcons"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarIcons">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="merchant.html">
+                <i class="bi bi-house-fill me-1"></i>Inicio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="#"
+                class="nav-link"
+                data-bs-toggle="modal"
+                data-bs-target="#basicPosModal"
+              >
+                <i class="bi bi-calculator-fill me-1"></i>Punto de Venta
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#documentCreationModal"
+              >
+                <i class="bi bi-files me-1"></i>Documentos Financieros
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#pedidosSummaryModal"
+              >
+                <i class="bi bi-box-seam me-1"></i>Pedidos
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#crmModal"
+              >
+                <i class="bi bi-people-fill me-1"></i>CRM
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#inversionPremiumModal"
+              >
+                <i class="bi bi-currency-dollar me-1"></i>Inversión
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#analyticsPremiumModal"
+              >
+                <i class="bi bi-graph-up-arrow"></i>Analítica de Negocio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="config.html">
+                <i class="bi bi-sliders me-1"></i>Configuración
+              </a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center ms-auto">
+            <button class="btn btn-link text-dark me-3" title="Notificaciones">
+              <i class="bi bi-bell-fill fs-4"></i>
+            </button>
+            <a
+              href="#"
+              id="whatsapp-share-btn"
+              class="btn btn-link text-dark me-3"
+              title="Compartir en WhatsApp"
+            >
+              <i class="bi bi-whatsapp fs-4"></i>
+            </a>
+            <div class="nav-item dropdown">
+              <a
+                href="#"
+                class="btn btn-link text-dark me-3 dropdown-toggle d-flex align-items-center"
+                id="profileDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                title="Perfil"
+              >
+                <i class="bi bi-person-circle fs-4 me-2" id="defaultProfileIcon"></i>
+                <span id="profileDropdownName">Perfil</span>
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="profileDropdown"
+                id="profileDropdownMenu"
+              >
+                <li><a class="dropdown-item" href="perfil.html" id="viewProfileLink">Ver Perfil</a></li>
+                <li><a class="dropdown-item" href="iniciar.html" id="loginOrLogoutLink">Iniciar Sesión</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container custom-main">
+      <section class="hero-blue-background text-left">
+        <h1>Bienvenido, Comerciante</h1>
+        <p class="lead">
+          Descubre las 8 principales funciones que Mealkitz.io te ofrece.
+        </p>
+        <a href="rollingsushi01.html" class="btn btn-success btn-lg mt-3">Comenzar Ahora</a>
+      </section>
+
+      <!-- Action Cards -->
+      <section class="action-card-grid">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+          <!-- Cobrar (Ahora Punto de Venta) -->
+          <div class="col">
+            <a
+              href="#"
+              class="action-card"
+              data-bs-toggle="modal"
+              data-bs-target="#basicPosModal"
+            >
+              <div class="action-card-icon"><i class="bi bi-calculator-fill"></i></div>
+              <div class="action-card-title">Punto de Venta</div>
+            </a>
+          </div>
+          <!-- Tienda en Línea -->
+          <div class="col">
+            <a href="rollingsushi01.html" class="action-card">
+              <div class="action-card-icon"><i class="bi bi-shop-window"></i></div>
+              <div class="action-card-title">Mi Tienda en Línea</div>
+            </a>
+          </div>
+          <!-- Cotizaciones (Ahora Documentos Financieros) -->
+          <div class="col">
+            <a
+              href="#"
+              class="action-card"
+              data-bs-toggle="modal"
+              data-bs-target="#documentCreationModal"
+            >
+              <div class="action-card-icon"><i class="bi bi-files"></i></div>
+              <div class="action-card-title">Documentos Financieros</div>
+            </a>
+          </div>
+          <!-- Órdenes (Ahora Pedidos Summary Modal) -->
+          <div class="col">
+            <a
+              href="#"
+              class="action-card"
+              data-bs-toggle="modal"
+              data-bs-target="#pedidosSummaryModal"
+            >
+              <div class="action-card-icon"><i class="bi bi-box-seam"></i></div>
+              <div class="action-card-title">Pedidos</div>
+            </a>
+          </div>
+          <!-- CRM -->
+          <div class="col">
+            <a href="#" class="action-card" data-bs-toggle="modal" data-bs-target="#crmModal">
+              <div class="action-card-icon"><i class="bi bi-people-fill"></i></div>
+              <div class="action-card-title">CRM</div>
+            </a>
+          </div>
+          <!-- Inversión (Premium) -->
+          <div class="col">
+            <a href="#" class="action-card" data-bs-toggle="modal" data-bs-target="#inversionPremiumModal">
+              <div class="action-card-icon"><i class="bi bi-currency-dollar"></i></div>
+              <div class="action-card-title">Inversión</div>
+            </a>
+          </div>
+          <!-- Analítica con IA (Premium) -->
+          <div class="col">
+            <a href="#" class="action-card" data-bs-toggle="modal" data-bs-target="#analyticsPremiumModal">
+              <div class="action-card-icon"><i class="bi bi-graph-up-arrow"></i></div>
+              <div class="action-card-title">Analítica de Negocio</div>
+            </a>
+          </div>
+          <!-- Configuración -->
+          <div class="col">
+            <a href="config.html" class="action-card">
+              <div class="action-card-icon"><i class="bi bi-sliders"></i></div>
+              <div class="action-card-title">Configuración</div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Basic POS Modal -->
+    <div
+      class="modal fade"
+      id="basicPosModal"
+      tabindex="-1"
+      aria-labelledby="basicPosModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="basicPosModalLabel">Punto de Venta</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="posModalMessageArea" class="mb-3"></div> <!-- Message area -->
+            
+            <!-- Business Selector -->
+            <div class="mb-3">
+              <label for="businessSelector" class="form-label fw-bold">
+                <i class="bi bi-building me-2"></i>Seleccionar Negocio
+              </label>
+              <select id="businessSelector" class="form-select">
+                <option value="rolling-sushi" selected>Rolling Sushi</option>
+                <option value="garage-grill">Garage Grill</option>
+              </select>
+            </div>
+            <hr class="mb-4">
+
+            <div class="row">
+              <!-- Left Column: Product Selection -->
+              <div class="col-md-5">
+                <h6>Productos Disponibles</h6>
+                <input
+                  type="text"
+                  id="posProductFilter"
+                  class="form-control mb-2"
+                  placeholder="Buscar producto..."
+                />
+                <div id="posProductListContainer" class="row row-cols-1 row-cols-sm-2 g-2" style="max-height: 400px; overflow-y: auto; border: 1px solid #dee2e6; padding: 0.5rem; border-radius: 0.375rem;">
+                  <div class="text-muted p-2">Cargando productos...</div>
+                </div>
+              </div>
+
+              <!-- Right Column: Cart/Order Summary -->
+              <div class="col-md-7">
+                <h6>Resumen del Pedido</h6>
+                <div id="posCartItemsContainer">
+                  <p class="text-muted text-center mt-3">El carrito está vacío.</p>
+                </div>
+                <div id="posTotalAmount" class="mt-3">
+                  Total: $0.00
+                </div>
+                <div class="mt-3">
+                  <label for="posPaymentMethod" class="form-label"
+                    >Método de Pago</label
+                  >
+                  <select id="posPaymentMethod" class="form-select">
+                    <option value="efectivo" selected>Efectivo</option>
+                    <option value="tarjeta">Tarjeta</option>
+                    <option value="transferencia">Transferencia</option>
+                    <option value="yappy">Yappy</option>
+                  </select>
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="posClientWhatsapp" class="form-label"
+                    >WhatsApp Cliente (Opcional)</label
+                  >
+                  <input
+                    type="tel"
+                    id="posClientWhatsapp"
+                    class="form-control"
+                    placeholder="Ej: +507 6xxxxxxx"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-warning" id="posClearCartBtn">
+              Limpiar Pedido
+            </button>
+            <div>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="posProcessPaymentBtn"
+              >
+                Procesar Cobro
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Basic POS Modal -->
+
+    <!-- Document Creation Modal -->
+    <div
+      class="modal fade"
+      id="documentCreationModal"
+      tabindex="-1"
+      aria-labelledby="documentCreationModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title"
+              id="documentCreationModalLabel"
+            >
+              Generar Documentos Financieros
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <ul
+              class="nav nav-tabs"
+              id="docCreationTab"
+              role="tablist"
+            >
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="cotizaciones-doc-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#cotizaciones-doc-tab-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="cotizaciones-doc-tab-pane"
+                  aria-selected="true"
+                >
+                  Cotizaciones (Corp/Gob)
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="ordenes-compra-doc-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#ordenes-compra-doc-tab-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="ordenes-compra-doc-tab-pane"
+                  aria-selected="false"
+                >
+                  Órdenes de Compra (PDF)
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="factura-doc-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#factura-doc-tab-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="factura-doc-tab-pane"
+                  aria-selected="false"
+                >
+                  Facturar
+                </button>
+              </li>
+            </ul>
+            <div
+              class="tab-content"
+              id="docCreationTabContent"
+              style="padding-top: 1.5rem;"
+            >
+              <div
+                class="tab-pane fade show active"
+                id="cotizaciones-doc-tab-pane"
+                role="tabpanel"
+                aria-labelledby="cotizaciones-doc-tab"
+                tabindex="0"
+              >
+                <h5>Crear Cotización (Corporativa/Gubernamental)</h5>
+                <form id="cotizacionForm">
+                  <div class="row g-3">
+                    <!-- Información del Cliente -->
+                    <div class="col-md-6">
+                      <h6><i class="bi bi-person-vcard me-2"></i>Información del Cliente</h6>
+                      <div class="mb-3">
+                        <label
+                          for="cotClienteNombre"
+                          class="form-label"
+                          >Nombre Empresa/Entidad</label
+                        />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cotClienteNombre"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="cotClienteRUC" class="form-label"
+                          >RUC / ID Entidad</label
+                        />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cotClienteRUC"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="cotClienteAtencion"
+                          class="form-label"
+                          >Atención a (Contacto)</label
+                        />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cotClienteAtencion"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="cotClienteEmail"
+                          class="form-label"
+                          >Email Contacto</label
+                        />
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="cotClienteEmail"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="cotClienteTelefono"
+                          class="form-label"
+                          >Teléfono Contacto</label
+                        />
+                        <input
+                          type="tel"
+                          class="form-control"
+                          id="cotClienteTelefono"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Detalles de la Cotización -->
+                    <div class="col-md-6">
+                      <h6><i class="bi bi-file-earmark-text me-2"></i>Detalles de la Cotización</h6>
+                      <div class="mb-3">
+                        <label for="cotFecha" class="form-label"
+                          >Fecha de Cotización</label
+                        />
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="cotFecha"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="cotValidez" class="form-label"
+                          >Validez (días)</label
+                        />
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="cotValidez"
+                          value="30"
+                          min="1"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="cotNumero" class="form-label"
+                          >Número de Cotización (Opcional)</label
+                        />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cotNumero"
+                          placeholder="Ej: COT-2024-001"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Partidas (Líneas de Ítems) -->
+                    <div class="col-12">
+                      <h6><i class="bi bi-list-ul me-2"></i>Partidas / Líneas de Ítems</h6>
+                      <div id="cotPartidasContainer">
+                        <!-- Partida Ejemplo 1 (se hará dinámico con JS) -->
+                        <div
+                          class="row g-2 mb-2 cot-partida-item align-items-end"
+                        >
+                          <div class="col-md-5">
+                            <label class="form-label-sm">Descripción</label>
+                            <input
+                              type="text"
+                              class="form-control form-control-sm cot-partida-descripcion"
+                              placeholder="Descripción del producto/servicio"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label class="form-label-sm">Cantidad</label>
+                            <input
+                              type="number"
+                              class="form-control form-control-sm cot-partida-cantidad"
+                              value="1"
+                              min="0.01"
+                              step="any"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label class="form-label-sm">Precio Unit.</label>
+                            <input
+                              type="number"
+                              class="form-control form-control-sm cot-partida-precio"
+                              value="0.00"
+                              min="0"
+                              step="any"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label class="form-label-sm">Importe</label>
+                            <input
+                              type="text"
+                              class="form-control form-control-sm cot-partida-importe"
+                              readonly
+                              disabled
+                              value="$0.00"
+                            />
+                          </div>
+                          <div class="col-md-1">
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-danger cot-remover-partida-btn w-100"
+                              title="Remover partida"
+                            >
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-success mt-2"
+                        id="cotAgregarPartidaBtn"
+                      >
+                        <i class="bi bi-plus-circle-fill me-1"></i>Agregar Partida
+                      </button>
+                    </div>
+
+                    <!-- Resumen de Totales -->
+                    <div class="col-md-6 offset-md-6 mt-4">
+                      <h6><i class="bi bi-calculator me-2"></i>Resumen de Totales</h6>
+                      <div class="row mb-1">
+                        <label class="col-sm-6 col-form-label text-end">Subtotal:</label>
+                        <div class="col-sm-6">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bold"
+                            id="cotSubtotal"
+                            value="$0.00"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-1 align-items-center">
+                        <label
+                          for="cotImpuestoPorcentaje"
+                          class="col-sm-6 col-form-label text-end"
+                          >Impuesto (%):</label
+                        />
+                        <div class="col-sm-3">
+                          <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            id="cotImpuestoPorcentaje"
+                            value="0"
+                            min="0"
+                            step="any"
+                          />
+                        </div>
+                        <div class="col-sm-3">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bold"
+                            id="cotMontoImpuesto"
+                            value="$0.00"
+                          />
+                        </div>
+                      </div>
+                      <hr />
+                      <div class="row mb-2 fs-5">
+                        <label class="col-sm-6 col-form-label text-end fw-bold"
+                          >Total General:</label
+                        />
+                        <div class="col-sm-6">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bolder"
+                            id="cotTotalGeneral"
+                            value="$0.00"
+                            style="font-size: 1.2em;"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Términos y Notas -->
+                    <div class="col-12 mt-3">
+                      <h6><i class="bi bi-pencil-square me-2"></i>Términos y Notas</h6>
+                      <div class="mb-3">
+                        <label for="cotTerminos" class="form-label"
+                          >Términos y Condiciones</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="cotTerminos"
+                          rows="3"
+                          placeholder="Ej: Pago al contado, entrega en X días..."
+                        ></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="cotNotas" class="form-label"
+                          >Notas Adicionales</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="cotNotas"
+                          rows="2"
+                          placeholder="Cualquier observación adicional..."
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-4 pt-3 border-top">
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      id="btnGenerarCotizacionSimulacion"
+                    >
+                      <i class="bi bi-check-circle-fill me-1"></i>Generar Cotización (Simulación)
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="ordenes-compra-doc-tab-pane"
+                role="tabpanel"
+                aria-labelledby="ordenes-compra-doc-tab"
+                tabindex="0"
+              >
+                <h5>Crear Orden de Compra (PDF)</h5>
+                <form id="ordenCompraForm">
+                  <div class="row g-3">
+                    <!-- Información del Proveedor -->
+                    <div class="col-md-6">
+                      <h6><i class="bi bi-truck me-2"></i>Información del Proveedor</h6>
+                      <div class="mb-3">
+                        <label for="ocProveedorNombre" class="form-label">Nombre Proveedor</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="ocProveedorNombre"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="ocProveedorRUC" class="form-label">RUC / ID Proveedor</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="ocProveedorRUC"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="ocProveedorAtencion" class="form-label">Atención a (Contacto Proveedor)</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="ocProveedorAtencion"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="ocProveedorEmail" class="form-label">Email Proveedor</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="ocProveedorEmail"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="ocProveedorTelefono" class="form-label">Teléfono Proveedor</label>
+                        <input
+                          type="tel"
+                          class="form-control"
+                          id="ocProveedorTelefono"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Detalles de la Orden de Compra -->
+                    <div class="col-md-6">
+                      <h6><i class="bi bi-journal-text me-2"></i>Detalles de la Orden de Compra</h6>
+                      <div class="mb-3">
+                        <label for="ocFechaOrden" class="form-label">Fecha de Orden</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="ocFechaOrden"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="ocFechaEntrega" class="form-label">Fecha de Entrega Requerida</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="ocFechaEntrega"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="ocNumero" class="form-label">Número de OC</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="ocNumero"
+                          placeholder="Ej: OC-2024-001"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="ocDireccionEnvio" class="form-label">Dirección de Envío</label>
+                        <textarea
+                          class="form-control"
+                          id="ocDireccionEnvio"
+                          rows="2"
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Partidas (Líneas de Ítems) para OC -->
+                    <div class="col-12">
+                      <h6><i class="bi bi-list-check me-2"></i>Partidas / Líneas de Ítems</h6>
+                      <div id="ocPartidasContainer">
+                        <!-- Partida Ejemplo 1 para OC -->
+                        <div class="row g-2 mb-2 oc-partida-item align-items-end">
+                          <div class="col-md-5">
+                            <label class="form-label-sm">Descripción Ítem</label>
+                            <input
+                              type="text" class="form-control form-control-sm oc-partida-descripcion"
+                              placeholder="Descripción del producto/material"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label class="form-label-sm">Cantidad</label>
+                            <input
+                              type="number" class="form-control form-control-sm oc-partida-cantidad"
+                              value="1" min="0.01" step="any"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label class="form-label-sm">Costo Unit.</label>
+                            <input
+                              type="number" class="form-control form-control-sm oc-partida-costo"
+                              value="0.00" min="0" step="any"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label class="form-label-sm">Importe</label>
+                            <input
+                              type="text" class="form-control form-control-sm oc-partida-importe"
+                              readonly disabled value="$0.00"
+                            />
+                          </div>
+                          <div class="col-md-1">
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-danger oc-remover-partida-btn w-100"
+                              title="Remover partida"
+                            >
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-success mt-2"
+                        id="ocAgregarPartidaBtn"
+                      >
+                        <i class="bi bi-plus-circle-fill me-1"></i>Agregar Partida
+                      </button>
+                    </div>
+
+                    <!-- Resumen de Totales para OC -->
+                    <div class="col-md-6 offset-md-6 mt-4">
+                      <h6><i class="bi bi-currency-dollar me-2"></i>Resumen de Totales OC</h6>
+                      <div class="row mb-1">
+                        <label class="col-sm-6 col-form-label text-end">Subtotal:</label>
+                        <div class="col-sm-6">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bold"
+                            id="ocSubtotal"
+                            value="$0.00"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-1 align-items-center">
+                        <label
+                          for="ocImpuestoPorcentaje"
+                          class="col-sm-6 col-form-label text-end"
+                          >Impuesto (%):</label
+                        />
+                        <div class="col-sm-3">
+                          <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            id="ocImpuestoPorcentaje"
+                            value="0"
+                            min="0"
+                            step="any"
+                          />
+                        </div>
+                        <div class="col-sm-3">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bold"
+                            id="ocMontoImpuesto"
+                            value="$0.00"
+                          />
+                        </div>
+                      </div>
+                      <hr />
+                      <div class="row mb-2 fs-5">
+                        <label class="col-sm-6 col-form-label text-end fw-bold"
+                          >Total General OC:</label
+                        />
+                        <div class="col-sm-6">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bolder"
+                            id="ocTotalGeneral"
+                            value="$0.00"
+                            style="font-size: 1.2em;"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Notas y Términos de Pago -->
+                    <div class="col-12 mt-3">
+                      <h6><i class="bi bi-info-circle me-2"></i>Notas y Términos</h6>
+                      <div class="mb-3">
+                        <label for="ocNotasProveedor" class="form-label"
+                          >Notas para el Proveedor</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="ocNotasProveedor"
+                          rows="2"
+                        ></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="ocTerminosPago" class="form-label"
+                          >Términos de Pago</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="ocTerminosPago"
+                          rows="2"
+                          placeholder="Ej: Neto 30 días, Pago contra entrega..."
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-check mt-3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="ocConfirmacionElectronica"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="ocConfirmacionElectronica"
+                    >
+                      Enviar confirmación electrónica al proveedor (Próximamente)
+                    </label>
+                  </div>
+                  <div class="mt-4 pt-3 border-top">
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      id="btnGenerarOcSimulacion"
+                    >
+                      <i class="bi bi-file-earmark-pdf-fill me-1"></i>Generar PDF Orden de Compra (Simulación)
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="factura-doc-tab-pane"
+                role="tabpanel"
+                aria-labelledby="factura-doc-tab"
+                tabindex="0"
+              >
+                <h5>Generar Factura</h5>
+                <form id="facturaForm">
+                  <div class="row g-3">
+                    <!-- Información del Cliente -->
+                    <div class="col-md-6">
+                      <h6><i class="bi bi-person-circle me-2"></i>Información del Cliente</h6>
+                      <div class="mb-3">
+                        <label for="factClienteNombre" class="form-label"
+                          >Nombre Cliente</label
+                        />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="factClienteNombre"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="factClienteRUC" class="form-label"
+                          >RUC / ID Cliente</label
+                        />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="factClienteRUC"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="factClienteEmail" class="form-label"
+                          >Email Cliente</label
+                        />
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="factClienteEmail"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="factClienteTelefono" class="form-label"
+                          >Teléfono Cliente</label
+                        />
+                        <input
+                          type="tel"
+                          class="form-control"
+                          id="factClienteTelefono"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Detalles de la Factura -->
+                    <div class="col-md-6">
+                      <h6><i class="bi bi-receipt-cutoff me-2"></i>Detalles de la Factura</h6>
+                      <div class="mb-3">
+                        <label for="factNumero" class="form-label"
+                          >Número de Factura</label
+                        />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="factNumero"
+                          placeholder="Ej: FAC-2024-001"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="factFechaEmision" class="form-label"
+                          >Fecha de Emisión</label
+                        />
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="factFechaEmision"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="factFechaVencimiento" class="form-label"
+                          >Fecha de Vencimiento</label
+                        />
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="factFechaVencimiento"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="factReferencia" class="form-label"
+                          >Referencia (Ej: OC Cliente)</label
+                        />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="factReferencia"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Partidas (Líneas de Ítems Facturados) -->
+                    <div class="col-12">
+                      <h6><i class="bi bi-cart-check me-2"></i>Partidas / Líneas de Ítems</h6>
+                      <div id="factPartidasContainer">
+                        <div class="row g-2 mb-2 fact-partida-item align-items-end">
+                          <div class="col-md-5">
+                            <label class="form-label-sm">Descripción</label>
+                            <input
+                              type="text"
+                              class="form-control form-control-sm fact-partida-descripcion"
+                              placeholder="Descripción del producto/servicio"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label class="form-label-sm">Cantidad</label>
+                            <input
+                              type="number"
+                              class="form-control form-control-sm fact-partida-cantidad"
+                              value="1"
+                              min="0.01"
+                              step="any"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label class="form-label-sm">Precio Unit.</label>
+                            <input
+                              type="number"
+                              class="form-control form-control-sm fact-partida-precio"
+                              value="0.00"
+                              min="0"
+                              step="any"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label class="form-label-sm">Importe</label>
+                            <input
+                              type="text"
+                              class="form-control form-control-sm fact-partida-importe"
+                              readonly
+                              disabled
+                              value="$0.00"
+                            />
+                          </div>
+                          <div class="col-md-1">
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-danger fact-remover-partida-btn w-100"
+                              title="Remover partida"
+                            >
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-success mt-2"
+                        id="factAgregarPartidaBtn"
+                      >
+                        <i class="bi bi-plus-circle-fill me-1"></i>Agregar Partida
+                      </button>
+                    </div>
+
+                    <!-- Resumen de Totales para Factura -->
+                    <div class="col-md-7 offset-md-5 mt-4">
+                      <h6><i class="bi bi-calculator-fill me-2"></i>Resumen de Totales Factura</h6>
+                      <div class="row mb-1">
+                        <label class="col-sm-7 col-form-label text-end">Subtotal:</label>
+                        <div class="col-sm-5">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bold"
+                            id="factSubtotalBruto"
+                            value="$0.00"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-1 align-items-center">
+                        <label
+                          for="factDescuentoPorcentaje"
+                          class="col-sm-7 col-form-label text-end"
+                          >Descuento (%):</label
+                        />
+                        <div class="col-sm-2">
+                          <input
+                            type="number"
+                            class="form-control form-control-sm text-end"
+                            id="factDescuentoPorcentaje"
+                            value="0"
+                            min="0"
+                            max="100"
+                            step="any"
+                          />
+                        </div>
+                        <div class="col-sm-3">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bold"
+                            id="factMontoDescuento"
+                            value="$0.00"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-1">
+                        <label class="col-sm-7 col-form-label text-end fw-semibold"
+                          >Subtotal c/Desc.:</label
+                        />
+                        <div class="col-sm-5">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bold"
+                            id="factSubtotalConDescuento"
+                            value="$0.00"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-1 align-items-center">
+                        <label
+                          for="factImpuestoPorcentaje"
+                          class="col-sm-7 col-form-label text-end"
+                          >Impuesto (%):</label
+                        />
+                        <div class="col-sm-2">
+                          <input
+                            type="number"
+                            class="form-control form-control-sm text-end"
+                            id="factImpuestoPorcentaje"
+                            value="0"
+                            min="0"
+                            step="any"
+                          />
+                        </div>
+                        <div class="col-sm-3">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bold"
+                            id="factMontoImpuesto"
+                            value="$0.00"
+                          />
+                        </div>
+                      </div>
+                      <hr />
+                      <div class="row mb-2 fs-5">
+                        <label class="col-sm-7 col-form-label text-end fw-bold"
+                          >Total General Factura:</label
+                        />
+                        <div class="col-sm-5">
+                          <input
+                            type="text"
+                            readonly
+                            disabled
+                            class="form-control-plaintext text-end fw-bolder"
+                            id="factTotalGeneral"
+                            value="$0.00"
+                            style="font-size: 1.2em;"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Información de Pago y Notas -->
+                    <div class="col-12 mt-3">
+                      <h6><i class="bi bi-credit-card me-2"></i>Información de Pago y Notas</h6>
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="factMetodoPago" class="form-label">Método de Pago</label>
+                          <select class="form-select" id="factMetodoPago">
+                            <option value="" selected>Seleccione...</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="factCondicionesPago" class="form-label">Condiciones de Pago</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="factCondicionesPago"
+                            placeholder="Ej: Neto 30 días"
+                          />
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="factNotasAdicionales" class="form-label">Notas Adicionales</label>
+                        <textarea
+                          class="form-control"
+                          id="factNotasAdicionales"
+                          rows="2"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-check mt-3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="facturaConfirmacionElectronica"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="facturaConfirmacionElectronica"
+                    >
+                      Enviar factura electrónica al cliente (Próximamente)
+                    </label>
+                  </div>
+                  <div class="mt-4 pt-3 border-top">
+                    <button
+                      type="submit"
+                      class="btn btn-success"
+                      id="btnGenerarFacturaSimulacion"
+                    >
+                      <i class="bi bi-send-check-fill me-1"></i>Generar Factura (Simulación)
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pedidos Summary Modal -->
+    <div
+      class="modal fade"
+      id="pedidosSummaryModal"
+      tabindex="-1"
+      aria-labelledby="pedidosSummaryModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="pedidosSummaryModalLabel">
+              <i class="bi bi-graph-up me-2"></i>Resumen de Pedidos
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center mb-4">
+              Un vistazo rápido a la actividad de tus pedidos por canal.
+            </p>
+            
+            <div class="row g-4">
+              <!-- Ventas en Línea (E-commerce) -->
+              <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                  <div class="card-header bg-primary text-white"><i class="bi bi-cart-fill me-2"></i>Ventas en Línea (E-commerce)</div>
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <div class="text-muted small text-uppercase">Ventas Totales</div>
+                      <div class="fs-3 fw-bold" id="summaryOnlineSalesTotal">$789.00</div>
+                    </div>
+                    <div>
+                      <div class="text-muted small text-uppercase">Número de Pedidos</div>
+                      <div class="fs-3 fw-bold" id="summaryOnlineOrderCount">42</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Ventas de Punto de Venta (POS) -->
+              <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                  <div class="card-header bg-success text-white"><i class="bi bi-calculator-fill me-2"></i>Ventas de Punto de Venta (POS)</div>
+                  <div class="card-body text-center">
+                    <div class="mb-3">
+                      <div class="text-muted small text-uppercase">Ventas Totales</div>
+                      <div class="fs-3 fw-bold" id="summaryPosSalesTotal">$445.56</div>
+                    </div>
+                    <div>
+                      <div class="text-muted small text-uppercase">Número de Pedidos</div>
+                      <div class="fs-3 fw-bold" id="summaryPosOrderCount">36</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Grand Totals Section -->
+            <div class="mt-4 pt-3 border-top text-center">
+              <h5>Resumen General (Online + POS)</h5>
+              <div class="row justify-content-center g-3">
+                <div class="col-auto">
+                  <div class="stat-item p-2 bg-light-subtle rounded shadow-sm">
+                    <div class="text-muted small text-uppercase">Gran Total de Ventas</div>
+                    <div class="fs-4 fw-bold text-success" id="summaryGrandTotalSales">$1,234.56</div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="stat-item p-2 bg-light-subtle rounded shadow-sm">
+                    <div class="text-muted small text-uppercase">Gran Total de Pedidos</div>
+                    <div class="fs-4 fw-bold text-info" id="summaryGrandTotalOrders">78</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Grand Totals Section -->
+
+            <hr class="my-4">
+
+            <div class="row g-2 justify-content-center">
+                <div class="col-auto">
+                  <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#eCommerceInfoModal">
+                    <i class="bi bi-shop-window me-2"></i>Info de Tienda en Línea
+                  </a>
+                </div>
+                <div class="col-auto">
+                   <a href="pedidos.html" class="btn btn-secondary" target="_blank">
+                     <i class="bi bi-card-list me-2"></i>Ver Todos los Pedidos
+                   </a>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Pedidos Summary Modal -->
+
+    <!-- E-commerce Info Modal -->
+    <div class="modal fade" id="eCommerceInfoModal" tabindex="-1" aria-labelledby="eCommerceInfoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="eCommerceInfoModalLabel"><i class="bi bi-info-circle-fill me-2"></i>Información de la Tienda en Línea</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Content from e-commerce.html's .store-container -->
+            <div class="store-container-modal-wrapper" style="padding: 1rem; background: white; border-radius: 8px;">
+              <div class="header-info text-center mb-3">
+                <img src="Images/mk_logo.jpeg" alt="Logo del Negocio" style="max-height: 70px; margin-bottom: 10px;" id="modalBusinessLogo">
+                <h3 id="modalBusinessName">Nombre del Negocio (Placeholder)</h3>
+              </div>
+              <div class="contact-info text-center mb-3">
+                <p id="modalBusinessAddress">Dirección del Negocio (Placeholder)</p>
+                <p>Tel: <span id="modalBusinessPhone">000-000-0000</span> | Email: <span id="modalBusinessEmail">contact@example.com</span></p>
+                <p>Horario: <span id="modalBusinessHours">Consultar Horario</span></p>
+              </div>
+              <hr>
+              <h5 class="text-center">Nuestros Productos</h5>
+              <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="modalProductList">
+                <!-- Productos se cargarían aquí por JS, mostrando placeholder -->
+                <div class="col-12"><p class="text-muted text-center p-3">La lista de productos se visualiza en la página principal de la tienda en línea.</p></div>
+              </div>
+              <div class="text-center mt-4">
+                  <a href="e-commerce.html" class="btn btn-primary" target="_blank">
+                    <i class="bi bi-arrow-right-circle-fill me-2"></i>Ir a la Tienda Completa
+                  </a>
+              </div>
+            </div>
+            <!-- End Content from e-commerce.html -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End E-commerce Info Modal -->
+
+    <!-- E-commerce Admin Modal -->
+    <div class="modal fade" id="eCommerceAdminModal" tabindex="-1" aria-labelledby="eCommerceAdminModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="eCommerceAdminModalLabel"><i class="bi bi-sliders me-2"></i>Administración de Tienda en Línea</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center mb-4">Gestiona la configuración y el contenido de tu tienda en línea.</p>
+            
+            <div class="accordion" id="adminEcommerceAccordion">
+              <!-- Store Appearance Settings -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAppearance">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAppearance" aria-expanded="false" aria-controls="collapseAppearance">
+                    <i class="bi bi-palette-fill me-2"></i>Personalización de la Tienda
+                  </button>
+                </h2>
+                <div id="collapseAppearance" class="accordion-collapse collapse" aria-labelledby="headingAppearance" data-bs-parent="#adminEcommerceAccordion">
+                  <div class="accordion-body">
+                    <div class="mb-3">
+                      <label for="adminStoreName" class="form-label">Nombre de la Tienda (público)</label>
+                      <input type="text" class="form-control" id="adminStoreName" placeholder="Ej: Mi Tienda Online">
+                    </div>
+                    <div class="mb-3">
+                      <label for="adminStoreSlogan" class="form-label">Slogan o Descripción Corta</label>
+                      <input type="text" class="form-control" id="adminStoreSlogan" placeholder="Ej: Los mejores productos, entregados a tu puerta">
+                    </div>
+                    <button class="btn btn-primary btn-sm" id="saveAppearanceSettingsBtn"><i class="bi bi-save me-1"></i>Guardar Cambios de Apariencia</button>
+                    <small class="d-block mt-2 text-muted">Nota: `e-commerce.html` necesitará leer estos ajustes para reflejarlos.</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Activity Summary -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingActivity">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseActivity" aria-expanded="false" aria-controls="collapseActivity">
+                    <i class="bi bi-graph-up me-2"></i>Resumen de Actividad (Placeholders)
+                  </button>
+                </h2>
+                <div id="collapseActivity" class="accordion-collapse collapse" aria-labelledby="headingActivity" data-bs-parent="#adminEcommerceAccordion">
+                  <div class="accordion-body">
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Ventas (últimos 30 días):
+                        <span class="badge bg-primary rounded-pill" id="adminSalesSummary">$0.00</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Visitas a la Tienda (últimos 30 días):
+                        <span class="badge bg-info rounded-pill" id="adminVisitsSummary">0</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Carritos Abandonados (hoy):
+                        <span class="badge bg-warning text-dark rounded-pill" id="adminAbandonedCartsSummary">0</span>
+                      </li>
+                    </ul>
+                    <small class="d-block mt-2 text-muted">Nota: Estas métricas son placeholders. Se requiere integración adicional para datos reales.</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Management Links -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingManagement">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseManagement" aria-expanded="true" aria-controls="collapseManagement">
+                    <i class="bi bi-gear-fill me-2"></i>Gestión y Configuración
+                  </button>
+                </h2>
+                <div id="collapseManagement" class="accordion-collapse collapse show" aria-labelledby="headingManagement" data-bs-parent="#adminEcommerceAccordion">
+                  <div class="accordion-body p-0">
+                     <div class="list-group list-group-flush">
+                        <!-- Product Management Section -->
+                        <div class="list-group-item">
+                          <h6 class="mb-3"><i class="bi bi-box-seam-fill me-2"></i>Gestionar Productos</h6>
+                          <div class="ps-2">
+                            <p class="text-muted small">Añade, edita o elimina productos de tu catálogo.</p>
+                            
+                            <!-- Add Product Form -->
+                            <form id="adminAddProductForm" class="mb-4 p-3 border rounded bg-light">
+                              <h6 class="mb-3">Agregar Nuevo Producto</h6>
+                              <div class="row g-2">
+                                <div class="col-md-6 mb-2">
+                                  <label for="adminProductName" class="form-label form-label-sm">Nombre del Producto <span class="text-danger">*</span></label>
+                                  <input type="text" class="form-control form-control-sm" id="adminProductName" required>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                  <label for="adminProductPrice" class="form-label form-label-sm">Precio <span class="text-danger">*</span></label>
+                                  <input type="number" class="form-control form-control-sm" id="adminProductPrice" step="0.01" min="0" required>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="adminProductId" class="form-label form-label-sm">ID Producto (opcional)</label>
+                                    <input type="text" class="form-control form-control-sm" id="adminProductId" placeholder="Se generará si está vacío">
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                  <label for="adminProductCategory" class="form-label form-label-sm">Categoría</label>
+                                  <input type="text" class="form-control form-control-sm" id="adminProductCategory">
+                                </div>
+                                <div class="col-12 mb-2">
+                                  <label for="adminProductImageUrl" class="form-label form-label-sm">URL de la Imagen</label>
+                                  <input type="text" class="form-control form-control-sm" id="adminProductImageUrl" placeholder="https://ejemplo.com/imagen.jpg">
+                                </div>
+                              </div>
+                              <button type="submit" class="btn btn-success btn-sm mt-2"><i class="bi bi-plus-circle-fill me-1"></i>Agregar Producto</button>
+                            </form>
+                            
+                            <!-- Product List Area -->
+                            <h6>Productos Existentes</h6>
+                            <div id="adminProductListContainer" class="mt-2" style="max-height: 300px; overflow-y: auto;">
+                              <p class="text-muted text-center">Cargando lista de productos...</p>
+                              <!-- Products will be listed here by JavaScript -->
+                            </div>
+                          </div>
+                        </div>
+                        <!-- End Product Management Section -->
+
+                        <a href="#" class="list-group-item list-group-item-action" onclick="alert('Próximamente: Gestión de categorías'); return false;">
+                          <i class="bi bi-tags-fill me-2"></i>Gestionar Categorías
+                          <small class="d-block text-muted">Organiza tus productos.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="alert('Próximamente: Configuración de pagos avanzada'); return false;">
+                          <i class="bi bi-credit-card-2-front-fill me-2"></i>Configuración de Pagos
+                          <small class="d-block text-muted">Estado: <span id="adminPaymentStatus" class="fw-bold">No configurado</span></small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="alert('Próximamente: Opciones de envío avanzadas'); return false;">
+                          <i class="bi bi-truck me-2"></i>Opciones de Envío
+                          <small class="d-block text-muted">Estado: <span id="adminShippingStatus" class="fw-bold">No configuradas</span></small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="alert('Próximamente: Ver estadísticas detalladas'); return false;">
+                          <i class="bi bi-bar-chart-line-fill me-2"></i>Estadísticas Detalladas
+                          <small class="d-block text-muted">Visualiza el rendimiento de tu tienda.</small>
+                        </a>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="text-center">
+              <a href="e-commerce.html" class="btn btn-outline-primary" target="_blank">
+                <i class="bi bi-eye-fill me-2"></i>Ver Mi Tienda (Pública)
+              </a>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End E-commerce Admin Modal -->
+
+    <!-- CRM Modal: Gestión de Clientes y Pedidos -->
+    <div
+      class="modal fade"
+      id="crmModal"
+      tabindex="-1"
+      aria-labelledby="crmModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="crmModalLabel"><i class="bi bi-people-fill me-2"></i>CRM: Clientes y Pedidos</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="crmTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="crm-clientes-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#crm-clientes-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="crm-clientes-pane"
+                  aria-selected="true"
+                >
+                  Clientes
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="crm-pedidos-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#crm-pedidos-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="crm-pedidos-pane"
+                  aria-selected="false"
+                >
+                  Pedidos
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content pt-3" id="crmTabContent">
+              <!-- Clientes Tab -->
+              <div
+                class="tab-pane fade show active"
+                id="crm-clientes-pane"
+                role="tabpanel"
+                aria-labelledby="crm-clientes-tab"
+                tabindex="0"
+              >
+                <h6>Agregar Nuevo Cliente</h6>
+                <form id="crmAddCustomerForm" class="row g-3 mb-3">
+                  <div class="col-md-4">
+                    <label for="crmCustomerName" class="form-label">Nombre</label>
+                    <input type="text" class="form-control form-control-sm" id="crmCustomerName" required />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="crmCustomerEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control form-control-sm" id="crmCustomerEmail" required />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="crmCustomerPhone" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control form-control-sm" id="crmCustomerPhone" />
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-success btn-sm">
+                      <i class="bi bi-plus-circle-fill me-1"></i>Guardar Cliente
+                    </button>
+                  </div>
+                </form>
+                <h6>Lista de Clientes</h6>
+                <div id="crmCustomerList" class="crm-list mb-3">
+                  <p class="text-muted text-center">Cargando clientes...</p>
+                </div>
+              </div>
+              <!-- Pedidos Tab -->
+              <div
+                class="tab-pane fade"
+                id="crm-pedidos-pane"
+                role="tabpanel"
+                aria-labelledby="crm-pedidos-tab"
+                tabindex="0"
+              >
+                <h6>Asignar Cliente a Pedido</h6>
+                <div class="table-responsive crm-orders-table">
+                  <table class="table table-sm table-bordered align-middle">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Tipo</th>
+                        <th>ID Pedido</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Cliente Asignado</th>
+                      </tr>
+                    </thead>
+                    <tbody id="crmOrdersTableBody">
+                      <tr><td colspan="5" class="text-center text-muted">Cargando pedidos...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End CRM Modal -->
+
+    <!-- Modal de Inicio de Sesión Requerido -->
+    <div
+      class="modal fade"
+      id="loginRequiredModal"
+      tabindex="-1"
+      aria-labelledby="loginRequiredModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginRequiredModalLabel">
+              <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+              Iniciar Sesión Requerido
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Debes iniciar sesión para acceder a esta función.</p>
+            <p>
+              Si no tienes una cuenta, puedes
+              <a href="registro.html">registrarte</a> o
+              <a href="iniciar.html">iniciar sesión</a>.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              id="loginRequiredModalCloseButton"
+            >
+              Cerrar
+            </button>
+            <a
+              href="iniciar.html"
+              class="btn btn-primary"
+              id="loginRequiredModalLoginButton"
+            >
+              Ir a Iniciar Sesión
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal de Inicio de Sesión Requerido -->
+
+    <!-- Modal Premium: Inversión -->
+    <div
+      class="modal fade"
+      id="inversionPremiumModal"
+      tabindex="-1"
+      aria-labelledby="inversionPremiumModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="inversionPremiumModalLabel">
+              <i class="bi bi-star-fill text-warning me-2"></i>Función Premium
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center">
+              La sección de <strong>Inversión</strong> es una función premium.
+            </p>
+            <p class="text-center">
+              Para acceder, por favor contacta a soporte o adquiere un plan premium.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal Premium: Inversión -->
+
+    <!-- Modal Premium: Analítica de Negocio -->
+    <div
+      class="modal fade"
+      id="analyticsPremiumModal"
+      tabindex="-1"
+      aria-labelledby="analyticsPremiumModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="analyticsPremiumModalLabel">
+              <i class="bi bi-star-fill text-warning me-2"></i>Función Premium
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center">
+              La sección de <strong>Analítica de Negocio</strong> es una función premium.
+            </p>
+            <p class="text-center">
+              Para acceder, por favor contacta a soporte o adquiere un plan premium.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal Premium: Analítica de Negocio -->
+
+    <!-- Bootstrap JS Bundle (¡Importante para que los modales funcionen!) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // --------------------------------------------------------------------
+      // Definimos commonLoginCheck para validar si existe currentUser
+      // --------------------------------------------------------------------
+      function commonLoginCheck(event, redirectData) {
+        const currentUser = localStorage.getItem("currentUser_mealkitz");
+        if (!currentUser) {
+          event.preventDefault();
+          sessionStorage.setItem("postLoginRedirect", JSON.stringify(redirectData));
+          const loginModalEl = document.getElementById("loginRequiredModal");
+          const loginModal = loginModalEl ? new bootstrap.Modal(loginModalEl) : null;
+          if (loginModal) loginModal.show();
+          else window.location.href = "iniciar.html";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        let postLoginRedirectData = null;
+        let mealkitzConfig = null;
+
+        // Configuración de títulos dinámicos de modales
+        const modalBaseTitles = {
+          basicPosModalLabel: "Punto de Venta",
+          documentCreationModalLabel: "Generar Documentos Financieros",
+          pedidosSummaryModalLabel: "Resumen de Pedidos",
+          eCommerceInfoModalLabel: "Información de la Tienda en Línea",
+          eCommerceAdminModalLabel: "Administración de Tienda en Línea",
+          crmModalLabel: "CRM: Clientes y Pedidos",
+        };
+
+        function getLoggedInUserDisplayName() {
+          const currentUserRaw = localStorage.getItem("currentUser_mealkitz");
+          if (!currentUserRaw) return null;
+          try {
+            const cfgRaw = localStorage.getItem("mealkitzConfig_v1.0");
+            if (cfgRaw) {
+              const cfg = JSON.parse(cfgRaw);
+              if (cfg.business && cfg.business.name && cfg.business.name.trim() !== "") {
+                return cfg.business.name.trim();
+              }
+            }
+          } catch {}
+          try {
+            const usr = JSON.parse(currentUserRaw);
+            if (usr.email) return usr.email.split("@")[0];
+          } catch {}
+          return "Usuario";
+        }
+
+        function updateUserInterfaceForLoginState() {
+          const displayName = getLoggedInUserDisplayName();
+          const currentUser = localStorage.getItem("currentUser_mealkitz");
+          const profileDropdownNameEl = document.getElementById("profileDropdownName");
+          const viewProfileLinkEl = document.getElementById("viewProfileLink");
+          const loginOrLogoutLinkEl = document.getElementById("loginOrLogoutLink");
+          const navbarBrandNameEl = document.getElementById("navbarBrandName");
+
+          if (currentUser && displayName) {
+            if (profileDropdownNameEl) profileDropdownNameEl.textContent = displayName;
+            if (navbarBrandNameEl) navbarBrandNameEl.textContent = displayName;
+            if (viewProfileLinkEl) viewProfileLinkEl.textContent = "Ver Perfil";
+            if (loginOrLogoutLinkEl) {
+              loginOrLogoutLinkEl.textContent = "Cerrar Sesión";
+              loginOrLogoutLinkEl.href = "#";
+              loginOrLogoutLinkEl.addEventListener("click", function logoutHandler(e) {
+                e.preventDefault();
+                localStorage.removeItem("currentUser_mealkitz");
+                window.location.href = "iniciar.html";
+                loginOrLogoutLinkEl.removeEventListener("click", logoutHandler);
+              });
+            }
+          } else {
+            if (profileDropdownNameEl) profileDropdownNameEl.textContent = "Perfil";
+            if (navbarBrandNameEl) navbarBrandNameEl.textContent = "";
+            if (viewProfileLinkEl) viewProfileLinkEl.textContent = "Crear Perfil";
+            if (loginOrLogoutLinkEl) {
+              loginOrLogoutLinkEl.textContent = "Iniciar Sesión";
+              loginOrLogoutLinkEl.href = "iniciar.html";
+            }
+          }
+
+          // Adjuntar listener para actualizar título de modales dinámicamente
+          Object.keys(modalBaseTitles).forEach((modalLabelId) => {
+            const titleEl = document.getElementById(modalLabelId);
+            const modalEl = titleEl ? titleEl.closest(".modal") : null;
+            const baseTitle = modalBaseTitles[modalLabelId];
+            if (modalEl && titleEl) {
+              if (!titleEl.dataset.baseTitle) {
+                titleEl.dataset.baseTitle = baseTitle;
+              }
+              modalEl.addEventListener("show.bs.modal", () => {
+                const name = getLoggedInUserDisplayName();
+                const effectiveBase = titleEl.dataset.baseTitle;
+                titleEl.textContent = name ? `${effectiveBase} - ${name}` : effectiveBase;
+              });
+            }
+          });
+        }
+
+        // Inicializar UI basándose en estado de login
+        updateUserInterfaceForLoginState();
+
+        try {
+          const cfgRaw = localStorage.getItem("mealkitzConfig_v1.0");
+          if (cfgRaw) mealkitzConfig = JSON.parse(cfgRaw);
+        } catch (e) {
+          console.error("Error parsing mealkitzConfig desde localStorage:", e);
+        }
+
+        const currentUser = localStorage.getItem("currentUser_mealkitz");
+
+        // Proteger modales: POS, Documentos, Pedidos, Tienda, CRM
+        document
+          .querySelectorAll(
+            'a.action-card, .navbar-nav .nav-link[data-bs-toggle="modal"]'
+          )
+          .forEach((link) => {
+            const modalTarget = link.getAttribute("data-bs-target");
+            if (
+              modalTarget &&
+              ["#basicPosModal", "#documentCreationModal", "#pedidosSummaryModal", "#eCommerceInfoModal", "#eCommerceAdminModal", "#crmModal", "#inversionPremiumModal", "#analyticsPremiumModal"].includes(
+                modalTarget
+              )
+            ) {
+              link.addEventListener("click", (event) => {
+                commonLoginCheck(event, {
+                  page: "merchant.html",
+                  hash: modalTarget,
+                });
+              });
+            }
+          });
+
+        // Mostrar modal tras login si había redirect guardado
+        const postRedirectRaw = sessionStorage.getItem("postLoginRedirect");
+        if (postRedirectRaw) {
+          try {
+            postLoginRedirectData = JSON.parse(postRedirectRaw);
+          } catch {}
+        }
+        if (
+          postLoginRedirectData &&
+          postLoginRedirectData.page === "merchant.html" &&
+          postLoginRedirectData.hash
+        ) {
+          const modalEl = document.querySelector(postLoginRedirectData.hash);
+          if (modalEl) {
+            const mInstance =
+              bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            mInstance.show();
+          }
+          sessionStorage.removeItem("postLoginRedirect");
+        }
+
+        // --------------------------------------------------------------
+        // Función para poblar el modal de "Info de Tienda en Línea"
+        // --------------------------------------------------------------
+        const eCommerceInfoModalEl = document.getElementById("eCommerceInfoModal");
+        function populateECommerceInfoModal() {
+          if (!mealkitzConfig || !mealkitzConfig.business) {
+            console.warn(
+              "mealkitzConfig o datos de business no disponibles para eCommerceInfoModal."
+            );
+            document.getElementById("modalBusinessName").textContent =
+              "Nombre no disponible";
+            document.getElementById("modalBusinessAddress").textContent =
+              "Dirección no disponible";
+            return;
+          }
+          const business = mealkitzConfig.business;
+          document.getElementById("modalBusinessName").textContent =
+            business.name || "Nombre no disponible";
+          document.getElementById("modalBusinessAddress").textContent =
+            business.address || "Dirección no disponible";
+          document.getElementById("modalBusinessPhone").textContent =
+            business.phone || "Teléfono no disponible";
+          document.getElementById("modalBusinessEmail").textContent =
+            business.email || "Email no disponible";
+          document.getElementById("modalBusinessHours").textContent =
+            business.storeHours || "Consultar Horario";
+
+          const logoEl = document.getElementById("modalBusinessLogo");
+          if (business.logoUrl) {
+            logoEl.src = business.logoUrl;
+            logoEl.style.display = "block";
+          } else {
+            logoEl.style.display = "none";
+          }
+        }
+        if (eCommerceInfoModalEl) {
+          eCommerceInfoModalEl.addEventListener(
+            "show.bs.modal",
+            populateECommerceInfoModal
+          );
+        }
+
+        // --------------------------------------------------------------
+        // Funciones para el modal "Administración de Tienda en Línea"
+        // --------------------------------------------------------------
+        const eCommerceAdminModalEl = document.getElementById("eCommerceAdminModal");
+        const adminStoreNameEl = document.getElementById("adminStoreName");
+        const adminStoreSloganEl = document.getElementById("adminStoreSlogan");
+        const saveAppearanceSettingsBtn = document.getElementById("saveAppearanceSettingsBtn");
+        const adminAddProductForm = document.getElementById("adminAddProductForm");
+        const adminProductIdEl = document.getElementById("adminProductId");
+        const adminProductNameEl = document.getElementById("adminProductName");
+        const adminProductPriceEl = document.getElementById("adminProductPrice");
+        const adminProductCategoryEl = document.getElementById("adminProductCategory");
+        const adminProductImageUrlEl = document.getElementById("adminProductImageUrl");
+        const adminProductListContainerEl = document.getElementById("adminProductListContainer");
+        const collapseManagementEl = document.getElementById("collapseManagement");
+
+        function displayAdminProducts() {
+          if (!adminProductListContainerEl) return;
+          adminProductListContainerEl.innerHTML = "";
+          const products =
+            mealkitzConfig &&
+            mealkitzConfig.products &&
+            Array.isArray(mealkitzConfig.products)
+              ? mealkitzConfig.products
+              : [];
+          if (products.length === 0) {
+            adminProductListContainerEl.innerHTML =
+              '<p class="text-muted text-center">No hay productos configurados.</p>';
+            return;
+          }
+          const ul = document.createElement("ul");
+          ul.className = "list-group list-group-flush";
+          products.forEach((product) => {
+            const li = document.createElement("li");
+            li.className =
+              "list-group-item d-flex justify-content-between align-items-center p-2";
+            li.innerHTML = `
+                    <div class="me-2 flex-grow-1" style="min-width: 0;">
+                      <small class="fw-bold d-block text-truncate">${
+                        product.name || "N/A"
+                      } (ID: ${product.id || "N/A"})</small>
+                      <small class="text-muted d-block">Precio: $${parseFloat(
+                        product.price || 0
+                      ).toFixed(2)} | Cat: ${product.category || "N/A"}</small>
+                      ${
+                        product.image
+                          ? `<small class="text-muted d-block text-truncate" style="max-width: 200px;">Img: ${product.image}</small>`
+                          : ""
+                      }
+                    </div>
+                    <button class="btn btn-danger btn-sm delete-product-btn flex-shrink-0" data-product-id="${
+                      product.id
+                    }"><i class="bi bi-trash"></i></button>
+                `;
+            ul.appendChild(li);
+          });
+          adminProductListContainerEl.appendChild(ul);
+
+          adminProductListContainerEl
+            .querySelectorAll(".delete-product-btn")
+            .forEach((btn) => {
+              btn.addEventListener("click", () =>
+                handleDeleteProduct(btn.dataset.productId)
+              );
+            });
+        }
+
+        function handleDeleteProduct(productId) {
+          if (!mealkitzConfig || !mealkitzConfig.products) return;
+          if (
+            !confirm(
+              `¿Está seguro de que desea eliminar el producto con ID: ${productId}? Esta acción no se puede deshacer.`
+            )
+          ) {
+            return;
+          }
+          mealkitzConfig.products = mealkitzConfig.products.filter(
+            (p) => p.id !== productId
+          );
+          try {
+            localStorage.setItem(
+              "mealkitzConfig_v1.0",
+              JSON.stringify(mealkitzConfig)
+            );
+            displayAdminProducts();
+            if (typeof refreshPosProductList === "function") {
+              refreshPosProductList();
+            }
+          } catch (e) {
+            console.error("Error saving updated product list to localStorage:", e);
+            alert("Error al eliminar el producto.");
+          }
+        }
+
+        function handleAddProduct(event) {
+          event.preventDefault();
+          if (!adminProductNameEl || !adminProductPriceEl) return;
+          const name = adminProductNameEl.value.trim();
+          const price = parseFloat(adminProductPriceEl.value);
+          let id = adminProductIdEl ? adminProductIdEl.value.trim() : "";
+          const category = adminProductCategoryEl
+            ? adminProductCategoryEl.value.trim()
+            : "";
+          const imageUrl = adminProductImageUrlEl
+            ? adminProductImageUrlEl.value.trim()
+            : "";
+          if (!name || isNaN(price) || price < 0) {
+            alert("Por favor, ingrese un nombre y un precio válido para el producto.");
+            return;
+          }
+          if (!id) {
+            id = "prod_" + Date.now();
+          }
+          const newProduct = { id, name, price, category, image: imageUrl };
+          if (!mealkitzConfig) mealkitzConfig = {};
+          if (!mealkitzConfig.products || !Array.isArray(mealkitzConfig.products)) {
+            mealkitzConfig.products = [];
+          }
+          if (mealkitzConfig.products.some((p) => p.id === id)) {
+            alert(
+              "Error: El ID de producto ya existe. Use un ID único o déjelo vacío para generación automática."
+            );
+            return;
+          }
+          mealkitzConfig.products.push(newProduct);
+          try {
+            localStorage.setItem(
+              "mealkitzConfig_v1.0",
+              JSON.stringify(mealkitzConfig)
+            );
+            adminAddProductForm.reset();
+            adminProductIdEl.value = "";
+            displayAdminProducts();
+            if (typeof refreshPosProductList === "function") {
+              refreshPosProductList();
+            }
+          } catch (e) {
+            console.error("Error saving new product to localStorage:", e);
+            alert("Error al agregar el producto.");
+          }
+        }
+
+        function populateECommerceAdminModal() {
+          const paymentStatusEl = document.getElementById("adminPaymentStatus");
+          const shippingStatusEl = document.getElementById("adminShippingStatus");
+          document.getElementById("adminSalesSummary").textContent = "N/A";
+          document.getElementById("adminVisitsSummary").textContent = "N/A";
+          document.getElementById("adminAbandonedCartsSummary").textContent = "N/A";
+          if (!mealkitzConfig || !mealkitzConfig.ecommerce) {
+            console.warn(
+              "mealkitzConfig.ecommerce no disponible para eCommerceAdminModal."
+            );
+            if (paymentStatusEl) paymentStatusEl.textContent = "Estado no disponible";
+            if (shippingStatusEl) shippingStatusEl.textContent = "Estado no disponible";
+            if (adminStoreNameEl) adminStoreNameEl.value = "";
+            if (adminStoreSloganEl) adminStoreSloganEl.value = "";
+            displayAdminProducts();
+            return;
+          }
+          const ecConfig = mealkitzConfig.ecommerce;
+          if (ecConfig.appearance) {
+            if (adminStoreNameEl) adminStoreNameEl.value = ecConfig.appearance.storeName || "";
+            if (adminStoreSloganEl) adminStoreSloganEl.value = ecConfig.appearance.storeSlogan || "";
+          }
+          if (paymentStatusEl) {
+            if (ecConfig.paymentConfigured) {
+              paymentStatusEl.textContent = `Configurado (${ecConfig.paymentGatewayName || 'Pasarela Desconocida'})`;
+              paymentStatusEl.classList.remove("text-danger");
+              paymentStatusEl.classList.add("text-success", "fw-bold");
+            } else {
+              paymentStatusEl.textContent = "No configurado";
+              paymentStatusEl.classList.remove("text-success");
+              paymentStatusEl.classList.add("text-danger", "fw-bold");
+            }
+          }
+          if (shippingStatusEl) {
+            if (ecConfig.shippingOptionsConfigured) {
+              shippingStatusEl.textContent = "Configuradas";
+              shippingStatusEl.classList.remove("text-danger");
+              shippingStatusEl.classList.add("text-success", "fw-bold");
+            } else {
+              shippingStatusEl.textContent = "No configuradas";
+              shippingStatusEl.classList.remove("text-success");
+              shippingStatusEl.classList.add("text-danger", "fw-bold");
+            }
+          }
+          displayAdminProducts();
+        }
+
+        function saveECommerceAdminSettings() {
+          if (!mealkitzConfig) {
+            mealkitzConfig = {};
+          }
+          if (!mealkitzConfig.ecommerce) {
+            mealkitzConfig.ecommerce = {};
+          }
+          if (!mealkitzConfig.ecommerce.appearance) {
+            mealkitzConfig.ecommerce.appearance = {};
+          }
+
+          mealkitzConfig.ecommerce.appearance.storeName = adminStoreNameEl
+            ? adminStoreNameEl.value
+            : "";
+          mealkitzConfig.ecommerce.appearance.storeSlogan = adminStoreSloganEl
+            ? adminStoreSloganEl.value
+            : "";
+
+          try {
+            localStorage.setItem("mealkitzConfig_v1.0", JSON.stringify(mealkitzConfig));
+            alert(
+              "Configuración de apariencia guardada. \nRecuerda que e-commerce.html debe ser programado para leer y usar estos ajustes."
+            );
+          } catch (e) {
+            console.error("Error saving mealkitzConfig to localStorage:", e);
+            alert("Error al guardar la configuración.");
+          }
+        }
+
+        if (eCommerceAdminModalEl) {
+          eCommerceAdminModalEl.addEventListener("show.bs.modal", populateECommerceAdminModal);
+          if (collapseManagementEl) {
+            collapseManagementEl.addEventListener("shown.bs.collapse", () => {
+              displayAdminProducts();
+            });
+          }
+        }
+        if (saveAppearanceSettingsBtn) {
+          saveAppearanceSettingsBtn.addEventListener("click", saveECommerceAdminSettings);
+        }
+        if (adminAddProductForm) {
+          adminAddProductForm.addEventListener("submit", handleAddProduct);
+        }
+
+        // --------------------------------------------------------------
+        // Actualización de listener para mostrar valores por defecto en
+        // el modal de documentos (cotización, OC, factura) al abrirse
+        // --------------------------------------------------------------
+        const documentCreationModalEl = document.getElementById("documentCreationModal");
+        if (documentCreationModalEl) {
+          documentCreationModalEl.addEventListener("show.bs.modal", () => {
+            const activeTab = documentCreationModalEl.querySelector(
+              ".nav-tabs .nav-link.active"
+            );
+            if (activeTab) {
+              setTimeout(() => {
+                if (activeTab.id === "cotizaciones-doc-tab") setDefaultCotFields();
+                else if (activeTab.id === "ordenes-compra-doc-tab")
+                  setDefaultOcFields();
+                else if (activeTab.id === "factura-doc-tab")
+                  setDefaultFacturaFields();
+              }, 0);
+            }
+          });
+        }
+
+        // --------------------------------------------------------------
+        // Lógica básica del POS: carga de productos, carrito, totales, etc.
+        // --------------------------------------------------------------
+        const posProductListContainerEl = document.getElementById(
+          "posProductListContainer"
+        );
+        const posProductFilterEl = document.getElementById("posProductFilter");
+        const posCartItemsContainerEl = document.getElementById(
+          "posCartItemsContainer"
+        );
+        const posTotalAmountEl = document.getElementById("posTotalAmount");
+        const posClearCartBtn = document.getElementById("posClearCartBtn");
+        const posProcessPaymentBtn = document.getElementById("posProcessPaymentBtn");
+        const posPaymentMethodEl = document.getElementById("posPaymentMethod");
+        const posClientWhatsappEl = document.getElementById("posClientWhatsapp");
+        const posModalMessageAreaEl = document.getElementById("posModalMessageArea");
+
+        let posCart = [];
+        let allPosProducts = [];
+
+        function getCurrencySymbol() {
+          return mealkitzConfig &&
+            mealkitzConfig.business &&
+            mealkitzConfig.business.currencySymbol
+            ? mealkitzConfig.business.currencySymbol
+            : "$";
+        }
+
+        function formatPosCurrency(amount) {
+          const symbol = getCurrencySymbol();
+          return `${symbol}${parseFloat(amount).toFixed(2)}`;
+        }
+
+        function renderPosProductList(productsToRender) {
+          if (!posProductListContainerEl) return;
+          posProductListContainerEl.innerHTML = ""; // Clear previous items
+
+          if (!productsToRender || productsToRender.length === 0) {
+            posProductListContainerEl.innerHTML =
+              '<div class="col-12"><p class="text-muted text-center p-2">No hay productos disponibles.</p></div>';
+            return;
+          }
+
+          productsToRender.forEach((product) => {
+            const productCol = document.createElement("div");
+            // Use 'col' for full width on smallest screens, then adjust for sm and up
+            // This will make product cards stack on xs and be 2-per-row on sm+
+            productCol.className = "col"; 
+
+            const card = document.createElement("div");
+            card.className = "card h-100 shadow-sm product-card-pos";
+            
+            let imgHtml = '';
+            if (product.image) {
+              imgHtml = `<img src="${product.image}" class="card-img-top" alt="${product.name || 'Producto'}" style="max-height: 100px; object-fit: cover;">`;
+            }
+
+            card.innerHTML = `
+              ${imgHtml}
+              <div class="card-body p-2 d-flex flex-column">
+                <h6 class="card-title small mb-1 text-truncate">${product.name || "N/A"}</h6>
+                <p class="card-text small mb-2 fw-bold">${formatPosCurrency(product.price || 0)}</p>
+                <button class="btn btn-sm btn-primary mt-auto add-to-pos-cart-btn">Agregar</button>
+              </div>
+            `;
+            
+            card.querySelector(".add-to-pos-cart-btn").addEventListener("click", (e) => {
+                e.stopPropagation(); // Prevent card click if button is inside
+                addToPosCart(product);
+            });
+
+            // Optional: make the whole card clickable to add to cart
+            card.addEventListener("click", () => {
+                // Check if the click was on the button itself to avoid double-adding
+                // This is a simple check; more robust would involve checking e.target against the button
+                // However, since the button also calls addToPosCart, this might lead to double adds.
+                // For now, let's rely on the button.
+                // addToPosCart(product); 
+            });
+            
+            productCol.appendChild(card);
+            posProductListContainerEl.appendChild(productCol);
+          });
+        }
+
+        function refreshPosProductList() {
+          allPosProducts =
+            mealkitzConfig &&
+            mealkitzConfig.products &&
+            Array.isArray(mealkitzConfig.products)
+              ? JSON.parse(JSON.stringify(mealkitzConfig.products))
+              : [];
+          renderPosProductList(allPosProducts);
+        }
+
+        if (posProductFilterEl) {
+          posProductFilterEl.addEventListener("input", (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredProducts = allPosProducts.filter(
+              (product) =>
+                (product.name &&
+                  product.name.toLowerCase().includes(searchTerm)) ||
+                (product.category &&
+                  product.category.toLowerCase().includes(searchTerm))
+            );
+            renderPosProductList(filteredProducts);
+          });
+        }
+
+        const basicPosModalEl = document.getElementById("basicPosModal");
+        if (basicPosModalEl) {
+          basicPosModalEl.addEventListener("show.bs.modal", () => {
+            console.log("[POS Modal] Event show.bs.modal triggered.");
+            try {
+              const cfgRaw = localStorage.getItem("mealkitzConfig_v1.0");
+              console.log("[POS Modal] Raw mealkitzConfig_v1.0 from localStorage:", cfgRaw);
+
+              if (cfgRaw) {
+                // Attempt to parse and assign to the global mealkitzConfig
+                mealkitzConfig = JSON.parse(cfgRaw);
+                console.log("[POS Modal] Parsed mealkitzConfig_v1.0 and assigned to global mealkitzConfig:", mealkitzConfig);
+
+                if (mealkitzConfig && mealkitzConfig.products && Array.isArray(mealkitzConfig.products)) {
+                    console.log("[POS Modal] Products found in config:", mealkitzConfig.products);
+                } else {
+                    console.warn("[POS Modal] mealkitzConfig.products not found, is not an array, or mealkitzConfig is null after parsing.");
+                }
+              } else {
+                console.warn("[POS Modal] mealkitzConfig_v1.0 not found in localStorage.");
+                mealkitzConfig = null; // Ensure global config is null if not found
+              }
+            } catch (e) {
+              console.error("[POS Modal] Error parsing mealkitzConfig_v1.0 from localStorage:", e);
+              mealkitzConfig = null; // Reset global config on error
+            }
+
+            refreshPosProductList(); // This will use the mealkitzConfig set above
+            
+            // Initialize business selector event listener
+            const businessSelector = document.getElementById("businessSelector");
+            if (businessSelector && !businessSelector.dataset.listenerAdded) {
+              businessSelector.addEventListener("change", (e) => {
+                handleBusinessChange(e.target.value);
+              });
+              businessSelector.dataset.listenerAdded = "true";
+            }
+            
+            if (
+              mealkitzConfig &&
+              mealkitzConfig.payments &&
+              mealkitzConfig.payments.methods &&
+              mealkitzConfig.payments.methods.length > 0 &&
+              posPaymentMethodEl
+            ) {
+              posPaymentMethodEl.innerHTML = "";
+              mealkitzConfig.payments.methods.forEach((method) => {
+                const option = document.createElement("option");
+                option.value = method.toLowerCase().replace(/\s+/g, "_");
+                option.textContent = method;
+                posPaymentMethodEl.appendChild(option);
+              });
+            } else if (posPaymentMethodEl) {
+              posPaymentMethodEl.innerHTML =
+                '<option value="efectivo" selected>Efectivo</option>' +
+                '<option value="tarjeta">Tarjeta</option>' +
+                '<option value="transferencia">Transferencia</option>' +
+                '<option value="yappy">Yappy</option>';
+            }
+            renderPosCart();
+          });
+        }
+
+        function updatePosTotal() {
+          let total = 0;
+          posCart.forEach((item) => {
+            total += item.price * item.quantity;
+          });
+          if (posTotalAmountEl) {
+            posTotalAmountEl.textContent = `Total: ${formatPosCurrency(total)}`;
+          }
+        }
+
+        function renderPosCart() {
+          if (!posCartItemsContainerEl) return;
+          posCartItemsContainerEl.innerHTML = "";
+
+          if (posCart.length === 0) {
+            posCartItemsContainerEl.innerHTML =
+              '<p class="text-muted text-center mt-3">El carrito está vacío.</p>';
+            updatePosTotal();
+            return;
+          }
+
+          posCart.forEach((item) => {
+            const cartItemEl = document.createElement("div");
+            cartItemEl.className = "pos-cart-item";
+            cartItemEl.innerHTML = `
+                    <div class="pos-cart-item-details flex-grow-1 me-2" style="min-width:0;">
+                        <span class="pos-cart-item-name text-truncate">${item.name}</span>
+                        <span class="pos-cart-item-qty-price">
+                            Qty: ${item.quantity} x ${formatPosCurrency(item.price)}
+                        </span>
+                    </div>
+                    <div class="pos-cart-item-controls d-flex align-items-center flex-shrink-0">
+                        <button class="btn btn-outline-secondary btn-sm me-1 pos-qty-decrease" data-id="${item.id}">-</button>
+                        <span class="mx-1">${item.quantity}</span>
+                        <button class="btn btn-outline-secondary btn-sm ms-1 me-2 pos-qty-increase" data-id="${item.id}">+</button>
+                        <button class="btn btn-danger btn-sm pos-remove-item" data-id="${item.id}"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                `;
+            cartItemEl
+              .querySelector(".pos-qty-decrease")
+              .addEventListener("click", () => updatePosCartQuantity(item.id, -1));
+            cartItemEl
+              .querySelector(".pos-qty-increase")
+              .addEventListener("click", () => updatePosCartQuantity(item.id, 1));
+            cartItemEl
+              .querySelector(".pos-remove-item")
+              .addEventListener("click", () => removeFromPosCart(item.id));
+
+            posCartItemsContainerEl.appendChild(cartItemEl);
+          });
+          updatePosTotal();
+        }
+
+        function addToPosCart(product) {
+          const existingItem = posCart.find((item) => item.id === product.id);
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            posCart.push({ ...product, quantity: 1 });
+          }
+          renderPosCart();
+        }
+
+        function updatePosCartQuantity(productId, change) {
+          const itemIndex = posCart.findIndex((item) => item.id === productId);
+          if (itemIndex > -1) {
+            posCart[itemIndex].quantity += change;
+            if (posCart[itemIndex].quantity <= 0) {
+              posCart.splice(itemIndex, 1);
+            }
+          }
+          renderPosCart();
+        }
+
+        function removeFromPosCart(productId) {
+          posCart = posCart.filter((item) => item.id !== productId);
+          renderPosCart();
+        }
+
+        function clearPosCart() {
+          posCart = [];
+          if (posClientWhatsappEl) posClientWhatsappEl.value = "";
+          if (posPaymentMethodEl && posPaymentMethodEl.options.length > 0)
+            posPaymentMethodEl.selectedIndex = 0;
+          displayPosModalMessage("");
+          renderPosCart();
+        }
+
+        if (posClearCartBtn) {
+          posClearCartBtn.addEventListener("click", clearPosCart);
+        }
+
+        function displayPosModalMessage(message, type = "info") {
+          if (!posModalMessageAreaEl) return;
+          posModalMessageAreaEl.innerHTML = "";
+          if (!message) return;
+          const alertDiv = document.createElement("div");
+          let alertClass = "alert-info";
+          if (type === "success") alertClass = "alert-success";
+          else if (type === "error") alertClass = "alert-danger";
+          else if (type === "warning") alertClass = "alert-warning";
+
+          alertDiv.className = `alert ${alertClass} alert-dismissible fade show`;
+          alertDiv.role = "alert";
+          alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          `;
+          posModalMessageAreaEl.appendChild(alertDiv);
+        }
+
+        function handlePosSaleCompletion() {
+          if (posCart.length === 0) {
+            displayPosModalMessage(
+              "El carrito está vacío. Agregue productos antes de completar la venta.",
+              "error"
+            );
+            return;
+          }
+
+          const totalAmountText = posTotalAmountEl
+            ? posTotalAmountEl.textContent
+            : "Total: $0.00";
+          const totalAmount = parseFloat(totalAmountText.replace(/[^\d.-]/g, ""));
+
+          const posOrderData = {
+            orderId: "pos_" + Date.now(),
+            orderDate: new Date().toISOString(),
+            items: JSON.parse(JSON.stringify(posCart)),
+            totalAmount: totalAmount,
+            paymentMethod: posPaymentMethodEl ? posPaymentMethodEl.value : "desconocido",
+            clientWhatsapp: posClientWhatsappEl
+              ? posClientWhatsappEl.value.trim()
+              : "",
+            customerId: null,
+          };
+
+          if (!mealkitzConfig) mealkitzConfig = {};
+          if (
+            !mealkitzConfig.posSales ||
+            !Array.isArray(mealkitzConfig.posSales)
+          ) {
+            mealkitzConfig.posSales = [];
+          }
+          mealkitzConfig.posSales.push(posOrderData);
+          try {
+            localStorage.setItem(
+              "mealkitzConfig_v1.0",
+              JSON.stringify(mealkitzConfig)
+            );
+          } catch (e) {
+            console.error("Error saving POS sale to localStorage:", e);
+            displayPosModalMessage(
+              "Error al guardar la venta. Intente de nuevo.",
+              "error"
+            );
+            return;
+          }
+
+          displayPosModalMessage(
+            `¡Venta completada! ID: ${posOrderData.orderId}, Total: ${formatPosCurrency(
+              posOrderData.totalAmount
+            )}`,
+            "success"
+          );
+
+          posCart = [];
+          if (posClientWhatsappEl) posClientWhatsappEl.value = "";
+          if (posPaymentMethodEl && posPaymentMethodEl.options.length > 0)
+            posPaymentMethodEl.selectedIndex = 0;
+          renderPosCart();
+        }
+
+        if (posProcessPaymentBtn) {
+          posProcessPaymentBtn.addEventListener(
+            "click",
+            handlePosSaleCompletion
+          );
+        }
+
+        // --------------------------------------------------------------
+        // Pedidos Summary Modal Logic
+        // --------------------------------------------------------------
+        const pedidosSummaryModalEl = document.getElementById(
+          "pedidosSummaryModal"
+        );
+        const summaryOnlineSalesTotalEl = document.getElementById(
+          "summaryOnlineSalesTotal"
+        );
+        const summaryOnlineOrderCountEl = document.getElementById(
+          "summaryOnlineOrderCount"
+        );
+        const summaryPosSalesTotalEl = document.getElementById(
+          "summaryPosSalesTotal"
+        );
+        const summaryPosOrderCountEl = document.getElementById(
+          "summaryPosOrderCount"
+        );
+        const summaryGrandTotalSalesEl = document.getElementById(
+          "summaryGrandTotalSales"
+        );
+        const summaryGrandTotalOrdersEl = document.getElementById(
+          "summaryGrandTotalOrders"
+        );
+
+        function updatePedidosSummaryModal() {
+          let onlineSalesTotal = 0;
+          let onlineOrderCount = 0;
+          let posSalesTotal = 0;
+          let posOrderCount = 0;
+
+          if (
+            mealkitzConfig &&
+            mealkitzConfig.onlineSales &&
+            Array.isArray(mealkitzConfig.onlineSales)
+          ) {
+            mealkitzConfig.onlineSales.forEach((sale) => {
+              onlineSalesTotal += parseFloat(sale.totalAmount || 0);
+              onlineOrderCount++;
+            });
+          }
+          if (summaryOnlineSalesTotalEl)
+            summaryOnlineSalesTotalEl.textContent = formatPosCurrency(
+              onlineSalesTotal
+            );
+          if (summaryOnlineOrderCountEl)
+            summaryOnlineOrderCountEl.textContent = onlineOrderCount;
+
+          if (
+            mealkitzConfig &&
+            mealkitzConfig.posSales &&
+            Array.isArray(mealkitzConfig.posSales)
+          ) {
+            mealkitzConfig.posSales.forEach((sale) => {
+              posSalesTotal += parseFloat(sale.totalAmount || 0);
+              posOrderCount++;
+            });
+          }
+          if (summaryPosSalesTotalEl)
+            summaryPosSalesTotalEl.textContent = formatPosCurrency(posSalesTotal);
+          if (summaryPosOrderCountEl)
+            summaryPosOrderCountEl.textContent = posOrderCount;
+
+          const grandTotalSales = onlineSalesTotal + posSalesTotal;
+          const grandTotalOrders = onlineOrderCount + posOrderCount;
+
+          if (summaryGrandTotalSalesEl)
+            summaryGrandTotalSalesEl.textContent = formatPosCurrency(
+              grandTotalSales
+            );
+          if (summaryGrandTotalOrdersEl)
+            summaryGrandTotalOrdersEl.textContent = grandTotalOrders;
+        }
+
+        if (pedidosSummaryModalEl) {
+          pedidosSummaryModalEl.addEventListener("show.bs.modal", () => {
+            try {
+              const cfgRaw = localStorage.getItem("mealkitzConfig_v1.0");
+              if (cfgRaw) mealkitzConfig = JSON.parse(cfgRaw);
+            } catch (e) {
+              console.error(
+                "Error parsing mealkitzConfig para Pedidos Summary:",
+                e
+              );
+            }
+            updatePedidosSummaryModal();
+          });
+        }
+
+        // --------------------------------------------------------------
+        // CRM: Gestión de Clientes y Pedidos
+        // --------------------------------------------------------------
+        const crmAddCustomerForm = document.getElementById("crmAddCustomerForm");
+        const crmCustomerListEl = document.getElementById("crmCustomerList");
+        const crmOrdersTableBody = document.getElementById("crmOrdersTableBody");
+
+        function loadCustomers() {
+          if (
+            mealkitzConfig &&
+            mealkitzConfig.customers &&
+            Array.isArray(mealkitzConfig.customers)
+          ) {
+            return mealkitzConfig.customers;
+          }
+          return [];
+        }
+
+        function saveCustomers(customers) {
+          if (!mealkitzConfig) mealkitzConfig = {};
+          mealkitzConfig.customers = customers;
+          localStorage.setItem("mealkitzConfig_v1.0", JSON.stringify(mealkitzConfig));
+        }
+
+        function updateCustomerList() {
+          const customers = loadCustomers();
+          crmCustomerListEl.innerHTML = "";
+          if (customers.length === 0) {
+            crmCustomerListEl.innerHTML =
+              '<p class="text-muted text-center">No hay clientes registrados.</p>';
+            return;
+          }
+          customers.forEach((cust) => {
+            const div = document.createElement("div");
+            div.className = "crm-list-item";
+            div.innerHTML = `
+              <div class="flex-grow-1">
+                <small class="fw-bold">${cust.name}</small><br/>
+                <small class="text-muted">${cust.email || ""} ${
+              cust.phone ? "| " + cust.phone : ""
+            }</small>
+              </div>
+              <button class="btn btn-danger btn-sm delete-customer-btn" data-id="${
+                cust.id
+              }"><i class="bi bi-trash"></i></button>
+            `;
+            crmCustomerListEl.appendChild(div);
+          });
+          crmCustomerListEl
+            .querySelectorAll(".delete-customer-btn")
+            .forEach((btn) => {
+              btn.addEventListener("click", () =>
+                handleDeleteCustomer(btn.dataset.id)
+              );
+            });
+        }
+
+        function handleAddCustomer(event) {
+          event.preventDefault();
+          const nameEl = document.getElementById("crmCustomerName");
+          const emailEl = document.getElementById("crmCustomerEmail");
+          const phoneEl = document.getElementById("crmCustomerPhone");
+          const name = nameEl.value.trim();
+          const email = emailEl.value.trim();
+          const phone = phoneEl.value.trim();
+          if (!name) {
+            alert("El nombre del cliente es obligatorio.");
+            return;
+          }
+          const customers = loadCustomers();
+          const newCustomer = {
+            id: "cust_" + Date.now(),
+            name,
+            email,
+            phone,
+          };
+          customers.push(newCustomer);
+          saveCustomers(customers);
+          crmAddCustomerForm.reset();
+          updateCustomerList();
+          updateOrdersList(); // Para refrescar dropdowns en pedidos
+        }
+
+        function handleDeleteCustomer(customerId) {
+          if (
+            !confirm(
+              "¿Está seguro de que desea eliminar este cliente? Se eliminarán asociaciones con pedidos."
+            )
+          )
+            return;
+          let customers = loadCustomers();
+          customers = customers.filter((c) => c.id !== customerId);
+          saveCustomers(customers);
+          // Eliminar customerId de cualquier pedido que lo tuviera
+          if (mealkitzConfig && mealkitzConfig.posSales) {
+            mealkitzConfig.posSales.forEach((sale) => {
+              if (sale.customerId === customerId) sale.customerId = null;
+            });
+          }
+          if (mealkitzConfig && mealkitzConfig.onlineSales) {
+            mealkitzConfig.onlineSales.forEach((sale) => {
+              if (sale.customerId === customerId) sale.customerId = null;
+            });
+          }
+          localStorage.setItem("mealkitzConfig_v1.0", JSON.stringify(mealkitzConfig));
+          updateCustomerList();
+          updateOrdersList();
+        }
+
+        function loadOrders() {
+          const orders = [];
+          if (mealkitzConfig && Array.isArray(mealkitzConfig.posSales)) {
+            mealkitzConfig.posSales.forEach((sale) => {
+              orders.push({
+                type: "POS",
+                id: sale.orderId,
+                date: sale.orderDate,
+                total: sale.totalAmount,
+                customerId: sale.customerId || null,
+              });
+            });
+          }
+          if (mealkitzConfig && Array.isArray(mealkitzConfig.onlineSales)) {
+            mealkitzConfig.onlineSales.forEach((sale) => {
+              orders.push({
+                type: "ONLINE",
+                id: sale.orderId,
+                date: sale.orderDate,
+                total: sale.totalAmount,
+                customerId: sale.customerId || null,
+              });
+            });
+          }
+          return orders;
+        }
+
+        function updateOrdersList() {
+          const orders = loadOrders();
+          const customers = loadCustomers();
+          crmOrdersTableBody.innerHTML = "";
+          if (orders.length === 0) {
+            crmOrdersTableBody.innerHTML =
+              '<tr><td colspan="5" class="text-center text-muted">No hay pedidos registrados.</td></tr>';
+            return;
+          }
+          orders.forEach((ord) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${ord.type}</td>
+              <td>${ord.id}</td>
+              <td>${new Date(ord.date).toLocaleString()}</td>
+              <td>${formatPosCurrency(ord.total)}</td>
+              <td>
+                <select class="form-select form-select-sm customer-assign-select" data-order-id="${
+                  ord.id
+                }">
+                  <option value="">— Sin asignar —</option>
+                  ${customers
+                    .map(
+                      (c) =>
+                        `<option value="${c.id}" ${
+                          c.id === ord.customerId ? "selected" : ""
+                        }>${c.name}</option>`
+                    )
+                    .join("")}
+                </select>
+              </td>
+            `;
+            crmOrdersTableBody.appendChild(tr);
+          });
+          crmOrdersTableBody
+            .querySelectorAll(".customer-assign-select")
+            .forEach((select) => {
+              select.addEventListener("change", (e) =>
+                handleAssignCustomerToOrder(e.target.getAttribute("data-order-id"), e.target.value)
+              );
+            });
+        }
+
+        function handleAssignCustomerToOrder(orderId, customerId) {
+          if (!mealkitzConfig) return;
+          let updated = false;
+          if (mealkitzConfig.posSales && Array.isArray(mealkitzConfig.posSales)) {
+            mealkitzConfig.posSales.forEach((sale) => {
+              if (sale.orderId === orderId) {
+                sale.customerId = customerId || null;
+                updated = true;
+              }
+            });
+          }
+          if (!updated && mealkitzConfig.onlineSales && Array.isArray(mealkitzConfig.onlineSales)) {
+            mealkitzConfig.onlineSales.forEach((sale) => {
+              if (sale.orderId === orderId) {
+                sale.customerId = customerId || null;
+                updated = true;
+              }
+            });
+          }
+          if (updated) {
+            localStorage.setItem("mealkitzConfig_v1.0", JSON.stringify(mealkitzConfig));
+          }
+        }
+
+        // Inicializar CRM al mostrar el modal
+        const crmModalEl = document.getElementById("crmModal");
+        if (crmModalEl) {
+          crmModalEl.addEventListener("show.bs.modal", () => {
+            try {
+              const cfgRaw = localStorage.getItem("mealkitzConfig_v1.0");
+              if (cfgRaw) mealkitzConfig = JSON.parse(cfgRaw);
+            } catch (e) {
+              console.error("Error parsing mealkitzConfig para CRM:", e);
+            }
+            updateCustomerList();
+            updateOrdersList();
+          });
+        }
+        if (crmAddCustomerForm) {
+          crmAddCustomerForm.addEventListener("submit", handleAddCustomer);
+        }
+
+        // Rolling Sushi Menu Data
+        const ROLLING_SUSHI_MENU = [
+          // Rolls
+          { id: "R001", name: "Roll California", category: "Rolls", price: 10.00, image: "images/sushi/california.jpg" },
+          { id: "R002", name: "Roll Filadelfia (Philly Roll)", category: "Rolls", price: 11.00, image: "images/sushi/philadelphia.jpg" },
+          { id: "R003", name: "Roll Atún Picante (Spicy Tuna Roll)", category: "Rolls", price: 12.00, image: "images/sushi/spicy_tuna.jpg" },
+          { id: "R004", name: "Roll Dragón (Dragon Roll)", category: "Rolls", price: 14.00, image: "images/sushi/dragon.jpg" },
+          { id: "R005", name: "Roll Tempura de Camarón", category: "Rolls", price: 13.00, image: "images/sushi/shrimp_tempura.jpg" },
+          { id: "R006", name: "Roll Vegetariano (Aguacate, Pepino y Zanahoria)", category: "Rolls", price: 9.00, image: "images/sushi/vegetarian.jpg" },
+          // Nigiris
+          { id: "N001", name: "Nigiri de Salmón (Sake)", category: "Nigiris", price: 5.00, image: "images/sushi/nigiri_salmon.jpg" },
+          { id: "N002", name: "Nigiri de Atún (Maguro)", category: "Nigiris", price: 5.50, image: "images/sushi/nigiri_tuna.jpg" },
+          { id: "N003", name: "Nigiri de Camarón (Ebi)", category: "Nigiris", price: 4.50, image: "images/sushi/nigiri_ebi.jpg" },
+          { id: "N004", name: "Nigiri de Pulpo (Tako)", category: "Nigiris", price: 6.00, image: "images/sushi/nigiri_tako.jpg" },
+          // Sashimis
+          { id: "S001", name: "Sashimi de Salmón", category: "Sashimis", price: 15.00, image: "images/sushi/sashimi_salmon.jpg" },
+          { id: "S002", name: "Sashimi de Atún", category: "Sashimis", price: 16.00, image: "images/sushi/sashimi_tuna.jpg" },
+          { id: "S003", name: "Sashimi Variado (mezcla de 3 pescados)", category: "Sashimis", price: 20.00, image: "images/sushi/sashimi_mixed.jpg" },
+          // Makis Especiales
+          { id: "ME001", name: "Maki Especial Rolling (Salmón, queso crema y aguacate)", category: "Makis Especiales", price: 15.00, image: "images/sushi/maki_special_rolling.jpg" },
+          { id: "ME002", name: "Maki Tempurizado (Roll relleno de camarón tempura)", category: "Makis Especiales", price: 16.00, image: "images/sushi/maki_tempura.jpg" },
+          { id: "ME003", name: "Maki Crunch (Roll cubierto de tempura flakes)", category: "Makis Especiales", price: 15.50, image: "images/sushi/maki_crunch.jpg" },
+          // Apertivos / Entradas
+          { id: "A001", name: "Edamame", category: "Apertivos / Entradas", price: 6.00, image: "images/appetizers/edamame.jpg" },
+          { id: "A002", name: "Gyozas de Cerdo (5 unidades)", category: "Apertivos / Entradas", price: 8.00, image: "images/appetizers/gyoza_pork.jpg" },
+          { id: "A003", name: "Gyozas Vegetarianas (5 unidades)", category: "Apertivos / Entradas", price: 7.50, image: "images/appetizers/gyoza_veg.jpg" },
+          { id: "A004", name: "Sopa de Miso", category: "Apertivos / Entradas", price: 4.00, image: "images/appetizers/miso_soup.jpg" },
+          { id: "A005", name: "Wakame (Ensalada de alga)", category: "Apertivos / Entradas", price: 7.00, image: "images/appetizers/wakame.jpg" },
+          // Platos Fáciles / Combos
+          { id: "C001", name: "Bento Box Rolling (Incluye miso, arroz, ensalada y diferentes piezas)", category: "Platos Fáciles / Combos", price: 22.00, image: "images/combos/bento_rolling.jpg" },
+          { id: "C002", name: "Combo Sushi Mix (6 nigiris + 1 roll a elegir)", category: "Platos Fáciles / Combos", price: 25.00, image: "images/combos/sushi_mix.jpg" },
+          { id: "C003", name: "Combo Sashimi Mix (12 piezas variadas)", category: "Platos Fáciles / Combos", price: 28.00, image: "images/combos/sashimi_mix.jpg" },
+          // Bebidas
+          { id: "B001", name: "Té Verde Caliente", category: "Bebidas", price: 3.00, image: "images/drinks/tea_hot.jpg" },
+          { id: "B002", name: "Té Verde Frío", category: "Bebidas", price: 3.50, image: "images/drinks/tea_cold.jpg" },
+          { id: "B003", name: "Sake (Copa pequeña)", category: "Bebidas", price: 7.00, image: "images/drinks/sake_cup.jpg" },
+          { id: "B004", name: "Sake (Botella 300 ml)", category: "Bebidas", price: 18.00, image: "images/drinks/sake_bottle.jpg" },
+          { id: "B005", name: "Cerveza Japonesa (Asahi o Kirin)", category: "Bebidas", price: 6.00, image: "images/drinks/beer_jp.jpg" },
+          { id: "B006", name: "Refrescos (Coca-Cola, Sprite)", category: "Bebidas", price: 3.00, image: "images/drinks/soda.jpg" },
+          { id: "B007", name: "Agua Embotellada", category: "Bebidas", price: 2.50, image: "images/drinks/water.jpg" },
+          // Postres
+          { id: "P001", name: "Helado Mochi (Varios sabores)", category: "Postres", price: 5.00, image: "images/desserts/mochi.jpg" },
+          { id: "P002", name: "Cheesecake Japonés", category: "Postres", price: 7.00, image: "images/desserts/cheesecake.jpg" },
+          { id: "P003", name: "Tempura de Helado (Helado rebozado y frito)", category: "Postres", price: 8.00, image: "images/desserts/tempura_icecream.jpg" }
+        ];
+
+        // Define menu data for all businesses
+        const BUSINESS_MENUS = {
+          "rolling-sushi": {
+            name: "Rolling Sushi",
+            products: ROLLING_SUSHI_MENU
+          },
+          "garage-grill": {
+            name: "Garage Grill",
+            products: [
+              { id: "GG001", name: "Costillas BBQ", category: "Carnes", price: 24.99, image: "images/garage/bbq_ribs.jpg" },
+              { id: "GG002", name: "Brisket Ahumado", category: "Carnes", price: 22.99, image: "images/garage/brisket.jpg" },
+              { id: "GG003", name: "Pollo a la Parrilla", category: "Carnes", price: 18.99, image: "images/garage/grilled_chicken.jpg" },
+              { id: "GG004", name: "Pulled Pork", category: "Carnes", price: 16.99, image: "images/garage/pulled_pork.jpg" },
+              { id: "GG005", name: "Mac & Cheese", category: "Guarniciones", price: 6.99, image: "images/garage/mac_cheese.jpg" },
+              { id: "GG006", name: "Frijoles BBQ", category: "Guarniciones", price: 5.99, image: "images/garage/bbq_beans.jpg" },
+              { id: "GG007", name: "Cerveza Fría", category: "Bebidas", price: 4.99, image: "images/garage/cold_beer.jpg" },
+              { id: "GG008", name: "Pie de Manzana", category: "Postres", price: 7.99, image: "images/garage/apple_pie.jpg" },
+              { id: "GG009", name: "Alitas Picantes", category: "Carnes", price: 12.99, image: "images/garage/hot_wings.jpg" },
+              { id: "GG010", name: "Nachos Supreme", category: "Aperitivos", price: 9.99, image: "images/garage/nachos.jpg" }
+            ]
+          }
+        };
+
+        // Current selected business
+        let currentBusiness = "rolling-sushi";
+
+        // Initialize business configuration
+        function initializeBusinessConfig(businessKey) {
+          const menuKey = "mealkitzConfig_v1.0";
+          const business = BUSINESS_MENUS[businessKey];
+          
+          if (!business) {
+            console.error("Business not found:", businessKey);
+            return null;
+          }
+
+          const config = {
+            business: {
+              name: business.name,
+              currencySymbol: "$",
+              address: "123 Main Street",
+              phone: "+1 234 567 8900",
+              email: `info@${businessKey.replace('-', '')}.com`,
+              storeHours: "Lunes a Domingo: 11:00 AM - 10:00 PM"
+            },
+            ecommerce: {
+              appearance: {
+                storeName: business.name
+              }
+            },
+            products: business.products
+          };
+
+          try {
+            localStorage.setItem(menuKey, JSON.stringify(config));
+            console.log(`${business.name} menu loaded to localStorage successfully`);
+            return config;
+          } catch (e) {
+            console.error(`Error saving ${business.name} config to localStorage:`, e);
+            return config;
+          }
+        }
+
+        // Handle business selection change
+        function handleBusinessChange(businessKey) {
+          console.log(`[POS] Switching to business: ${businessKey}`);
+          
+          // Show loading message immediately
+          showProductLoadingMessage();
+          
+          // Small delay to show loading message
+          setTimeout(() => {
+            currentBusiness = businessKey;
+            mealkitzConfig = initializeBusinessConfig(businessKey);
+            
+            // Update the modal title
+            const modalTitle = document.getElementById("basicPosModalLabel");
+            if (modalTitle) {
+              const businessName = BUSINESS_MENUS[businessKey]?.name || "Negocio";
+              modalTitle.textContent = `Punto de Venta - ${businessName}`;
+            }
+            
+            // Refresh the product list with new business data
+            if (typeof refreshPosProductList === "function") {
+              refreshPosProductList();
+            }
+            
+            // Clear the cart when switching businesses
+            if (typeof clearPosCart === "function") {
+              clearPosCart();
+            }
+            
+            console.log(`[POS] Successfully loaded ${BUSINESS_MENUS[businessKey]?.name} menu`);
+          }, 300); // 300ms delay to show loading
+        }
+
+        // Initialize with Rolling Sushi by default
+        mealkitzConfig = initializeBusinessConfig("rolling-sushi");
+
+        // Initialize business selector event listener
+        const businessSelectorEl = document.getElementById("businessSelector");
+        if (businessSelectorEl) {
+          businessSelectorEl.addEventListener("change", function() {
+            const selectedBusiness = this.value;
+            if (selectedBusiness && BUSINESS_MENUS[selectedBusiness]) {
+              handleBusinessChange(selectedBusiness);
+            }
+          });
+          
+          // Set initial value to rolling-sushi
+          businessSelectorEl.value = "rolling-sushi";
+        }
+
+        // Show loading message in product container
+        function showProductLoadingMessage() {
+          const posProductListContainerEl = document.getElementById("posProductListContainer");
+          if (posProductListContainerEl) {
+            posProductListContainerEl.innerHTML = '<div class="col-12"><div class="text-muted p-2 text-center">Cargando productos...</div></div>';
+          }
+        }
+      });
+    </script>
+    <script src="js/login-required-modal.js"></script>
+    <script src="js/merchant-config.js"></script>
+  
+  <footer class="text-center py-3 mt-auto bg-light">
+    <div class="container d-flex justify-content-center align-items-center">
+      
+      <span class="text-muted small">Powered by</span> <img src="images/mk_logo.jpeg" alt="Mealkitz Logo" style="height: 24px; width: auto; margin-right: 8px;">
+    </div>
+  </footer>
+
+  </body>
+</html>

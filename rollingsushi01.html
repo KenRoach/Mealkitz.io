@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rolling Sushi – Tienda en Línea</title>
+
+  <!-- Google Fonts: Poppins (body) + Bebas Neue (titles) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Bootstrap CSS + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    /* === COLOR PALETTE === */
+    :root {
+      --orange-primary: #F95C24;
+      --orange-hover: #e0511f;
+      --turquoise-secondary: #00B8B2;
+      --text-black: #000000;
+      --text-muted: #6c757d;
+      --white-bg: #FFFFFF;
+      --card-bg: #FFFFFF;
+      --card-border: #dee2e6;
+      --header-bg: #f1f1f1;
+    }
+
+    /* === GLOBAL / BODY === */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f9fa;
+      color: var(--text-black);
+      margin: 0;
+      padding-top: 1rem;
+    }
+
+    a {
+      text-decoration: none;
+    }
+    /* Reset link hover color if needed */
+    a:hover {
+      text-decoration: none;
+    }
+
+    /* === NAVBAR === */
+    .navbar {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background: var(--white-bg);
+      margin-bottom: 1rem;
+    }
+    .navbar-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--orange-primary) !important;
+    }
+    .navbar-brand img {
+      height: 35px;
+      margin-right: 5px;
+    }
+    .nav-link {
+      color: var(--text-black) !important;
+      font-weight: 500;
+    }
+    .nav-link.active {
+      color: var(--orange-primary) !important;
+    }
+    .nav-link:hover {
+      color: var(--orange-hover) !important;
+    }
+    .navbar-toggler {
+      border-color: var(--card-border);
+    }
+
+    /* === CONTAINER === */
+    .store-container {
+      max-width: 1000px;
+      margin: 0 auto 2rem;
+      padding: 0 1rem;
+    }
+
+    /* === PROFILE CARD === */
+    .profile-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .profile-card .logo-img {
+      max-height: 180px;
+      margin-bottom: 0.75rem;
+      width: auto;
+    }
+    .profile-card h5 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-black);
+    }
+    .profile-card p.slogan {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+      color: var(--text-black);
+    }
+    .contact-info i {
+      margin-right: 0.25rem;
+      color: var(--orange-primary);
+    }
+    .contact-info a {
+      color: var(--text-black);
+    }
+    .contact-info a:hover {
+      color: var(--orange-hover);
+    }
+
+    /* === SHOPPING CART === */
+    #shoppingCartSection {
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+      border: none;
+    }
+    #shoppingCartSection .card-header {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--card-border);
+    }
+    #shoppingCartSection h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      color: var(--text-black);
+    }
+    #shoppingCartSection .btn-primary {
+      background: var(--orange-primary);
+      border: none;
+    }
+    #shoppingCartSection .btn-primary:hover {
+      background: var(--orange-hover);
+    }
+    #shoppingCartSection .btn-outline-danger {
+      border-color: var(--orange-primary);
+      color: var(--orange-primary);
+    }
+    #shoppingCartSection .btn-outline-danger:hover {
+      background: var(--orange-primary);
+      color: var(--white-bg);
+    }
+    #shoppingCartSection .card-body {
+      padding: 1rem;
+    }
+    #shoppingCartSection .list-group-item {
+      border: none;
+      padding: 0.5rem 0;
+    }
+    #shoppingCartSection .list-group-item + .list-group-item {
+      border-top: 1px solid var(--card-border);
+    }
+
+    /* === SEARCH & SHARE ROW === */
+    #search-share-row {
+      margin-bottom: 1rem;
+    }
+    #searchInput {
+      border: 1px solid var(--card-border);
+      border-radius: 4px;
+      padding: 0.5rem;
+    }
+    #native-share-store-btn {
+      background: var(--turquoise-secondary);
+      color: var(--white-bg);
+      border: none;
+      font-size: 0.95rem;
+    }
+    #native-share-store-btn:hover {
+      background: #00a39d; /* slightly darker turquoise */
+    }
+
+    /* === PRODUCT GRID === */
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: box-shadow 0.2s;
+      height: 100%;
+    }
+    .product-card:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    .product-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 0.5rem;
+    }
+    .product-info h6 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      color: var(--text-black);
+    }
+    .product-info p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .btn-order {
+      background: var(--orange-primary);
+      color: var(--white-bg);
+      border: none;
+      font-size: 0.95rem;
+      padding: 0.4rem;
+    }
+    .btn-order:hover {
+      background: var(--orange-hover);
+    }
+
+    /* === MODAL ADJUSTMENTS === */
+    #orderModal .modal-content {
+      border-radius: 8px;
+    }
+    #orderModal .modal-header {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--card-border);
+    }
+    #orderModal .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      color: var(--text-black);
+    }
+    #orderModal .modal-body p,
+    #orderModal .modal-body ul {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-black);
+    }
+    #orderModal .form-label {
+      font-weight: 500;
+      color: var(--text-black);
+    }
+    #orderModal .form-check-label,
+    #orderModal .form-text {
+      color: var(--text-black);
+    }
+    #orderModal .btn-primary {
+      background: var(--orange-primary);
+      border: none;
+    }
+    #orderModal .btn-primary:hover {
+      background: var(--orange-hover);
+    }
+
+    /* === RESPONSIVE ADJUSTMENTS === */
+    @media (max-width: 576px) {
+      .contact-info {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
+      .product-img {
+        height: 120px;
+      }
+      .profile-card {
+        padding: 1rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-light bg-white navbar-expand-md py-2">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="Images/mk_logo.jpeg" alt="MK Logo">
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarIcons"
+        aria-controls="navbarIcons"
+        aria-expanded="false"
+        aria-label="Alternar navegación"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarIcons">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="config.html">
+              <i class="bi bi-person-badge-fill me-1"></i>Ingresar Datos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#manualChargeModal"
+            >
+              <i class="bi bi-cash-coin me-1"></i>Cobro Manual
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#cotizacionModal"
+            >
+              <i class="bi bi-file-earmark-text-fill me-1"></i>Generar Cotización
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#proximamenteQRModal"
+            >
+              <i class="bi bi-qr-code me-1"></i>Cobro QR
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="e-commerce.html">
+              <i class="bi bi-shop me-1"></i>Mi Tienda
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pedidos.html">
+              <i class="bi bi-box-seam me-1"></i>Pedidos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="ayuda.html">
+              <i class="bi bi-question-circle-fill me-1"></i>Ayuda
+            </a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center ms-auto">
+          <button class="btn btn-link text-dark me-3" title="Notificaciones">
+            <i class="bi bi-bell-fill fs-4"></i>
+          </button>
+          <a
+            href="#"
+            id="whatsapp-share-btn"
+            class="btn btn-link text-dark me-3"
+            title="Compartir"
+          >
+            <i class="bi bi-whatsapp fs-4"></i>
+          </a>
+          <div class="nav-item dropdown">
+            <a
+              href="#"
+              class="btn btn-link text-dark me-3 dropdown-toggle d-flex align-items-center"
+              id="profileDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              title="Perfil"
+            >
+              <i class="bi bi-person-circle fs-4 me-2"></i>
+              <span id="profileDropdownName">Perfil</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+              <li><a class="dropdown-item" href="perfil.html">Crear Perfil</a></li>
+              <li><a class="dropdown-item" href="iniciar.html">Iniciar Sesión</a></li>
+            </ul>
+          </div>
+          <a href="ayuda.html" class="btn btn-link text-dark me-3" title="Buscar">
+            <i class="bi bi-search fs-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="store-container">
+    <!-- Profile Card -->
+    <div class="profile-card">
+      <img src="Images/rolling_sushi_logo.png" class="logo-img" alt="Rolling Sushi Logo">
+      <h5 id="storePageBusinessName">Rolling Sushi</h5>
+      <p class="slogan" id="storePageBusinessSlogan">Delivery &amp; Takeout</p>
+      <div class="contact-info">
+        <p>
+          <i class="bi bi-geo-alt-fill"></i>
+          <strong>Ubicación:</strong>
+          <span id="storePageBusinessLocation">Panamá Norte</span>
+        </p>
+        <p>
+          <i class="bi bi-whatsapp text-success"></i>
+          <strong>WhatsApp:</strong>
+          <a href="https://wa.me/50761234567" target="_blank" id="storePageBusinessWhatsapp">
+            +507 6123-4567
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Shopping Cart -->
+    <div class="card mb-4" id="shoppingCartSection">
+      <div class="card-header bg-light">
+        <h4 class="mb-0">
+          <i class="bi bi-cart-fill me-2"></i>Tu Carrito
+        </h4>
+      </div>
+      <div class="card-body p-3" id="cartItemsContainer">
+        <p class="text-muted text-center my-3">Tu carrito está vacío.</p>
+      </div>
+      <div class="card-footer bg-light py-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="mb-0">Total:</h5>
+          <h5 class="mb-0" id="cartTotalFormatted">$0.00</h5>
+        </div>
+        <button class="btn btn-primary w-100 mt-2" id="checkoutBtn" style="font-size: 1.1rem;">
+          <i class="bi bi-whatsapp me-2"></i>Proceder al Pago
+        </button>
+        <button class="btn btn-outline-danger w-100 mt-2" id="clearCartBtn">
+          <i class="bi bi-trash3-fill me-2"></i>Vaciar Carrito
+        </button>
+      </div>
+    </div>
+
+    <!-- Search & Share Row -->
+    <div class="row align-items-center mb-3" id="search-share-row">
+      <div class="col-md-8 mb-2 mb-md-0">
+        <input type="text" id="searchInput" class="form-control" placeholder="Buscar producto…">
+      </div>
+      <div class="col-md-4 text-md-end">
+        <button id="native-share-store-btn" class="btn btn-success w-100 w-md-auto">
+          <i class="bi bi-share-fill me-2"></i>Compartir Tienda
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4" id="product-list">
+      <!-- 1. Roll California -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/california.png" class="product-img" alt="Roll California">
+          <div class="product-info">
+            <h6 class="fw-bold">Roll California</h6>
+            <p>$12.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('1')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 2. Roll Filadelfia -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/philadelfia.png" class="product-img" alt="Roll Filadelfia">
+          <div class="product-info">
+            <h6 class="fw-bold">Roll Filadelfia</h6>
+            <p>$14.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('2')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 3. Roll Dragón -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/dragon.png" class="product-img" alt="Roll Dragón">
+          <div class="product-info">
+            <h6 class="fw-bold">Roll Dragón</h6>
+            <p>$16.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('3')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 4. Roll Dinamita -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/dinamita.png" class="product-img" alt="Roll Dinamita">
+          <div class="product-info">
+            <h6 class="fw-bold">Roll Dinamita</h6>
+            <p>$15.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('4')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 5. Sashimi Mixto (6 piezas) -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/sashimi.png" class="product-img" alt="Sashimi Mixto">
+          <div class="product-info">
+            <h6 class="fw-bold">Sashimi Mixto (6 piezas)</h6>
+            <p>$18.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('5')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 6. Nigiri de Salmón (2 piezas) -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/nagirisalmon.png" class="product-img" alt="Nigiri de Salmón">
+          <div class="product-info">
+            <h6 class="fw-bold">Nigiri de Salmón (2 piezas)</h6>
+            <p>$10.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('6')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 7. Nigiri de Atún (2 piezas) -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/nagirituna.png" class="product-img" alt="Nigiri de Atún">
+          <div class="product-info">
+            <h6 class="fw-bold">Nigiri de Atún (2 piezas)</h6>
+            <p>$10.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('7')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 8. Gyozas de Cerdo (4 piezas) -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/gyozas.png" class="product-img" alt="Gyozas de Cerdo">
+          <div class="product-info">
+            <h6 class="fw-bold">Gyozas de Cerdo (4 piezas)</h6>
+            <p>$8.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('8')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 9. Edamame -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/edemame.png" class="product-img" alt="Edamame">
+          <div class="product-info">
+            <h6 class="fw-bold">Edamame</h6>
+            <p>$5.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('9')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 10. Helado de Té Verde -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/heladote.png" class="product-img" alt="Helado de Té Verde">
+          <div class="product-info">
+            <h6 class="fw-bold">Helado de Té Verde</h6>
+            <p>$6.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('10')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 11. Mochi de Fresa -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/mochis.png" class="product-img" alt="Mochi de Fresa">
+          <div class="product-info">
+            <h6 class="fw-bold">Mochi de Fresa</h6>
+            <p>$7.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('11')">Ordenar</button>
+        </div>
+      </div>
+      <!-- 12. Soda de Limonada -->
+      <div class="col">
+        <div class="product-card">
+          <img src="Images/limonada.png" class="product-img" alt="Soda de Limonada">
+          <div class="product-info">
+            <h6 class="fw-bold">Soda de Limonada</h6>
+            <p>$3.00</p>
+          </div>
+          <button class="btn btn-order w-100" onclick="addToCart('12')">Ordenar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Modal -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="orderModalLabel">Finalizar Pedido</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Resumen:</strong></p>
+          <ul id="modalOrderSummary" class="ps-3 mb-2"></ul>
+          <p><strong>Total:</strong> <span id="modalTotal"></span></p>
+
+          <form id="orderForm">
+            <div class="mb-3">
+              <label for="customerName" class="form-label">Tu Nombre</label>
+              <input type="text" class="form-control" id="customerName" required>
+            </div>
+            <div class="mb-3">
+              <label for="customerPhone" class="form-label">Teléfono</label>
+              <input type="tel" class="form-control" id="customerPhone" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Tipo de Pedido</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="orderType" id="orderTypePickup" value="Pickup" checked>
+                  <label class="form-check-label" for="orderTypePickup">Pickup</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="orderType" id="orderTypeDelivery" value="Delivery">
+                  <label class="form-check-label" for="orderTypeDelivery">Delivery</label>
+                </div>
+              </div>
+            </div>
+            <div id="deliveryLocationInfo" class="mb-3" style="display: none;">
+              <small class="text-muted">
+                Para delivery, envía tu ubicación por WhatsApp después de completar el pedido.
+              </small>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Método de Pago</label>
+              <select class="form-select" id="preferredPaymentMethod">
+                <option value="Yappy" selected>Yappy</option>
+                <option value="Efectivo">Efectivo</option>
+                <option value="Tarjeta de Crédito/Débito">Tarjeta</option>
+                <option value="Bitcoin">Bitcoin</option>
+              </select>
+            </div>
+
+            <!-- Survey: Rating & Subscription -->
+            <div class="mb-3">
+              <label class="form-label">¿Cómo calificaría su experiencia?</label>
+              <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="surveyRating" id="rating1" value="1" required>
+                  <label class="form-check-label" for="rating1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="surveyRating" id="rating2" value="2">
+                  <label class="form-check-label" for="rating2">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="surveyRating" id="rating3" value="3">
+                  <label class="form-check-label" for="rating3">3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="surveyRating" id="rating4" value="4">
+                  <label class="form-check-label" for="rating4">4</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="surveyRating" id="rating5" value="5">
+                  <label class="form-check-label" for="rating5">5</label>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="subscribeUpdates" value="Sí">
+                <label class="form-check-label" for="subscribeUpdates">
+                  Suscribirme a actualizaciones por WhatsApp
+                </label>
+              </div>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="sendToWhatsappCheckbox" checked>
+              <label class="form-check-label" for="sendToWhatsappCheckbox">
+                Enviar confirmación por WhatsApp
+              </label>
+            </div>
+
+            <div class="mb-3">
+              <label for="customerNotes" class="form-label">Notas Adicionales</label>
+              <textarea class="form-control" id="customerNotes" rows="2"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer p-0">
+          <button type="button" id="placeOrderBtn" class="btn btn-primary w-100">Realizar Pedido</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center py-3 bg-light">
+    <div class="container d-flex justify-content-center align-items-center">
+      <span class="text-muted small">Powered by</span>
+      <img src="images/mk_logo.jpeg" alt="MK Logo" style="height: 24px; margin-left: 8px;">
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS + Cart Logic -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Product data (IDs must match addToCart calls)
+    const storeProducts = [
+      { id: '1', name: 'Roll California', price: 12.00 },
+      { id: '2', name: 'Roll Filadelfia', price: 14.00 },
+      { id: '3', name: 'Roll Dragón', price: 16.00 },
+      { id: '4', name: 'Roll Dinamita', price: 15.00 },
+      { id: '5', name: 'Sashimi Mixto (6 piezas)', price: 18.00 },
+      { id: '6', name: 'Nigiri de Salmón (2 piezas)', price: 10.00 },
+      { id: '7', name: 'Nigiri de Atún (2 piezas)', price: 10.00 },
+      { id: '8', name: 'Gyozas de Cerdo (4 piezas)', price: 8.00 },
+      { id: '9', name: 'Edamame', price: 5.00 },
+      { id: '10', name: 'Helado de Té Verde', price: 6.00 },
+      { id: '11', name: 'Mochi de Fresa', price: 7.00 },
+      { id: '12', name: 'Soda de Limonada', price: 3.00 }
+    ];
+    let shoppingCart = [];
+
+    // Bootstrap Modal instance
+    let orderModalInstance = null;
+    const orderModalEl = document.getElementById('orderModal');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Bootstrap modal
+      orderModalInstance = new bootstrap.Modal(orderModalEl);
+
+      // Render cart on load
+      renderCart();
+
+      // Handle cart‐item button clicks (increase/decrease/remove)
+      document.getElementById('cartItemsContainer').addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const pid = btn.dataset.productId;
+        if (btn.classList.contains('cart-qty-increase')) {
+          updateCartQuantity(pid, +1);
+        } else if (btn.classList.contains('cart-qty-decrease')) {
+          updateCartQuantity(pid, -1);
+        } else if (btn.classList.contains('cart-remove-item')) {
+          removeFromCart(pid);
+        }
+      });
+
+      // Clear cart button
+      document.getElementById('clearCartBtn').addEventListener('click', () => {
+        shoppingCart = [];
+        renderCart();
+      });
+
+      // Checkout button (shows modal)
+      document.getElementById('checkoutBtn').addEventListener('click', handleCheckout);
+
+      // "Realizar Pedido" button in modal
+      document.getElementById('placeOrderBtn').addEventListener('click', () => {
+        const name = document.getElementById('customerName').value.trim();
+        const phone = document.getElementById('customerPhone').value.trim();
+        if (!name || !phone) {
+          alert('Por favor, ingresa tu nombre y teléfono.');
+          return;
+        }
+
+        const orderType = document.querySelector('input[name="orderType"]:checked').value;
+        const paymentMethod = document.getElementById('preferredPaymentMethod').value;
+        const rating = document.querySelector('input[name="surveyRating"]:checked')?.value || '—';
+        const subscribeToUpdates = document.getElementById('subscribeUpdates').checked ? 'Sí' : 'No';
+        const notes = document.getElementById('customerNotes').value.trim();
+        const sendWhatsAppConfirmation = document.getElementById('sendToWhatsappCheckbox').checked;
+
+        let orderTotal = 0;
+        let orderItemsText = "";
+        shoppingCart.forEach(item => {
+          orderItemsText += `${item.quantity} × ${item.name} – ${formatCurrency(item.price * item.quantity)}\n`;
+          orderTotal += item.price * item.quantity;
+        });
+
+        // Log or send order to backend
+        const orderDetailsForLog = {
+          customerName: name,
+          customerPhone: phone,
+          orderType: orderType,
+          paymentMethod: paymentMethod,
+          items: shoppingCart.map(item => ({
+            id: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price
+          })),
+          totalAmount: orderTotal,
+          rating: rating,
+          subscribedToUpdates: subscribeToUpdates,
+          notes: notes,
+          whatsappConfirmationRequested: sendWhatsAppConfirmation
+        };
+        console.log("Order Placed:", orderDetailsForLog);
+        alert("¡Pedido realizado con éxito!");
+
+        if (sendWhatsAppConfirmation) {
+          let message = 'Confirmación de Pedido – Rolling Sushi:\n-----------------------------\n';
+          message += orderItemsText;
+          message += '-----------------------------\n';
+          message += `TOTAL: ${formatCurrency(orderTotal)}\n`;
+          message += '-----------------------------\n';
+          message += `Nombre: ${name}\nTeléfono: ${phone}\n`;
+          message += `Tipo de Pedido: ${orderType}\nPago: ${paymentMethod}\n`;
+          message += `Calificación (1-5): ${rating}\nSuscripción a Novedades: ${subscribeToUpdates}\n`;
+          if (notes) message += `Notas: ${notes}\n`;
+          message += '-----------------------------\n¡Gracias por tu pedido!';
+
+          const whatsappNumber = "50761234567"; // verificar número
+          const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+          window.open(whatsappUrl, '_blank');
+        }
+
+        orderModalInstance.hide();
+        shoppingCart = [];
+        renderCart();
+      });
+
+      // Show/hide delivery info based on radio selection
+      document.getElementById('orderTypePickup').addEventListener('change', toggleDeliveryInfo);
+      document.getElementById('orderTypeDelivery').addEventListener('change', toggleDeliveryInfo);
+
+      // WhatsApp share button in navbar
+      document.getElementById('whatsapp-share-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        const shareText = encodeURIComponent(`¡Echa un vistazo a Rolling Sushi: ${window.location.href}`);
+        const link = /Android|iPhone|iPad/.test(navigator.userAgent)
+          ? `whatsapp://send?text=${shareText}`
+          : `https://wa.me/?text=${shareText}`;
+        window.open(link, '_blank');
+      });
+
+      // "Compartir Tienda" button logic (#native-share-store-btn)
+      const nativeShareStoreButton = document.getElementById('native-share-store-btn');
+      if (nativeShareStoreButton) {
+        nativeShareStoreButton.addEventListener('click', async () => {
+          const storeUrl = window.location.href;
+          let storeName = "Rolling Sushi"; // Default store name
+          const storeNameElement = document.getElementById('storePageBusinessName');
+          if (storeNameElement && storeNameElement.textContent) {
+            storeName = storeNameElement.textContent.trim();
+          }
+          
+          const shareText = `¡Echa un vistazo a la tienda de ${storeName}!`;
+          const shareTitle = `${storeName} - Tienda en Línea`;
+
+          if (navigator.share) {
+            try {
+              await navigator.share({ title: shareTitle, text: shareText, url: storeUrl });
+              console.log('Contenido compartido exitosamente con Web Share API');
+            } catch (err) {
+              console.error('Error al usar Web Share API o fue cancelado:', err);
+              // Fallback to WhatsApp if Web Share API fails or is dismissed by user
+              const whatsappFallbackText = encodeURIComponent(`${shareText} ${storeUrl}`);
+              const whatsappFallbackLink = `https://wa.me/?text=${whatsappFallbackText}`;
+              window.open(whatsappFallbackLink, '_blank');
+            }
+          } else {
+            // Fallback for browsers that don't support Web Share API
+            console.log('Web Share API no soportada, usando fallback de WhatsApp.');
+            const whatsappFallbackText = encodeURIComponent(`${shareText} ${storeUrl}`);
+            const whatsappFallbackLink = `https://wa.me/?text=${whatsappFallbackText}`;
+            window.open(whatsappFallbackLink, '_blank');
+          }
+        });
+      }
+    });
+
+    function formatCurrency(val) {
+      return '$' + parseFloat(val).toFixed(2);
+    }
+
+    function addToCart(productId) {
+      const product = storeProducts.find(p => p.id === productId);
+      if (!product) return;
+      const existing = shoppingCart.find(i => i.id === productId);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        shoppingCart.push({ ...product, quantity: 1 });
+      }
+      renderCart();
+    }
+
+    function updateCartQuantity(productId, delta) {
+      const idx = shoppingCart.findIndex(i => i.id === productId);
+      if (idx < 0) return;
+      shoppingCart[idx].quantity += delta;
+      if (shoppingCart[idx].quantity < 1) {
+        shoppingCart.splice(idx, 1);
+      }
+      renderCart();
+    }
+
+    function removeFromCart(productId) {
+      shoppingCart = shoppingCart.filter(i => i.id !== productId);
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cartItemsContainer');
+      const totalEl = document.getElementById('cartTotalFormatted');
+      container.innerHTML = '';
+
+      if (shoppingCart.length === 0) {
+        container.innerHTML = '<p class="text-muted text-center my-3">Tu carrito está vacío.</p>';
+        totalEl.textContent = formatCurrency(0);
+        return;
+      }
+
+      const list = document.createElement('ul');
+      list.className = 'list-group list-group-flush';
+      let total = 0;
+
+      shoppingCart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex justify-content-between align-items-center px-0 py-2';
+        li.innerHTML = `
+          <div class="me-2 flex-grow-1" style="min-width: 0;">
+            <small class="fw-bold d-block text-truncate">${item.name}</small>
+            <small class="text-muted">${item.quantity} × ${formatCurrency(item.price)}</small>
+          </div>
+          <div class="fw-bold me-3">${formatCurrency(itemTotal)}</div>
+          <div class="d-flex align-items-center flex-shrink-0">
+            <button class="btn btn-outline-secondary btn-sm py-0 px-1 me-1 cart-qty-decrease" data-product-id="${item.id}">
+              <i class="bi bi-dash-lg"></i>
+            </button>
+            <span class="mx-1 small">${item.quantity}</span>
+            <button class="btn btn-outline-secondary btn-sm py-0 px-1 ms-1 me-2 cart-qty-increase" data-product-id="${item.id}">
+              <i class="bi bi-plus-lg"></i>
+            </button>
+            <button class="btn btn-outline-danger btn-sm py-0 px-1 cart-remove-item" data-product-id="${item.id}">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+
+      container.appendChild(list);
+      totalEl.textContent = formatCurrency(total);
+    }
+
+    function handleCheckout() {
+      if (shoppingCart.length === 0) {
+        alert('Tu carrito está vacío.');
+        return;
+      }
+      // Fill modal summary
+      const summaryList = document.getElementById('modalOrderSummary');
+      const modalTotal = document.getElementById('modalTotal');
+      summaryList.innerHTML = '';
+      let total = 0;
+
+      shoppingCart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.quantity} × ${item.name} – ${formatCurrency(item.price * item.quantity)}`;
+        summaryList.appendChild(li);
+        total += item.price * item.quantity;
+      });
+      modalTotal.textContent = formatCurrency(total);
+
+      // Reset form fields
+      document.getElementById('customerName').value = '';
+      document.getElementById('customerPhone').value = '';
+      document.getElementById('customerNotes').value = '';
+      document.getElementById('orderTypePickup').checked = true;
+      document.getElementById('preferredPaymentMethod').value = 'Yappy';
+      const ratingRadios = document.getElementsByName('surveyRating');
+      ratingRadios.forEach(r => r.checked = false);
+      document.getElementById('subscribeUpdates').checked = false;
+      toggleDeliveryInfo();
+
+      orderModalInstance.show();
+    }
+
+    function toggleDeliveryInfo() {
+      const deliveryDiv = document.getElementById('deliveryLocationInfo');
+      deliveryDiv.style.display = document.getElementById('orderTypeDelivery').checked
+        ? 'block'
+        : 'none';
+    }
+  </script>
+</body>
+</html>

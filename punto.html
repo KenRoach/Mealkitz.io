@@ -138,6 +138,63 @@
         color: #343a40;
       }
 
+      /* Basic POS Modal Styles */
+      #posProductListContainer {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+      }
+      .pos-product-item {
+        cursor: pointer;
+        padding: 0.75rem;
+        border-bottom: 1px solid #eee;
+      }
+      .pos-product-item:hover {
+        background-color: #f8f9fa;
+      }
+      .pos-product-item:last-child {
+        border-bottom: none;
+      }
+      #posCartItemsContainer {
+        min-height: 150px;
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 0.375rem;
+      }
+      .pos-cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .pos-cart-item:last-child {
+        border-bottom: none;
+      }
+      .pos-cart-item-details span {
+        display: block;
+      }
+      .pos-cart-item-name {
+        font-weight: 600;
+      }
+      .pos-cart-item-qty-price {
+        font-size: 0.9em;
+        color: #6c757d;
+      }
+      #posTotalAmount {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #123a62;
+        text-align: right;
+        margin-top: 1rem;
+      }
+      /* End Basic POS Modal Styles */
+
       /* Custom Navbar Link Styling */
       @media (max-width: 767.98px) { /* Bootstrap's md breakpoint */
         .navbar-collapse .navbar-nav .nav-item {
@@ -196,6 +253,67 @@
         vertical-align: text-bottom; /* Align icon better with text */
         margin-right: 0.35em !important; /* Ensure spacing from text */
       }
+
+      /* Styles from hacemos.html for "Ideal para" and "Paso a Paso" sections */
+      /* Steps Section */
+      .steps-section {
+        padding: 3rem 1rem;
+      }
+      .steps-section h3 {
+        text-align: center;
+        color: #123a62;
+        margin-bottom: 2rem;
+        font-weight: 600;
+      }
+      .step-card {
+        background-color: #fefefe;
+        border: 1px solid #e9ecef;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+        height: 100%; /* Ensure cards in a row are same height */
+      }
+      .step-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+      }
+      .step-card i {
+        font-size: 2rem;
+        color: #123a62;
+        margin-bottom: 0.75rem;
+      }
+      .step-card h5 {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #123a62;
+      }
+      .step-card p {
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+
+      /* "Ideal para" List */
+      .ideal-section {
+        padding: 2rem 1rem;
+        margin-bottom: 2rem; /* Add some space before the next section */
+      }
+      .ideal-section h3 {
+        text-align: center;
+        color: #123a62;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+      }
+      .ideal-section ul li {
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+        font-weight: 400;
+      }
+      .ideal-section ul li i {
+        color: #28a745; /* Green checkmark icons */
+        margin-right: 0.5rem;
+      }
+      /* End of styles from hacemos.html */
     </style>
   </head>
   <body>
@@ -235,10 +353,10 @@
                 class="nav-link"
                 href="#"
                 data-bs-toggle="modal"
-                data-bs-target="#manualChargeModal"
+                data-bs-target="#basicPosModal"
               >
-                <i class="bi bi-cash-coin me-1"></i>
-                Cobro Manual
+                <i class="bi bi-calculator-fill me-1"></i>
+                Punto de Venta
               </a>
             </li>
     
@@ -357,6 +475,78 @@
         </p>
       </section>
 
+      <!-- "Ideal para" Section from hacemos.html -->
+      <section class="ideal-section">
+        <h3>Ideal para</h3>
+        <div class="row gx-4 gy-3">
+          <div class="col-6 col-md-3">
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle-fill"></i>Bakery casera</li>
+              <li><i class="bi bi-check-circle-fill"></i>Food truck</li>
+              <li><i class="bi bi-check-circle-fill"></i>Restaurante pop-up</li>
+            </ul>
+      </div>
+          <div class="col-6 col-md-3">
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle-fill"></i>Cocina oculta</li>
+              <li><i class="bi bi-check-circle-fill"></i>Catering pequeño</li>
+              <li><i class="bi bi-check-circle-fill"></i>Artesanías alimenticias</li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-3">
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle-fill"></i>Jabones y cremas</li>
+              <li><i class="bi bi-check-circle-fill"></i>Consultoría</li>
+              <li><i class="bi bi-check-circle-fill"></i>Chef privado</li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-3">
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle-fill"></i>Talleres de cocina</li>
+              <li><i class="bi bi-check-circle-fill"></i>Fonda</li>
+              <li><i class="bi bi-check-circle-fill"></i>Almuerzos corporativos</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- End "Ideal para" Section -->
+
+      <!-- "Paso a Paso" Section from hacemos.html -->
+      <section class="steps-section my-5">
+        <h3>Paso a Paso</h3>
+        <div class="row g-4">
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="step-card h-100">
+              <i class="bi bi-person-plus-fill"></i>
+              <h5>1. Regístrate</h5>
+              <p>Regístrate gratis con nombre, correo y contraseña.</p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="step-card h-100">
+              <i class="bi bi-gear-fill"></i>
+              <h5>2. Configura tu negocio</h5>
+              <p>Agrega ubicación, datos fiscales y catálogo de productos.</p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="step-card h-100">
+              <i class="bi bi-receipt-cutoff"></i>
+              <h5>3. Factura</h5>
+              <p>Emite facturas electrónicas con validación automática.</p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="step-card h-100">
+              <i class="bi bi-basket3-fill"></i>
+              <h5>4. Gestiona pedidos</h5>
+              <p>Centraliza pedidos, controla inventario y reportes en tiempo real.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End "Paso a Paso" Section -->
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 action-card-grid">
         <!-- Ingresar tus Datos -->
         <div class="col">
@@ -368,9 +558,9 @@
 
         <!-- Cobro Manual -->
         <div class="col">
-          <a href="#" class="action-card" data-bs-toggle="modal" data-bs-target="#manualChargeModal">
-            <div class="action-card-icon"><i class="bi bi-cash-coin"></i></div>
-            <div class="action-card-title">Cobro Manual</div>
+          <a href="#" class="action-card" data-bs-toggle="modal" data-bs-target="#basicPosModal">
+            <div class="action-card-icon"><i class="bi bi-calculator-fill"></i></div>
+            <div class="action-card-title">Punto de Venta</div>
           </a>
         </div>
 
@@ -407,6 +597,65 @@
         </div>
 
     </main>
+
+    <!-- Basic POS Modal -->
+    <div class="modal fade" id="basicPosModal" tabindex="-1" aria-labelledby="basicPosModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="basicPosModalLabel">Punto de Venta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <!-- Left Column: Product Selection -->
+              <div class="col-md-5">
+                <h6>Productos Disponibles</h6>
+                <input type="text" id="posProductFilter" class="form-control mb-2" placeholder="Buscar producto...">
+                <div id="posProductListContainer">
+                  <!-- Product items will be dynamically added here by JavaScript -->
+                  <div class="text-muted p-2">Cargando productos...</div>
+                </div>
+              </div>
+
+              <!-- Right Column: Cart/Order Summary -->
+              <div class="col-md-7">
+                <h6>Resumen del Pedido</h6>
+                <div id="posCartItemsContainer">
+                  <p class="text-muted text-center mt-3">El carrito está vacío.</p>
+                  <!-- Cart items will be dynamically added here by JavaScript -->
+                </div>
+                <div id="posTotalAmount" class="mt-3">
+                  Total: $0.00
+                </div>
+                <div class="mt-3">
+                  <label for="posPaymentMethod" class="form-label">Método de Pago</label>
+                  <select id="posPaymentMethod" class="form-select">
+                    <option value="efectivo" selected>Efectivo</option>
+                    <option value="tarjeta">Tarjeta</option>
+                    <option value="transferencia">Transferencia</option>
+                    <option value="yappy">Yappy</option>
+                    <!-- Add other payment methods as needed -->
+            </select>
+          </div>
+                <div class="mb-3 mt-3">
+                    <label for="posClientWhatsapp" class="form-label">WhatsApp Cliente (Opcional)</label>
+                    <input type="tel" id="posClientWhatsapp" class="form-control" placeholder="Ej: +507 6xxxxxxx">
+          </div>
+        </div>
+      </div>
+    </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-warning" id="posClearCartBtn">Limpiar Pedido</button>
+            <div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="posProcessPaymentBtn">Procesar Cobro</button>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Basic POS Modal -->
 
     <!-- Modal Único: Cobro Manual (con checkbox para encuesta) -->
     <div
@@ -448,8 +697,8 @@
                 </select>
                 <div id="mcProductHelp" class="form-text">
                   Elige de tu catálogo el producto que deseas cobrar.
-                </div>
-              </div>
+            </div>
+          </div>
 
               <!-- 2) Revisión de datos (negocio, fecha y precio) -->
               <div class="row mb-3">
@@ -462,7 +711,7 @@
                     readonly
                     placeholder="Negocio"
                   />
-                </div>
+        </div>
                 <div class="col-md-4">
                   <label for="mcDatetime" class="form-label">Fecha / Hora</label>
                   <input
@@ -472,7 +721,7 @@
                     readonly
                     placeholder="Fecha y Hora"
                   />
-                </div>
+      </div>
                 <div class="col-md-4">
                   <label for="mcPrice" class="form-label">Precio</label>
                   <input
@@ -483,7 +732,7 @@
                     readonly
                     placeholder="Precio"
                   />
-                </div>
+    </div>
               </div>
 
               <!-- 3) Método de pago -->
@@ -578,7 +827,7 @@
                   id="cotizacionClienteNombre"
                   required
                 />
-              </div>
+          </div>
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="cotizacionClienteEmail" class="form-label"
@@ -590,7 +839,7 @@
                     id="cotizacionClienteEmail"
                     required
                   />
-                </div>
+          </div>
                 <div class="col-md-6 mb-3">
                   <label for="cotizacionClienteTelefono" class="form-label"
                     >Teléfono del Cliente (Opcional)</label
@@ -600,8 +849,8 @@
                     class="form-control"
                     id="cotizacionClienteTelefono"
                   />
-                </div>
-              </div>
+        </div>
+      </div>
               <div class="mb-3">
                 <label for="cotizacionDescripcion" class="form-label"
                   >Descripción de Servicios/Productos</label
@@ -615,7 +864,7 @@ Diseño de Logo - $XXX
 Desarrollo Web Básico - $YYY"
                   required
                 ></textarea>
-              </div>
+    </div>
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="cotizacionMontoTotal" class="form-label"
@@ -693,19 +942,19 @@ Desarrollo Web Básico - $YYY"
               data-bs-dismiss="modal"
               aria-label="Cerrar"
             ></button>
-          </div>
+        </div>
           <div class="modal-body">
             <p>
               Cobros con QR, Reportes avanzados e acceso a inversiones son
               funciones avanzadas que se desbloquearán al usar el sistema de forma
               constante.
             </p>
-          </div>
+      </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
               Entendido
             </button>
-          </div>
+    </div>
         </div>
       </div>
     </div>
@@ -833,6 +1082,7 @@ Desarrollo Web Básico - $YYY"
         let mealkitzConfig = {};
         try {
           const storedConfig = localStorage.getItem("mealkitzConfig");
+          console.log("Stored mealkitzConfig from localStorage:", storedConfig); // Log what's retrieved
           if (storedConfig) {
             mealkitzConfig = JSON.parse(storedConfig);
           } else {
@@ -1010,9 +1260,223 @@ Desarrollo Web Básico - $YYY"
             updateSubmitState();
           });
 
-        // Make sure all other event listeners and functions are properly closed
-        // ... (rest of the script, assuming it's correct or to be reviewed if errors persist)
+        // --- BEGIN Basic POS Modal Logic ---
+        const posModalElement = document.getElementById('basicPosModal');
+        const posProductListContainer = document.getElementById('posProductListContainer');
+        const posProductFilterInput = document.getElementById('posProductFilter');
+        const posCartItemsContainer = document.getElementById('posCartItemsContainer');
+        const posTotalAmountDiv = document.getElementById('posTotalAmount');
+        const posPaymentMethodSelect = document.getElementById('posPaymentMethod');
+        const posClientWhatsappInput = document.getElementById('posClientWhatsapp');
+        const posClearCartBtn = document.getElementById('posClearCartBtn');
+        const posProcessPaymentBtn = document.getElementById('posProcessPaymentBtn');
+        
+        let posCart = []; // Array to store { id, name, price, quantity }
+
+        function formatCurrency(amount) {
+            const currencySymbol = mealkitzConfig.business && mealkitzConfig.business.currency ? mealkitzConfig.business.currency : '$';
+            return `${currencySymbol}${Number(amount).toFixed(2)}`;
+        }
+
+        function renderPosProducts(filterText = '') {
+            if (!posProductListContainer) return;
+            posProductListContainer.innerHTML = ''; // Clear previous items
+            const productsToDisplay = mealkitzConfig.products.filter(p => 
+                p.name.toLowerCase().includes(filterText.toLowerCase())
+            );
+
+            if (productsToDisplay.length === 0) {
+                posProductListContainer.innerHTML = '<div class="text-muted p-2">No hay productos que coincidan o no hay productos configurados.</div>';
+                return;
+            }
+
+            productsToDisplay.forEach(product => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'pos-product-item d-flex justify-content-between align-items-center';
+                itemDiv.innerHTML = `
+                    <span>${product.name} - ${formatCurrency(product.price)}</span>\n                    <button class="btn btn-sm btn-outline-primary add-to-cart-btn" data-product-id="${product.id}"><i class="bi bi-plus-lg"></i></button>\n                `;
+                itemDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addProductToPosCart(product.id));
+                posProductListContainer.appendChild(itemDiv);
+            });
+        }
+
+        function addProductToPosCart(productId) {
+            const product = mealkitzConfig.products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingCartItem = posCart.find(item => item.id === productId);
+            if (existingCartItem) {
+                existingCartItem.quantity++;
+            } else {
+                posCart.push({ ...product, quantity: 1 });
+            }
+            renderPosCart();
+        }
+
+        function renderPosCart() {
+            if (!posCartItemsContainer || !posTotalAmountDiv) return;
+            posCartItemsContainer.innerHTML = '';
+            let currentTotal = 0;
+
+            if (posCart.length === 0) {
+                posCartItemsContainer.innerHTML = '<p class="text-muted text-center mt-3">El carrito está vacío.</p>';
+            } else {
+                posCart.forEach(item => {
+                    const itemSubtotal = item.price * item.quantity;
+                    currentTotal += itemSubtotal;
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.className = 'pos-cart-item';
+                    cartItemDiv.innerHTML = `
+                        <div class="pos-cart-item-details">
+                            <span class="pos-cart-item-name">${item.name}</span>\n                            <span class="pos-cart-item-qty-price">${item.quantity} x ${formatCurrency(item.price)} = ${formatCurrency(itemSubtotal)}</span>\n                        </div>\n                        <div>\n                            <button class="btn btn-sm btn-outline-secondary decrease-qty-btn me-1" data-cart-item-id="${item.id}"><i class="bi bi-dash-lg"></i></button>\n                            <button class="btn btn-sm btn-outline-danger remove-item-btn" data-cart-item-id="${item.id}"><i class="bi bi-trash3"></i></button>\n                        </div>\n                    `;
+                    cartItemDiv.querySelector('.decrease-qty-btn').addEventListener('click', () => decreasePosCartItemQuantity(item.id));
+                    cartItemDiv.querySelector('.remove-item-btn').addEventListener('click', () => removeFromPosCart(item.id));
+                    posCartItemsContainer.appendChild(cartItemDiv);
+                });
+            }
+            posTotalAmountDiv.textContent = `Total: ${formatCurrency(currentTotal)}`;
+            posProcessPaymentBtn.disabled = posCart.length === 0;
+        }
+
+        function decreasePosCartItemQuantity(productId) {
+            const cartItem = posCart.find(item => item.id === productId);
+            if (cartItem) {
+                cartItem.quantity--;
+                if (cartItem.quantity <= 0) {
+                    removeFromPosCart(productId);
+                } else {
+                    renderPosCart();
+                }
+            }
+        }
+
+        function removeFromPosCart(productId) {
+            posCart = posCart.filter(item => item.id !== productId);
+            renderPosCart();
+        }
+
+        function clearPosCart() {
+            posCart = [];
+            if(posClientWhatsappInput) posClientWhatsappInput.value = '';
+            if(posPaymentMethodSelect) posPaymentMethodSelect.selectedIndex = 0;
+            renderPosCart();
+        }
+
+        function processPosPayment() {
+            console.log("processPosPayment: Function started"); // Trace 1
+            if (posCart.length === 0) {
+                alert('El carrito está vacío.');
+                console.log("processPosPayment: Cart empty, exiting."); // Trace 
+                return;
+            }
+            const paymentMethod = posPaymentMethodSelect ? posPaymentMethodSelect.value : 'No especificado';
+            const clientWhatsapp = posClientWhatsappInput ? posClientWhatsappInput.value.trim().replace(/\D/g, "") : '';
+            let orderSummary = "Resumen de Pedido:\\n";
+            let totalForMessage = 0;
+            posCart.forEach(item => {
+                orderSummary += `${item.name} (x${item.quantity}) - ${formatCurrency(item.price * item.quantity)}\\n`;
+                totalForMessage += item.price * item.quantity;
+            });
+            orderSummary += `\\nTotal: ${formatCurrency(totalForMessage)}`;
+            orderSummary += `\\nMétodo de Pago: ${paymentMethod.charAt(0).toUpperCase() + paymentMethod.slice(1)}`;
+            
+            const businessName = mealkitzConfig.business && mealkitzConfig.business.name ? mealkitzConfig.business.name : 'tu negocio';
+            let confirmationMessage = `¡Gracias por tu compra en ${businessName}!\\n${orderSummary}`;
+
+            if (clientWhatsapp) {
+                confirmationMessage += `\\nConfirmación enviada a WhatsApp: +${clientWhatsapp}`;
+            }
+            
+            console.log("processPosPayment: About to log simulation details."); // Trace 2
+            console.log("Procesando Cobro (Simulación):", posCart, `Total: ${formatCurrency(totalForMessage)}`, `Método: ${paymentMethod}`, `Cliente WA: ${clientWhatsapp}`);
+            
+            console.log("processPosPayment: Checking for business WhatsApp."); // Trace 3
+            const negocioWA = mealkitzConfig.business && mealkitzConfig.business.whatsapp ? mealkitzConfig.business.whatsapp.replace(/\D/g, "") : "";
+            if (negocioWA) {
+                console.log("processPosPayment: Business WhatsApp found:", negocioWA); // Trace 4
+                let businessOrderMessage = `Nuevo Pedido POS (${businessName}):\\n`;
+                posCart.forEach(item => {
+                    businessOrderMessage += `${item.name} (x${item.quantity}) - ${formatCurrency(item.price * item.quantity)}\\n`;
+                });
+                businessOrderMessage += `Total: ${formatCurrency(totalForMessage)}\\nMétodo: ${paymentMethod}`;
+                if (clientWhatsapp) {
+                    businessOrderMessage += `\\nCliente WA: +${clientWhatsapp}`;
+                }
+                const urlWABusiness = `https://wa.me/${negocioWA}?text=${encodeURIComponent(businessOrderMessage)}`;
+                console.log("processPosPayment: Opening business WhatsApp link:", urlWABusiness); // Trace 5
+                window.open(urlWABusiness, '_blank');
+            } else {
+                console.log("processPosPayment: Business WhatsApp NOT found or configured."); // Trace 6
+                alert("Número de WhatsApp del negocio no configurado para enviar el pedido.");
+            }
+
+            console.log("processPosPayment: About to show final alert."); // Trace 7
+            alert(`Cobro procesado (simulación).\\n${confirmationMessage}`);
+            
+            console.log("processPosPayment: About to clear cart."); // Trace 8
+            clearPosCart();
+            
+            console.log("processPosPayment: About to hide modal."); // Trace 9
+            const modalInstance = bootstrap.Modal.getInstance(posModalElement);
+            if (modalInstance) {
+                modalInstance.hide();
+                console.log("processPosPayment: Modal hide called."); // Trace 10
+            } else {
+                console.log("processPosPayment: Modal instance not found for hiding."); // Trace 11
+            }
+            console.log("processPosPayment: Function ended."); // Trace 12
+        }
+
+        if (posModalElement) { // ADDING A CONSOLE LOG FOR MEALKITZCONFIG HERE
+            console.log("Initial mealkitzConfig on DOMContentLoaded:", JSON.stringify(mealkitzConfig)); 
+            posModalElement.addEventListener('show.bs.modal', () => {
+                // Ensure commonLoginCheck is performed just before showing the modal fully
+                // The gating should ideally happen on the trigger click, which is already set up.
+                // This is more for re-initializing content.
+                renderPosProducts(posProductFilterInput ? posProductFilterInput.value : '');
+                clearPosCart(); // Start with a fresh cart view
+            });
+        }
+        
+        if (posProductFilterInput) {
+            posProductFilterInput.addEventListener('input', () => renderPosProducts(posProductFilterInput.value));
+        }
+        if (posClearCartBtn) {
+            posClearCartBtn.addEventListener('click', clearPosCart);
+        }
+        if (posProcessPaymentBtn) {
+            posProcessPaymentBtn.addEventListener('click', processPosPayment);
+        }
+
+        // Ensure the commonLoginCheck targets the new POS modal
+        // This replaces/updates the old #manualChargeModal trigger logic
+        document.querySelectorAll('[data-bs-target="#basicPosModal"]').forEach(trigger => {
+            trigger.addEventListener('click', function(event) {
+                commonLoginCheck(event, { page: 'punto.html', hash: '#basicPosModal' });
+            });
+        });
+        // Remove or update the old #manualChargeModal specific trigger if it still exists elsewhere
+        document.querySelectorAll('[data-bs-target="#manualChargeModal"]').forEach(trigger => {
+             // This is to ensure no old triggers for manualChargeModal are left hanging if basicPosModal is the new primary
+             // If manualChargeModal is still used for other purposes, this might need adjustment.
+            trigger.addEventListener('click', function(event) {
+                console.warn("Trigger for #manualChargeModal activated. Ensure this is intended if #basicPosModal is primary.");
+                commonLoginCheck(event, { page: 'punto.html', hash: '#manualChargeModal' }); 
+            });
+        });
+
+        // --- END Basic POS Modal Logic ---
+
+        // Cargar configuración (negocio, productos, métodos de pago) desde localStorage
+        // ... existing code ...
       }); // This is the closing for DOMContentLoaded
     </script>
+
+    <footer class="text-center py-3 mt-auto bg-light">
+      <div class="container d-flex justify-content-center align-items-center">
+        
+        <span class="text-muted small">Powered by</span> <img src="images/mk_logo.jpeg" alt="Mealkitz Logo" style="height: 24px; width: auto; margin-right: 8px;">
+      </div>
+    </footer>
   </body>
 </html>

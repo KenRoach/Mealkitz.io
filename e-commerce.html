@@ -163,11 +163,11 @@
             </a>
           </li>
   
-          <!-- Tu Tienda En Línea -->
+          <!-- Mi Tienda En Línea -->
           <li class="nav-item">
-            <a class="nav-link" href="e-commerce.html">
+            <a class="nav-link active" href="e-commerce.html">
               <i class="bi bi-shop me-1"></i>
-              Tu Tienda En Línea
+              Mi Tienda en Línea
             </a>
           </li>
   
@@ -253,13 +253,13 @@
     <div class="store-container">
       <div class="header-info flex-column">
         <div class="profile-container">
-          <h5 class="mb-1">Garage Grill Pty</h5>
-          <small class="d-block mb-2">Smash Burgers & Wings</small>
-          <img src="Images/garage_logo.png" class="logo-img" alt="Garage Grill Logo">
+          <h5 class="mb-1" id="storePageBusinessName">Garage Grill Pty</h5>
+          <small class="d-block mb-2" id="storePageBusinessSlogan">Smash Burgers & Wings</small>
+          <img src="Images/garage_logo.png" class="logo-img" alt="Garage Grill Logo" id="storePageBusinessLogo">
         </div>
         <div class="contact-info mt-2">
-          <p><strong>Ubicación:</strong> Panamá Norte</p>
-          <p><strong>WhatsApp:</strong> <a href="https://wa.me/50763419526" target="_blank">+507-6341-9526</a></p>
+          <p><strong>Ubicación:</strong> <span id="storePageBusinessLocation">Panamá Norte</span></p>
+          <p><strong>WhatsApp:</strong> <a href="https://wa.me/50763419526" target="_blank" id="storePageBusinessWhatsapp">+507-6341-9526</a></p>
         </div>
       </div>
 
@@ -267,6 +267,34 @@
         <button id="native-share-store-btn" class="btn btn-success btn-lg">
           <i class="bi bi-share-fill"></i> Compartir Tienda
         </button>
+      </div>
+
+      <div class="card mb-4" id="eCommerceCartSection">
+        <div class="card-header bg-light">
+          <h4 class="mb-0"><i class="bi bi-cart-fill me-2"></i>Tu Carrito</h4>
+        </div>
+        <div class="card-body p-3" id="eCommerceCartItemsContainer">
+          <p class="text-muted text-center my-3">Tu carrito está vacío.</p>
+        </div>
+        <div class="card-footer bg-light py-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0">Total:</h5>
+            <h5 class="mb-0" id="eCommerceCartTotalFormatted">$0.00</h5>
+          </div>
+          <button class="btn btn-success w-100 mt-2" id="eCommerceCheckoutBtn" style="font-size: 1.1rem;">
+            <i class="bi bi-credit-card-fill me-2"></i>Proceder al Pago (Simulación)
+          </button>
+          <button class="btn btn-outline-danger w-100 mt-2" id="eCommerceClearCartBtn">
+            <i class="bi bi-trash3-fill me-2"></i>Vaciar Carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="row mb-4" id="searchAndFilterArea">
+        <div class="col-md-12">
+          <!-- Search input -->
+          <input type="text" id="searchInput" class="form-control" placeholder="Buscar producto...">
+        </div>
       </div>
 
       <div class="row g-4" id="product-list">
@@ -339,40 +367,100 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/navbar-loader.js" defer></script>
   <script>
-    let allProducts = [
-      { id: 3, name: "BBQ Burger", category: "Burgers", price: 9.50, image: "Images/burger_bbq.png"},
-      { id: 5, name: "Cheese Burger", category: "Burgers", price: 8.75, image: "Images/cheese_burger.png" },
-      { id: 6, name: "Parillada", category: "Platters", price: 30.00, image: "Images/parrillada.png" },
-      { id: 7, name: "Papas Cajun", category: "Sides", price: 4.50, image: "Images/papas_cajun.png" },
-      { id: 8, name: "Papas con Queso", category: "Sides", price: 5.00, image: "Images/papas_queso.png" },
-      { id: 9, name: "Hotdog", category: "Main", price: 6.00, image: "Images/hotdog.png" },
-      { id: 10, name: "Chorizo", category: "Appetizers", price: 7.50, image: "Images/chorizo.png" },
-      { id: 11, name: "Pulled Pork", category: "Sandwiches", price: 11.00, image: "Images/pulled_pork.png" },
-      { id: 12, name: "Ribs", category: "Main", price: 18.00, image: "Images/ribs.png" },
-      { id: 13, name: "Alitas", category: "Appetizers", price: 9.00, image: "Images/alitas.png" }
-    ];
+    // Hardcoded product list is now removed/commented out.
+    // let allProducts = [
+    //   { id: 3, name: "BBQ Burger", category: "Burgers", price: 9.50, image: "Images/burger_bbq.png"},
+    //   { id: 5, name: "Cheese Burger", category: "Burgers", price: 8.75, image: "Images/cheese_burger.png" },
+    //   { id: 6, name: "Parillada", category: "Platters", price: 30.00, image: "Images/parrillada.png" },
+    //   { id: 7, name: "Papas Cajun", category: "Sides", price: 4.50, image: "Images/papas_cajun.png" },
+    //   { id: 8, name: "Papas con Queso", category: "Sides", price: 5.00, image: "Images/papas_queso.png" },
+    //   { id: 9, name: "Hotdog", category: "Main", price: 6.00, image: "Images/hotdog.png" },
+    //   { id: 10, name: "Chorizo", category: "Appetizers", price: 7.50, image: "Images/chorizo.png" },
+    //   { id: 11, name: "Pulled Pork", category: "Sandwiches", price: 11.00, image: "Images/pulled_pork.png" },
+    //   { id: 12, name: "Ribs", category: "Main", price: 18.00, image: "Images/ribs.png" },
+    //   { id: 13, name: "Alitas", category: "Appetizers", price: 9.00, image: "Images/alitas.png" }
+    // ];
 
-    const productList = document.getElementById("product-list");
+    const productListContainer = document.getElementById("product-list");
     const deliveryInfoDiv = document.getElementById('deliveryLocationInfo');
     const orderTypePickupRadio = document.getElementById('orderTypePickup');
     const orderTypeDeliveryRadio = document.getElementById('orderTypeDelivery');
     const preferredPaymentMethodSelect = document.getElementById('preferredPaymentMethod');
+    let mealkitzConfig = null; // To store loaded config
+    let productsToDisplay = []; // To store products from config or default
 
-    allProducts.forEach(product => {
-      const price = product.price.toFixed(2);
-      const col = document.createElement("div");
-      col.className = "col-6 col-md-4 col-lg-3";
-      const imageUrl = product.image || `https://via.placeholder.com/200x150?text=${encodeURIComponent(product.name)}`;
-      col.innerHTML = `
-        <div class='product-card'>
-          <img src='${imageUrl}' class='product-img' alt='${product.name}'>
-          <h6 class='fw-bold mt-2'>${product.name}</h6>
-          <p class='text-muted mb-2'>$${price}</p>
-          <button class='btn btn-order w-100' data-bs-toggle='modal' data-bs-target='#orderModal' onclick='openOrderModal("${product.name}", "${price}", "${product.image}")'>Ordenar</button>
-        </div>
-      `;
-      productList.appendChild(col);
-    });
+    // Load and apply store customization from mealkitzConfig
+    try {
+        const mealkitzConfigRaw = localStorage.getItem("mealkitzConfig_v1.0");
+        if (mealkitzConfigRaw) {
+            mealkitzConfig = JSON.parse(mealkitzConfigRaw);
+            if (mealkitzConfig.ecommerce && mealkitzConfig.ecommerce.appearance) {
+                const appearance = mealkitzConfig.ecommerce.appearance;
+                const storeNameEl = document.getElementById('storePageBusinessName');
+                const storeSloganEl = document.getElementById('storePageBusinessSlogan');
+
+                if (storeNameEl && appearance.storeName) {
+                    storeNameEl.textContent = appearance.storeName;
+                }
+                if (storeSloganEl && appearance.storeSlogan) {
+                    storeSloganEl.textContent = appearance.storeSlogan;
+                }
+            }
+            if (mealkitzConfig.business) {
+                const business = mealkitzConfig.business;
+                const storeLogoEl = document.getElementById('storePageBusinessLogo');
+                const storeLocationEl = document.getElementById('storePageBusinessLocation');
+                const storeWhatsappEl = document.getElementById('storePageBusinessWhatsapp');
+
+                if (storeLogoEl && business.logoUrl) storeLogoEl.src = business.logoUrl;
+                if (storeLocationEl && business.address) storeLocationEl.textContent = business.address;
+                if (storeWhatsappEl && business.phone) {
+                    storeWhatsappEl.href = `https://wa.me/${business.phone.replace(/[^0-9]/g, '')}`;
+                    storeWhatsappEl.textContent = business.phone;
+                }
+                const storeNameForTitle = (mealkitzConfig.ecommerce && mealkitzConfig.ecommerce.appearance && mealkitzConfig.ecommerce.appearance.storeName) 
+                                        ? mealkitzConfig.ecommerce.appearance.storeName 
+                                        : (mealkitzConfig.business && mealkitzConfig.business.name)
+                                            ? mealkitzConfig.business.name
+                                            : "Mi Tienda Online";
+                document.title = `${storeNameForTitle} - Tienda en Línea`;
+            }
+            // Load products from config
+            if (mealkitzConfig.products && Array.isArray(mealkitzConfig.products) && mealkitzConfig.products.length > 0) {
+                productsToDisplay = mealkitzConfig.products;
+            } else {
+                 console.log("No products found in mealkitzConfig or products array is empty.");
+            }
+        } else {
+            console.log("mealkitzConfig_v1.0 not found in localStorage.");
+        }
+    } catch (e) {
+        console.error("Error processing mealkitzConfig in e-commerce.html:", e);
+    }
+
+    // Display products or a message if none are available
+    if (productListContainer) {
+        if (productsToDisplay.length > 0) {
+            productsToDisplay.forEach(product => {
+              const price = parseFloat(product.price).toFixed(2);
+              const col = document.createElement("div");
+              col.className = "col-6 col-md-4 col-lg-3";
+              // Use a placeholder image if product.image is missing or invalid
+              const imageUrl = product.image && product.image.trim() !== '' ? product.image : `https://via.placeholder.com/200x150?text=${encodeURIComponent(product.name || 'Producto')}`;
+              col.innerHTML = `
+                <div class='product-card'>
+                  <img src='${imageUrl}' class='product-img' alt='${product.name || 'Imagen del Producto'}'>
+                  <h6 class='fw-bold mt-2'>${product.name || 'Nombre no disponible'}</h6>
+                  <p class='text-muted mb-2'>$${price || '0.00'}</p>
+                  <button class='btn btn-order w-100' data-bs-toggle='modal' data-bs-target='#orderModal' onclick='openOrderModal("${product.name || ''}", "${price || ''}", "${product.image || ''}")'>Ordenar</button>
+                </div>
+              `;
+              productListContainer.appendChild(col);
+            });
+        } else {
+            productListContainer.innerHTML = '<div class="col-12 text-center"><p class="lead text-muted">No hay productos disponibles en este momento. Por favor, intente más tarde.</p></div>';
+        }
+    }
 
     function toggleDeliveryInfo() {
       deliveryInfoDiv.style.display = orderTypeDeliveryRadio.checked ? 'block' : 'none';
@@ -380,7 +468,7 @@
     orderTypePickupRadio.addEventListener('change', toggleDeliveryInfo);
     orderTypeDeliveryRadio.addEventListener('change', toggleDeliveryInfo);
 
-    function openOrderModal(productName, productPrice) {
+    function openOrderModal(productName, productPrice, productImage) {
       document.getElementById("modalProduct").textContent = productName;
       document.getElementById("modalPrice").textContent = productPrice;
       document.getElementById("customerName").value = '';
@@ -454,6 +542,279 @@ Notas: ${notes}`;
         }
       });
     }
+
+    let mealkitzConfigInstance = {};
+    let eCommerceCart = [];
+    const productDisplayArea = document.getElementById('product-list');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const storeHeaderEl = document.getElementById('storeHeader');
+    const pageTitleEl = document.querySelector('title');
+
+    // Cart DOM Elements
+    const eCommerceCartSectionEl = document.getElementById('eCommerceCartSection');
+    const eCommerceCartItemsContainerEl = document.getElementById('eCommerceCartItemsContainer');
+    const eCommerceCartTotalFormattedEl = document.getElementById('eCommerceCartTotalFormatted');
+    const eCommerceCheckoutBtnEl = document.getElementById('eCommerceCheckoutBtn');
+    const eCommerceClearCartBtnEl = document.getElementById('eCommerceClearCartBtn');
+
+    function getCurrencySymbol() {
+      return mealkitzConfigInstance?.ecommerce?.appearance?.currencySymbol || '$';
+    }
+
+    function formatEcommerceCurrency(amount) {
+      const symbol = getCurrencySymbol();
+      const value = parseFloat(amount);
+      if (isNaN(value)) return `${symbol}0.00`;
+      return `${symbol}${value.toFixed(2)}`;
+    }
+
+    function loadStoreBranding() {
+      const storeName = mealkitzConfigInstance?.ecommerce?.appearance?.storeName || 'Mini Tienda';
+      const storeSlogan = mealkitzConfigInstance?.ecommerce?.appearance?.storeSlogan || 'Tus productos favoritos, a un clic.';
+      const logoUrl = mealkitzConfigInstance?.ecommerce?.appearance?.logoUrl || ''; // Placeholder for logo
+      const contactPhone = mealkitzConfigInstance?.contact?.phone || '';
+      const contactEmail = mealkitzConfigInstance?.contact?.email || '';
+
+      if (pageTitleEl) pageTitleEl.textContent = storeName + ' - E-commerce';
+      
+      let headerHTML = '<div class="profile-container flex-grow-1">';
+      if (logoUrl) {
+        headerHTML += `<img src="${logoUrl}" alt="${storeName} Logo" class="logo-img mb-2">`;
+      }
+      headerHTML += `<h2 class="text-center store-name mb-1">${storeName}</h2>`;
+      headerHTML += `<p class="text-center text-muted store-slogan">${storeSlogan}</p></div>`;
+
+      if (contactPhone || contactEmail) {
+        headerHTML += '<div class="contact-info mt-3 pt-3 border-top w-100">';
+        if (contactPhone) headerHTML += `<p><i class="bi bi-telephone-fill me-2"></i>${contactPhone}</p>`;
+        if (contactEmail) headerHTML += `<p><i class="bi bi-envelope-fill me-2"></i>${contactEmail}</p>`;
+        headerHTML += '</div>';
+      }
+
+      if (storeHeaderEl) storeHeaderEl.innerHTML = headerHTML;
+
+      // Update navbar brand if it exists
+      const navbarBrandText = document.querySelector('.navbar-brand span'); // Assuming there's a span for text
+      // For now, the existing structure has image, let's adjust if needed or add a new span.
+    }
+
+    function renderEcommerceCart() {
+      if (!eCommerceCartItemsContainerEl || !eCommerceCartTotalFormattedEl) return;
+
+      eCommerceCartItemsContainerEl.innerHTML = ''; // Clear current display
+      let currentTotal = 0;
+
+      if (eCommerceCart.length === 0) {
+        eCommerceCartItemsContainerEl.innerHTML = '<p class="text-muted text-center my-3">Tu carrito está vacío.</p>';
+      } else {
+        const ul = document.createElement('ul');
+        ul.className = 'list-group list-group-flush';
+        eCommerceCart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          currentTotal += itemTotal;
+          const li = document.createElement('li');
+          li.className = 'list-group-item d-flex justify-content-between align-items-center px-0 py-2';
+          li.innerHTML = `
+            <div class="me-2 flex-grow-1" style="min-width:0;">
+              <small class="fw-bold d-block text-truncate">${item.name}</small>
+              <small class="text-muted">${item.quantity} x ${formatEcommerceCurrency(item.price)}</small>
+            </div>
+            <div class="fw-bold me-3">${formatEcommerceCurrency(itemTotal)}</div>
+            <div class="d-flex align-items-center flex-shrink-0">
+              <button class="btn btn-outline-secondary btn-sm py-0 px-1 me-1 cart-qty-decrease" data-product-id="${item.id}">
+                <i class="bi bi-dash-lg"></i>
+              </button>
+              <span class="mx-1 small">${item.quantity}</span>
+              <button class="btn btn-outline-secondary btn-sm py-0 px-1 ms-1 me-2 cart-qty-increase" data-product-id="${item.id}">
+                <i class="bi bi-plus-lg"></i>
+              </button>
+              <button class="btn btn-outline-danger btn-sm py-0 px-1 cart-remove-item" data-product-id="${item.id}">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          `;
+          li.querySelector('.cart-qty-decrease').addEventListener('click', () => updateEcommerceCartQuantity(item.id, -1));
+          li.querySelector('.cart-qty-increase').addEventListener('click', () => updateEcommerceCartQuantity(item.id, 1));
+          li.querySelector('.cart-remove-item').addEventListener('click', () => removeFromEcommerceCart(item.id));
+          ul.appendChild(li);
+        });
+        eCommerceCartItemsContainerEl.appendChild(ul);
+      }
+      eCommerceCartTotalFormattedEl.textContent = formatEcommerceCurrency(currentTotal);
+    }
+
+    function addToEcommerceCart(productId) {
+      if (!mealkitzConfigInstance.products) return;
+      const product = mealkitzConfigInstance.products.find(p => p.id === productId);
+      if (!product) {
+        console.error("Product not found for ID:", productId);
+        return;
+      }
+
+      const existingItem = eCommerceCart.find(item => item.id === productId);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        eCommerceCart.push({ 
+          id: product.id,
+          name: product.name,
+          price: parseFloat(product.price),
+          quantity: 1,
+          category: product.category // Store category for potential future use in analytics
+        });
+      }
+      renderEcommerceCart();
+    }
+
+    function updateEcommerceCartQuantity(productId, change) {
+      const itemIndex = eCommerceCart.findIndex(item => item.id === productId);
+      if (itemIndex > -1) {
+        eCommerceCart[itemIndex].quantity += change;
+        if (eCommerceCart[itemIndex].quantity <= 0) {
+          eCommerceCart.splice(itemIndex, 1); // Remove if quantity is 0 or less
+        }
+      }
+      renderEcommerceCart();
+    }
+
+    function removeFromEcommerceCart(productId) {
+      eCommerceCart = eCommerceCart.filter(item => item.id !== productId);
+      renderEcommerceCart();
+    }
+
+    function clearEcommerceCart() {
+      eCommerceCart = [];
+      renderEcommerceCart();
+    }
+
+    function handleEcommerceCheckout() {
+      if (eCommerceCart.length === 0) {
+        alert("Tu carrito está vacío. Agrega productos antes de proceder.");
+        return;
+      }
+
+      const totalAmountText = eCommerceCartTotalFormattedEl.textContent;
+      // Ensure mealkitzConfigInstance is loaded and has what we need, or use defaults
+      const loadedConfig = mealkitzConfigInstance || {};
+      const ecommerceConfig = loadedConfig.ecommerce || {};
+      const appearanceConfig = ecommerceConfig.appearance || {};
+      const storeName = appearanceConfig.storeName || 'E-commerce Store';
+      
+      let totalAmount = 0;
+      try {
+        totalAmount = parseFloat(totalAmountText.replace(/[^d.-]/g, '')); // Extract numeric value
+        if (isNaN(totalAmount)) totalAmount = 0; // Default if parsing fails
+      } catch (e) {
+        console.error("Could not parse total amount from text:", totalAmountText, e);
+        totalAmount = 0; // Default on error
+      }
+
+      const onlineOrderData = {
+        orderId: 'ecom_' + Date.now(),
+        orderDate: new Date().toISOString(),
+        items: JSON.parse(JSON.stringify(eCommerceCart)), // Deep copy
+        totalAmount: totalAmount,
+        storeName: storeName,
+        channel: 'online' // To distinguish from POS sales
+      };
+
+      console.log("E-commerce Order Data (Simulación):", onlineOrderData);
+
+      // Save to mealkitzConfigInstance.onlineSales in localStorage
+      if (!loadedConfig.onlineSales || !Array.isArray(loadedConfig.onlineSales)) {
+        loadedConfig.onlineSales = [];
+      }
+      loadedConfig.onlineSales.push(onlineOrderData);
+      
+      try {
+        localStorage.setItem("mealkitzConfig_v1.0", JSON.stringify(loadedConfig));
+      } catch (e) {
+        console.error("Error saving e-commerce sale to localStorage:", e);
+        alert("Hubo un error al guardar tu pedido. Por favor, intenta de nuevo.");
+        return;
+      }
+
+      alert(`¡Pedido realizado con éxito (Simulación)!
+Tienda: ${storeName}
+ID de Pedido: ${onlineOrderData.orderId}
+Total: ${formatEcommerceCurrency(onlineOrderData.totalAmount)}`);
+      
+      clearEcommerceCart();
+      // Update global mealkitzConfigInstance if it was modified and re-assigned from loadedConfig
+      mealkitzConfigInstance = loadedConfig; 
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const mealkitzConfigRaw = localStorage.getItem("mealkitzConfig_v1.0");
+        if (mealkitzConfigRaw) {
+          mealkitzConfigInstance = JSON.parse(mealkitzConfigRaw);
+        } else {
+          mealkitzConfigInstance = {}; // Initialize if not found
+        }
+      } catch (e) {
+        console.error("Error parsing mealkitzConfig_v1.0 from localStorage on load:", e);
+        mealkitzConfigInstance = {}; // Initialize on error
+      }
+
+      loadStoreBranding();
+
+      // Ensure products are displayed from the loaded config
+      const productsToDisplay = mealkitzConfigInstance.products || [];
+      // The displayProducts function is already defined in the HTML script part loaded previously.
+      // We need to ensure it is called correctly here.
+      if (typeof displayProducts === 'function') {
+         displayProducts(productsToDisplay); // This was in previous context
+      } else {
+        console.error('displayProducts function is not defined. Check script loading order.');
+      }
+      // updateCategoryFilterOptions might also be defined elsewhere or needs to be included if used
+      if (typeof updateCategoryFilterOptions === 'function') { 
+        updateCategoryFilterOptions(productsToDisplay); 
+      }
+
+      renderEcommerceCart(); // Initial render for empty cart
+
+      if (productDisplayArea) { // productDisplayArea is defined as product-list
+        productDisplayArea.addEventListener('click', function(event) {
+          const button = event.target.closest('.addToCartBtn');
+          if (button) {
+            const productId = button.dataset.productId;
+            if (productId) {
+              addToEcommerceCart(productId);
+            }
+          }
+        });
+      }
+
+      if (eCommerceCheckoutBtnEl) {
+        eCommerceCheckoutBtnEl.addEventListener('click', handleEcommerceCheckout);
+      }
+
+      if (eCommerceClearCartBtnEl) {
+        eCommerceClearCartBtnEl.addEventListener('click', clearEcommerceCart);
+      }
+      
+      // Load common profile/login check if needed and defined
+      if (typeof commonLoginCheck === 'function') {
+         // Example: commonLoginCheck(); if it does generic setup
+      }
+      if (typeof setupProfileDropdown === 'function') {
+        // Example: setupProfileDropdown();
+      }
+    });
   </script>
+
+  <script src="js/login-required-modal.js"></script>
+  <script src="js/auth-navbar.js"></script>
+
+<footer class="text-center py-3 mt-auto bg-light">
+  <div class="container d-flex justify-content-center align-items-center">
+    
+    <span class="text-muted small">Powered by</span> <img src="images/mk_logo.jpeg" alt="Mealkitz Logo" style="height: 24px; width: auto; margin-right: 8px;">
+  </div>
+</footer>
+
 </body>
 </html>
